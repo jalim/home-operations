@@ -3,16 +3,15 @@
 version: "3"
 
 vars:
-  VYOS_ADDR: vyos.turbo.ac
-  VYOS_USER: devin
-  VYOS_MATCHBOX_DIR: /config/containers/matchbox/data
-  VYOS_MATCHBOX_GROUPS_DIR: "{{.VYOS_MATCHBOX_DIR}}/groups"
-  VYOS_MATCHBOX_PROFILES_DIR: "{{.VYOS_MATCHBOX_DIR}}/profiles"
-  VYOS_MATCHBOX_ASSETS_DIR: "{{.VYOS_MATCHBOX_DIR}}/assets"
-  VYOS_MATCHBOX_ADDR: matchbox.turbo.ac
+  MATCHBOX_ADDR: matchbox.mullan.net.au
+  MATCHBOX_USER: luke
+  MATCHBOX_DIR: /var/lib/matchbox
+  MATCHBOX_GROUPS_DIR: "{{.MATCHBOX_DIR}}/groups"
+  MATCHBOX_PROFILES_DIR: "{{.MATCHBOX_DIR}}/profiles"
+  MATCHBOX_ASSETS_DIR: "{{.MATCHBOX_DIR}}/assets"
   # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
   TALOS_VERSION: v1.6.5
-  TALOS_SCHEMATIC_ID: d715f723f882b1e1e8063f1b89f237dcc0e3bd000f9f970243af59c8baae0100
+  TALOS_SCHEMATIC_ID: 4d2f14467f85468b6b5ff0ba1747f7f0bcb97d351d516db0197885247093d6fd
   # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
   KUBERNETES_VERSION: v1.29.2
   TALOS_SCRIPTS_DIR: "{{.ROOT_DIR}}/.taskfiles/Talos/scripts"
@@ -97,25 +96,24 @@ tasks:
       - talosctl --context {{.cluster}} --nodes {{.node}} get machineconfig >/dev/null 2>&1
 
   bootstrap-matchbox:
-    desc: Bootstrap required Matchbox configuration to Vyos for PXE Boot
+    desc: Bootstrap required Matchbox configuration to Matchbox for PXE Boot
     dir: "{{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox"
     cmds:
-      - ssh -l {{.VYOS_USER}} {{.VYOS_ADDR}} "sudo mkdir -p {{.VYOS_MATCHBOX_DIR}}/{groups,profiles,assets}"
-      - ssh -l {{.VYOS_USER}} {{.VYOS_ADDR}} "sudo chown -R {{.VYOS_USER}}:users {{.VYOS_MATCHBOX_DIR}}/{groups,profiles,assets}"
+      - ssh -l {{.MATCHBOX_USER}} {{.MATCHBOX_ADDR}} "sudo mkdir -p {{.MATCHBOX_DIR}}/{groups,profiles,assets}"
+      - ssh -l {{.MATCHBOX_USER}} {{.MATCHBOX_ADDR}} "sudo chown -R {{.MATCHBOX_USER}}:users {{.MATCHBOX_DIR}}/{groups,profiles,assets}"
       - for: ["kernel-amd64", "initramfs-amd64.xz"]
         cmd: |
           curl -skL https://factory.talos.dev/image/{{.TALOS_SCHEMATIC_ID}}/{{.TALOS_VERSION}}/{{.ITEM}} | \
-              curl -skT - -u "{{.VYOS_USER}}:" \
-                  sftp://{{.VYOS_ADDR}}/{{.VYOS_MATCHBOX_ASSETS_DIR}}/{{.ITEM}}
-      - for: ["controller.secret.sops.yaml", "worker.secret.sops.yaml"]
+              curl -skT - -u "{{.MATCHBOX_USER}}:" \
+                  sftp://{{.MATCHBOX_ADDR}}/{{.MATCHBOX_ASSETS_DIR}}/{{.ITEM}}
+      - for: ["controller.secret.sops.yaml"]
         cmd: |
           sops -d assets/{{.ITEM}} | \
-              envsubst | curl -skT - -u "{{.VYOS_USER}}:" \
-                  sftp://{{.VYOS_ADDR}}/{{.VYOS_MATCHBOX_ASSETS_DIR}}/{{.ITEM | replace ".secret.sops.yaml" ".yaml"}}
-      - find ./groups -type f | xargs -I{} curl -skT {} -u "{{.VYOS_USER}}:" sftp://{{.VYOS_ADDR}}/{{.VYOS_MATCHBOX_GROUPS_DIR}}/
-      - find ./profiles -type f | xargs -I{} curl -skT {} -u "{{.VYOS_USER}}:" sftp://{{.VYOS_ADDR}}/{{.VYOS_MATCHBOX_PROFILES_DIR}}/
-      - ssh -l {{.VYOS_USER}} {{.VYOS_ADDR}} -t /opt/vyatta/bin/vyatta-op-cmd-wrapper "restart container matchbox"
-      - curl --silent --output /dev/null --connect-timeout 10 --retry 10 --retry-delay 2 http://{{.VYOS_MATCHBOX_ADDR}}/assets/controller.yaml
+              envsubst | curl -skT - -u "{{.MATCHBOX_USER}}:" \
+                  sftp://{{.MATCHBOX_ADDR}}/{{.MATCHBOX_ASSETS_DIR}}/{{.ITEM | replace ".secret.sops.yaml" ".yaml"}}
+      - find ./groups -type f | xargs -I{} curl -skT {} -u "{{.MATCHBOX_USER}}:" sftp://{{.MATCHBOX_ADDR}}/{{.MATCHBOX_GROUPS_DIR}}/
+      - find ./profiles -type f | xargs -I{} curl -skT {} -u "{{.MATCHBOX_USER}}:" sftp://{{.MATCHBOX_ADDR}}/{{.MATCHBOX_PROFILES_DIR}}/
+      - curl --silent --output /dev/null --connect-timeout 10 --retry 10 --retry-delay 2 http://{{.MATCHBOX_ADDR}}/assets/controller.yaml
     env:
       TALOS_VERSION: "{{.TALOS_VERSION}}"
       TALOS_SCHEMATIC_ID: "{{.TALOS_SCHEMATIC_ID}}"
