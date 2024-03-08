@@ -37,8 +37,8 @@ spec:
               repository: quay.io/minio/minio
               tag: RELEASE.2024-03-07T00-43-48Z
             env:
-              MINIO_API_CORS_ALLOW_ORIGIN: https://minionew.lumu.au,https://s3.lumu.au,http://minio.storage.svc.cluster.local
-              MINIO_BROWSER_REDIRECT_URL: https://minionew.lumu.au
+              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.lumu.au,https://s3.lumu.au,http://minio.storage.svc.cluster.local
+              MINIO_BROWSER_REDIRECT_URL: https://minio.lumu.au
               MINIO_PROMETHEUS_JOB_ID: minio
               MINIO_PROMETHEUS_URL: https://prometheus.lumu.au
               MINIO_PROMETHEUS_AUTH_TYPE: public
@@ -104,7 +104,7 @@ spec:
             more_set_headers "Host $host";
             more_set_headers "X-Forwarded-For $remote_addr"
         hosts:
-          - host: &host "minionew.lumu.au"
+          - host: &host "minio.lumu.au"
             paths:
               - path: /
                 service:
