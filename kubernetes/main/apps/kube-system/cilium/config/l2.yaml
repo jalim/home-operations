@@ -21,4 +21,4 @@ spec:
   blocks:
     - # Controller VIP: 192.168.42.120
       start: 10.88.0.20
-      stop: 10.88.0.40
+      stop: 10.88.0.60
