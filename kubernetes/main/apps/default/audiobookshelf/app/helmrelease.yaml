@@ -62,12 +62,19 @@ spec:
       config:
         enabled: true
         existingClaim: audiobookshelf
-      media:
-        enabled: true
-        existingClaim: media
+      books:
+        type: nfs
+        server: 10.88.0.2
+        path: /mnt/dead/media/books
         globalMounts:
           - path: /books
-            subPath: books
+            readOnly: true
+      # media:
+      #   enabled: true
+      #   existingClaim: media
+      #   globalMounts:
+      #     - path: /books
+      #       subPath: books
     service:
       main:
         ports:
