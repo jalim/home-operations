@@ -30,7 +30,7 @@ spec:
       replicaCount: 2
       service:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: newnode.lumu.au
+          external-dns.alpha.kubernetes.io/hostname: external.lumu.au
           io.cilium/lb-ipam-ips: 10.88.0.21
         # externalTrafficPolicy: Cluster
       ingressClassResource:
