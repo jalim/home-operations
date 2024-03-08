@@ -84,7 +84,7 @@ spec:
         urlPrefix: /
         ssl: false
       storage:
-        useAllNodes: false
+        useAllNodes: true
         useAllDevices: true
         deviceFilter: nvme0n1
         config:
