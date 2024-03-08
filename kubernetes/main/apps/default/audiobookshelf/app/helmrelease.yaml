@@ -80,7 +80,7 @@ spec:
         # annotations:
         #   external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         hosts:
-          - host: &host "bookbook.lumu.au"
+          - host: &host "book.lumu.au"
             paths:
               - path: /
                 service:
