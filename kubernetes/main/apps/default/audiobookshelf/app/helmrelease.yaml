@@ -85,7 +85,7 @@ spec:
         enabled: true
         className: internal
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.lumu.au"
+          external-dns.alpha.kubernetes.io/target: "ingress.lumu.au"
         hosts:
           - host: &host "books.lumu.au"
             paths:
