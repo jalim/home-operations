@@ -8,12 +8,11 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.4.0
+      version: 2.6.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 2
   install:
     remediation:
       retries: 3
@@ -77,10 +76,10 @@ spec:
         enabled: true
         className: external
         annotations:
-          external-dns.alpha.kubernetes.io/target: home.mullan.net.au
-          external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+          # external-dns.alpha.kubernetes.io/target: home.mullan.net.au
+          # external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
         hosts:
-          - host: &host "{{ .Release.Name }}.lumu.au"
+          - host: &host "echoecho.lumu.au"
             paths:
               - path: /
                 service:
