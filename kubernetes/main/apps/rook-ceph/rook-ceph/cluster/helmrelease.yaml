@@ -84,11 +84,11 @@ spec:
         urlPrefix: /
         ssl: false
       storage:
-        useAllNodes: false
-        useAllDevices: false
+        useAllNodes: true
+        useAllDevices: true
         deviceFilter: nvme0n1
         config:
-          osdsPerDevice: "0"
+          osdsPerDevice: "1"
       placement:
         mgr: &placement
           nodeAffinity:
