@@ -6,5 +6,5 @@ resources:
   # - ./longhorn/ks.yaml
   # - ./snapshot-controller/ks.yaml
   - ./minio/ks.yaml
-  # - ./volsync/ks.yaml
+  - ./volsync/ks.yaml
   # - ./local-path-provisioner/ks.yaml
