@@ -82,25 +82,25 @@ spec:
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups: [10000]
-    service:
-      main:
-        ports:
-          http:
-            port: *port
-    ingress:
-      main:
-        enabled: true
-        className: internal
-        hosts:
-          - host: &host sab.lumu.au
-            paths:
-              - path: /
-                service:
-                  name: main
-                  port: http
-        tls:
-          - hosts:
-              - *host
+    # service:
+    #   main:
+    #     ports:
+    #       http:
+    #         port: *port
+    # ingress:
+    #   main:
+    #     enabled: true
+    #     className: internal
+    #     hosts:
+    #       - host: &host sab.lumu.au
+    #         paths:
+    #           - path: /
+    #             service:
+    #               name: main
+    #               port: http
+    #     tls:
+    #       - hosts:
+    #           - *host
       persistence:
       config:
         enabled: true
