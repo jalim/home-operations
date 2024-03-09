@@ -18,15 +18,15 @@ spec:
   accessModes: ["ReadWriteMany"]
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: 10.88.0.2
+    server: 10.1.2.205
     path: /mnt/dead/media
   mountOptions:
-    # - nfsvers=4.1
-    # - nconnect=8
-    # - hard
-    # - noatime
-    # - rsize=131072
-    # - wsize=131072
+    - nfsvers=4.1
+    - nconnect=8
+    - hard
+    - noatime
+    - rsize=131072
+    - wsize=131072
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
