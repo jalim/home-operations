@@ -21,10 +21,11 @@ spec:
     server: 10.1.2.205
     path: /mnt/dead/media
   mountOptions:
-    - nfsvers=4.1
+    - nfsvers=4.2
     - nconnect=8
-    - hard
-    - noatime
+    - hard=True
+    - noatime=True
+    - nodiratime=True
     - rsize=131072
     - wsize=131072
 ---
