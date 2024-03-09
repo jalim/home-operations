@@ -118,4 +118,6 @@ spec:
         enabled: true
         existingClaim: qbittorrent
       media:
-        existingClaim: media
+        type: nfs
+        server: 10.88.0.2
+        path: /mnt/dead/media
