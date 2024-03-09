@@ -135,7 +135,7 @@ spec:
       data:
         enabled: true
         type: nfs
-        server: 10.88.0.2
+        server: 10.1.2.205
         path: /mnt/dead/minio
         globalMounts:
           - path: /data
