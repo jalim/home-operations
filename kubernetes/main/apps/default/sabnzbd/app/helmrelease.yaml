@@ -92,7 +92,7 @@ spec:
         enabled: true
         className: internal
         hosts:
-          - host: &host sab.lumu.au
+          - host: &host sabnzbd.lumu.au
             paths:
               - path: /
                 service:
