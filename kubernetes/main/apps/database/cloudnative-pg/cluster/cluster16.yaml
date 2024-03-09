@@ -14,9 +14,9 @@ spec:
   superuserSecret:
     name: cloudnative-pg-secret
   enableSuperuserAccess: true
-  # bootstrap:
-  #   recovery:
-  #     source: postgres16-v2
+  bootstrap:
+    recovery:
+      source: postgres16-v2
   postgresql:
     parameters:
       max_connections: "400"
