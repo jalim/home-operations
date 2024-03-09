@@ -4,11 +4,11 @@ kind: Ingress
 metadata:
   name: webhook-receiver
   annotations:
-    external-dns.alpha.kubernetes.io/target: external.devbu.io
+    external-dns.alpha.kubernetes.io/target: ingress.lumu.au
 spec:
   ingressClassName: external
   rules:
-    - host: &host flux-webhook.devbu.io
+    - host: &host flux-webhook.lumu.au
       http:
         paths:
           - path: /hook/
