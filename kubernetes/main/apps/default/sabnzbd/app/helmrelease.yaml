@@ -89,7 +89,7 @@ spec:
         enabled: true
         className: internal
         hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: &host "sab.lumu.au"
             paths:
               - path: /
                 service:
