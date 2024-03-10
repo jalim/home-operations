@@ -1,3 +1,3 @@
 ---
 providerRegex: ^k8s-\d$
-BYPASS_DNS_RESOLUTION: true
+bypassDnsResolution: true
