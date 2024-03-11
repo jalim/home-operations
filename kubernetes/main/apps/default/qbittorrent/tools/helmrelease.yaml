@@ -90,8 +90,8 @@ spec:
         pod:
           restartPolicy: OnFailure
           securityContext: &securityContext
-            runAsUser: 568
-            runAsGroup: 568
+            runAsUser: 1000
+            runAsGroup: 1000
             runAsNonRoot: true
       orphaned:
         type: cronjob
