@@ -148,10 +148,4 @@ spec:
     #         subPath: config.yaml
     #         readOnly: true
       media:
-        type: nfs
-        server: expanse.turbo.ac
-        path: /eros/Media
-        advancedMounts:
-          orphaned:
-            main:
-              - path: /media
+        existingClaim: media
