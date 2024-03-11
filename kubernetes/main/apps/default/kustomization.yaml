@@ -11,6 +11,7 @@ resources:
   - ./home-assistant/ks.yaml
   - ./jellyfin/ks.yaml
   - ./jellyplex-watched/ks.yaml
+  - ./overseerr/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
@@ -20,12 +21,13 @@ resources:
   - ./sabnzbd/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./sonarr/ks.yaml
+  
   # - ./authelia/ks.yaml
   # - ./beer/ks.yaml
   # - ./invidious/ks.yaml
   # - ./jellystat/ks.yaml
   # - ./lldap/ks.yaml
-  # - ./overseerr/ks.yaml
+
   # - ./readarr/ks.yaml
   # - ./recyclarr/ks.yaml
   # - ./sonarr-kids/ks.yaml
