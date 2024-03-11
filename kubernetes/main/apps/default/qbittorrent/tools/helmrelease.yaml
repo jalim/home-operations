@@ -59,21 +59,21 @@ spec:
                 cpu: 25m
               limits:
                 memory: 256M
-        # containers:
-        #   unregistered:
-        #     image: *image
-        #     env: *env
-        #     args: [
-        #       "prune",
-        #       "--exclude-category", "manual",
-        #       "--exclude-category", "music",
-        #       "--exclude-category", "music.import",
-        #       "--include-tag", "unregistered",
-        #       # "--dry-run",
-        #       "--server", "qbittorrent.default.svc.cluster.local",
-        #       "--port", "80"
-        #     ]
-        #     resources: *resources
+        containers:
+          unregistered:
+            image: *image
+            env: *env
+            args: [
+              "prune",
+              "--exclude-category", "manual",
+              "--exclude-category", "music",
+              "--exclude-category", "music.import",
+              "--include-tag", "unregistered",
+              "--dry-run",
+              "--server", "qbittorrent.default.svc.cluster.local",
+              "--port", "80"
+            ]
+            resources: *resources
           expired:
             image: *image
             env: *env
