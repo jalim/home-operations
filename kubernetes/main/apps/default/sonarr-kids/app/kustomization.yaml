@@ -8,6 +8,7 @@ resources:
   - ../../../../templates/gatus/guarded
   - ./externalsecret.yaml
   - ./pvc.yaml
+
 #configMapGenerator:
 #  - name: sonarr-configmap
 #    files:
