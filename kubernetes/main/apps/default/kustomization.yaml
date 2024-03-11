@@ -5,7 +5,8 @@ resources:
   - ./namespace.yaml
   - ./media-pvc.yaml
 
-# Apps:
+
+  # Apps:
   - ./audiobookshelf/ks.yaml
   - ./file-browser/ks.yaml
   - ./home-assistant/ks.yaml
@@ -20,17 +21,15 @@ resources:
   - ./radarr/ks.yaml
   - ./sabnzbd/ks.yaml
   - ./smtp-relay/ks.yaml
+  - ./sonarr-kids/ks.yaml
   - ./sonarr/ks.yaml
-  
+  - ./unpackerr/ks.yaml
   # - ./authelia/ks.yaml
   # - ./beer/ks.yaml
   # - ./invidious/ks.yaml
   # - ./jellystat/ks.yaml
   # - ./lldap/ks.yaml
-
   # - ./readarr/ks.yaml
   # - ./recyclarr/ks.yaml
-  # - ./sonarr-kids/ks.yaml
   # - ./tautulli/ks.yaml
   # - ./test-sec/ks.yaml
-  # - ./unpackerr/ks.yaml
