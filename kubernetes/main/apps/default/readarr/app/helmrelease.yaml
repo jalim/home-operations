@@ -108,11 +108,8 @@ spec:
               - *host
     persistence:
       config:
-        enabled: true
         existingClaim: readarr
       tmp:
-        enabled: true
         type: emptyDir
       media:
-        enabled: true
         existingClaim: media
