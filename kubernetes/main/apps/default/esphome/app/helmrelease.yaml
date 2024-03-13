@@ -82,10 +82,4 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: home-assistant
-        advancedMounts:
-          main:
-            main:
-              - path: /config
-                readOnly: false
-                subPath: esphome
+        existingClaim: esphome
