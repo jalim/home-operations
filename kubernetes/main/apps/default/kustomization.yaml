@@ -25,6 +25,7 @@ resources:
   - ./smtp-relay/ks.yaml
   - ./sonarr-kids/ks.yaml
   - ./sonarr/ks.yaml
+  - ./tautulli/ks.yaml
   - ./unpackerr/ks.yaml
   # - ./authelia/ks.yaml
   # - ./beer/ks.yaml
@@ -32,5 +33,4 @@ resources:
   # - ./jellystat/ks.yaml
   # - ./lldap/ks.yaml
   # - ./recyclarr/ks.yaml
-  # - ./tautulli/ks.yaml
   # - ./test-sec/ks.yaml
