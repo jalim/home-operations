@@ -11,7 +11,7 @@ vars:
   MATCHBOX_ASSETS_DIR: "{{.MATCHBOX_DIR}}/assets"
   # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
   TALOS_VERSION: v1.6.5
-  TALOS_SCHEMATIC_ID: 4d2f14467f85468b6b5ff0ba1747f7f0bcb97d351d516db0197885247093d6fd
+  TALOS_SCHEMATIC_ID: 76d744fe4579923f39f364e8975d0886f86efe0ca30dcb74d92f16a5ee1ab2fd
   # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
   KUBERNETES_VERSION: v1.29.2
   TALOS_SCRIPTS_DIR: "{{.ROOT_DIR}}/.taskfiles/Talos/scripts"

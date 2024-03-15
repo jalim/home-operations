@@ -3,6 +3,7 @@
   "name": "k8s-0",
   "profile": "talos-controller",
   "selector": {
-    "mac": "6C:4B:90:A7:77:BB"
+    "mac": "6C:4B:90:A7:77:BB",
+    "uuid": "ba828200-5a41-11e9-820f-fb7388631500"
   }
 }
