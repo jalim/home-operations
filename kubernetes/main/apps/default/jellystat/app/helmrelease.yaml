@@ -57,23 +57,23 @@ spec:
             #       initialDelaySeconds: 60
             #       periodSeconds: 60
             #       timeoutSeconds: 5
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+            # securityContext:
+            #   allowPrivilegeEscalation: false
+            #   readOnlyRootFilesystem: true
+            #   capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
               limits:
                 memory: 256Mi
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            runAsNonRoot: true
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups: [10000]
+        # pod:
+        #   securityContext:
+        #     runAsUser: 1000
+        #     runAsGroup: 1000
+        #     runAsNonRoot: true
+        #     fsGroup: 1000
+        #     fsGroupChangePolicy: OnRootMismatch
+        #     supplementalGroups: [10000]
     service:
       app:
         controller: jellystat
