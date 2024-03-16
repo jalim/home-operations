@@ -41,7 +41,7 @@ spec:
         containers:
           app:
             image:
-              repository: cyfershepard/jellystat
+              repository: docker.io/cyfershepard/jellystat
               tag: 1.0.9:sha256:a518927feef17228ac326a4e2ea0ae22d0a0c8b6f49cfaa2d594983b8e727f39
             env:
               TZ: Australia/Perth
