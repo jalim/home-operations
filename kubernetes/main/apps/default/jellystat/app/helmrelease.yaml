@@ -1,9 +1,8 @@
----
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: sonarr
+  name: &app jellystat
 spec:
   interval: 30m
   chart:
@@ -27,7 +26,7 @@ spec:
       namespace: rook-ceph
   values:
     controllers:
-      sonarr:
+      jellystat:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -38,35 +37,26 @@ spec:
               pullPolicy: IfNotPresent
             envFrom: &envFrom
               - secretRef:
-                  name: sonarr-secret
+                  name: jellystat-secret
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/sonarr-develop
-              tag: 4.0.2.1341@sha256:e7e1a75fa1586559f91d5e26caac72f96f1e18ae01ccb2d7c7ce589a3bedaca4
+              repository: cyfershepard/jellystat
+              tag: 1.0.9:sha256:a518927feef17228ac326a4e2ea0ae22d0a0c8b6f49cfaa2d594983b8e727f39
             env:
               TZ: Australia/Perth
-              PUSHOVER_DEBUG: "false"
-              SONARR__AUTHENTICATION_METHOD: External
-              SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-              SONARR__INSTANCE_NAME: Sonarr
-              SONARR__PORT: &port 80
-              SONARR__LOG_LEVEL: info
-              SONARR__THEME: dark
             envFrom: *envFrom
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /ping
-                    port: *port
-                  initialDelaySeconds: 30
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
+            # probes:
+            #   liveness: &probes
+            #     enabled: true
+            #     custom: true
+            #     spec:
+            #       httpGet:
+            #         path: /health
+            #         port: *port
+            #       initialDelaySeconds: 60
+            #       periodSeconds: 60
+            #       timeoutSeconds: 5
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -75,7 +65,7 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 1Gi
+                memory: 256Mi
         pod:
           securityContext:
             runAsUser: 1000
@@ -86,15 +76,15 @@ spec:
             supplementalGroups: [10000]
     service:
       app:
-        controller: sonarr
+        controller: jellystat
         ports:
           http:
-            port: *port
+            port: &port 3000
     ingress:
       app:
         className: internal
         hosts:
-          - host: &host "sonarr.lumu.au"
+          - host: &host jellystat.lumu.au
             paths:
               - path: /
                 service:
@@ -104,18 +94,8 @@ spec:
           - hosts:
               - *host
     persistence:
-      config:
+      backup:
         enabled: true
-        existingClaim: sonarr
-      pushover-notify:
-        type: configMap
-        name: sonarr-configmap
-        defaultMode: 0775
-        globalMounts:
-          - path: /scripts/pushover-notify.sh
-            subPath: pushover-notify.sh
-            readOnly: true
-      tmp:
         type: emptyDir
-      media:
-        existingClaim: media
+        globalMounts:
+          - path: /app/backend/backup-data

@@ -1,35 +1,41 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: audiobookshelf
 spec:
+  interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  interval: 30m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
   values:
     controllers:
-      main:
+      audiobookshelf:
         annotations:
-          secret.reloader.stakater.com/reload: &secret audiobookshelf-secret
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
+          reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/advplyr/audiobookshelf
-              tag: 2.8.0
+              tag: 2.8.0@sha256:34bc1414a7a65f3f1e12f3e03195561732cc740792d1dea1858d483006ceba1e
+
             env:
               TZ: Australia/Perth
               PORT: &port 8080
@@ -50,39 +56,31 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-              startup:
-                enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 50m
-                memory: 200Mi
               limits:
-                memory: 600Mi
-    persistence:
-      config:
-        enabled: true
-        existingClaim: audiobookshelf
-      # books:
-      #   type: nfs
-      #   server: 10.88.0.2
-      #   path: /mnt/dead/media/books
-      #   globalMounts:
-      #     - path: /books
-      #       readOnly: true
-      media:
-        enabled: true
-        existingClaim: media
-        globalMounts:
-          - path: /books
-            subPath: books
+                memory: 1Gi
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups: [10000]
     service:
-      main:
+      app:
+        controller: audiobookshelf
         ports:
           http:
             port: *port
     ingress:
-      main:
-        enabled: true
+      app:
         className: external
         annotations:
           external-dns.alpha.kubernetes.io/target: "ingress.lumu.au"
@@ -91,8 +89,18 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
               - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: audiobookshelf
+      media:
+        enabled: true
+        existingClaim: media
+        globalMounts:
+          - path: /books
+            subPath: books

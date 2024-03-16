@@ -13,6 +13,7 @@ resources:
   - ./home-assistant/ks.yaml
   - ./jellyfin/ks.yaml
   - ./jellyplex-watched/ks.yaml
+  - ./jellystat/ks.yaml
   - ./overseerr/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
@@ -30,7 +31,6 @@ resources:
   # - ./authelia/ks.yaml
   # - ./beer/ks.yaml
   # - ./invidious/ks.yaml
-  # - ./jellystat/ks.yaml
   # - ./lldap/ks.yaml
   # - ./recyclarr/ks.yaml
   # - ./test-sec/ks.yaml
