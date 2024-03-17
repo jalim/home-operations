@@ -7,7 +7,7 @@ resources:
 
 
   # Apps:
-  # - ./audiobookshelf/ks.yaml
+  - ./audiobookshelf/ks.yaml
   - ./esphome/ks.yaml
   - ./file-browser/ks.yaml
   - ./home-assistant/ks.yaml
@@ -21,7 +21,7 @@ resources:
   - ./radarr-4k/ks.yaml
   - ./radarr-kids/ks.yaml
   - ./radarr/ks.yaml
-  # - ./readarr/ks.yaml
+  - ./readarr/ks.yaml
   - ./sabnzbd/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./sonarr-kids/ks.yaml
