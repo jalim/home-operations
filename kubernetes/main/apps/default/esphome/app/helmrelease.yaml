@@ -10,25 +10,25 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.5.0
+      version: 3.0.4
       interval: 30m
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 2
   install:
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
   uninstall:
     keepHistory: false
   values:
     controllers:
-      main:
+      esphome:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -52,10 +52,11 @@ spec:
           securityContext:
             runAsUser: 568
             runAsGroup: 568
+            runAsNonRoot: true
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
     service:
-      main:
+      app:
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: 10.88.0.42
@@ -63,7 +64,7 @@ spec:
           http:
             port: 6052
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         hosts:
@@ -71,7 +72,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
