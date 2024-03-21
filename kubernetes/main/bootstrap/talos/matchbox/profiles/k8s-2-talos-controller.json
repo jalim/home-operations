@@ -15,7 +15,7 @@
       "console=ttyS0",
       "printk.devkmsg=on",
       "talos.platform=metal",
-      "talos.config=http://matchbox.mullan.net.au/assets/k8s-0.yaml"
+      "talos.config=http://matchbox.mullan.net.au/assets/k8s-2.yaml"
     ]
   }
 }
