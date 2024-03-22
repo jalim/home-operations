@@ -14,6 +14,7 @@ module.exports = {
   includeSingleEpisodes: true,
   includeNonVideos: true,
   duplicateCategories: true,
+  searchCadence: "1d",
   matchMode: "safe",
   skipRecheck: true,
   outputDir: "/config",
