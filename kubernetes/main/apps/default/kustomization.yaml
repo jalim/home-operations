@@ -15,7 +15,7 @@ resources:
   - ./jellyfin/ks.yaml
   - ./jellyplex-watched/ks.yaml
   - ./jellystat/ks.yaml
-  # - ./overseerr/ks.yaml
+  - ./overseerr/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
