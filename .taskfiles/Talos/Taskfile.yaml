@@ -101,19 +101,19 @@ tasks:
     cmds:
       - ssh -l {{.MATCHBOX_USER}} {{.MATCHBOX_ADDR}} "sudo mkdir -p {{.MATCHBOX_DIR}}/{groups,profiles,assets}"
       - ssh -l {{.MATCHBOX_USER}} {{.MATCHBOX_ADDR}} "sudo chown -R {{.MATCHBOX_USER}}:users {{.MATCHBOX_DIR}}/{groups,profiles,assets}"
-      - for: ["kernel-amd64", "initramfs-amd64.xz"]
-        cmd: |
-          curl -skL https://factory.talos.dev/image/{{.TALOS_SCHEMATIC_ID}}/{{.TALOS_VERSION}}/{{.ITEM}} | \
-              curl -skT - -u "{{.MATCHBOX_USER}}:" \
-                  sftp://{{.MATCHBOX_ADDR}}/{{.MATCHBOX_ASSETS_DIR}}/{{.ITEM}}
-      - for: ["controller.secret.sops.yaml"]
+      # - for: ["kernel-amd64", "initramfs-amd64.xz"]
+      #   cmd: |
+          # curl -skL https://factory.talos.dev/image/{{.TALOS_SCHEMATIC_ID}}/{{.TALOS_VERSION}}/{{.ITEM}} | \
+          #     curl -skT - -u "{{.MATCHBOX_USER}}:" \
+          #         sftp://{{.MATCHBOX_ADDR}}/{{.MATCHBOX_ASSETS_DIR}}/{{.ITEM}}
+      - for: ["k8s-0.secret.sops.yaml","k8s-1.secret.sops.yaml","k8s-2.secret.sops.yaml"]
         cmd: |
           sops -d assets/{{.ITEM}} | \
               envsubst | curl -skT - -u "{{.MATCHBOX_USER}}:" \
                   sftp://{{.MATCHBOX_ADDR}}/{{.MATCHBOX_ASSETS_DIR}}/{{.ITEM | replace ".secret.sops.yaml" ".yaml"}}
       - find ./groups -type f | xargs -I{} curl -skT {} -u "{{.MATCHBOX_USER}}:" sftp://{{.MATCHBOX_ADDR}}/{{.MATCHBOX_GROUPS_DIR}}/
       - find ./profiles -type f | xargs -I{} curl -skT {} -u "{{.MATCHBOX_USER}}:" sftp://{{.MATCHBOX_ADDR}}/{{.MATCHBOX_PROFILES_DIR}}/
-      - curl --silent --output /dev/null --connect-timeout 10 --retry 10 --retry-delay 2 http://{{.MATCHBOX_ADDR}}/assets/controller.yaml
+      - curl --silent --output /dev/null --connect-timeout 10 --retry 10 --retry-delay 2 http://{{.MATCHBOX_ADDR}}/assets/k8s-0.yaml
     env:
       TALOS_VERSION: "{{.TALOS_VERSION}}"
       TALOS_SCHEMATIC_ID: "{{.TALOS_SCHEMATIC_ID}}"
