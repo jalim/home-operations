@@ -8,6 +8,7 @@ resources:
 
   # Apps:
   - ./audiobookshelf/ks.yaml
+  - ./autobrr/ks.yaml
   - ./cross-seed/ks.yaml
   - ./esphome/ks.yaml
   - ./file-browser/ks.yaml
