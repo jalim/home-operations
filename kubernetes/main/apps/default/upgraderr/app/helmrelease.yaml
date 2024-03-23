@@ -59,12 +59,12 @@ spec:
             runAsUser: 568
             runAsGroup: 568
             runAsNonRoot: true
-    # service:
-    #   app:
-    #     controller: autobrr
-    #     ports:
-    #       http:
-    #         port: *port
+    service:
+      app:
+        controller: upgraderr
+        ports:
+          http:
+            port: 6940
     # ingress:
     #   app:
     #     className: internal
