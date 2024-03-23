@@ -146,8 +146,8 @@ spec:
                 memory: 1Gi
               limits:
                 memory: 4Gi
-             priorityClassName: system-cluster-critical
-             placement:
+            priorityClassName: system-cluster-critical
+            placement:
               topologySpreadConstraints:
                 - maxSkew: 1
                   topologyKey: kubernetes.io/hostname
