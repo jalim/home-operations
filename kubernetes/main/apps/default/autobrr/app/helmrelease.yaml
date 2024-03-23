@@ -92,3 +92,8 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      tmp:
+        type: emptyDir
+      config:
+        type: emptyDir

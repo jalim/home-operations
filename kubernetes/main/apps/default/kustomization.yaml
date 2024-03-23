@@ -29,6 +29,7 @@ resources:
   - ./sonarr-kids/ks.yaml
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
+  - ./upgraderr/ks.yaml
   - ./unpackerr/ks.yaml
   # - ./authelia/ks.yaml
   # - ./beer/ks.yaml
