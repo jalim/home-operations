@@ -15,7 +15,6 @@ module.exports = {
   includeSingleEpisodes: true,
   includeNonVideos: true,
   duplicateCategories: true,
-  searchCadence: "1d",
   rssCadence: "10 minutes",
   matchMode: "safe",
   skipRecheck: true,
