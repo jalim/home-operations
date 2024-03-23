@@ -88,6 +88,10 @@ trackers:
     urls: ["privatehd.to"]
     required_seed_ratio: 0.91
     required_seed_days: 8.1
+  - name: pussytorrents
+    urls: ["pussytorrents.org"]
+    required_seed_ratio: 1.01
+    required_seed_days: 7.01
   - name: redacted
     urls: ["flacsfor.me"]
     required_seed_ratio: 0
