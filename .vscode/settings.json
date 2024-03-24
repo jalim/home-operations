@@ -64,5 +64,8 @@
     "yaml.schemas": {
       "ansible": "./ansible/**/*.yaml",
       "kubernetes": "./kubernetes/**/*.yaml"
-    }
+    },
+    "github-actions.workflows.pinned.workflows": [
+      ".github/workflows/renovate.yaml"
+    ]
 }
