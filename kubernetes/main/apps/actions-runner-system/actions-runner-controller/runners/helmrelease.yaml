@@ -20,33 +20,24 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
-      strategy: rollback
       retries: 3
   valuesFrom:
-    - targetPath: githubConfigSecret.github_app_id
+    - targetPath: githubConfigSecret.github_token
       kind: Secret
       name: actions-runner-controller-auth-secret
-      valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_APP_ID
-    - targetPath: githubConfigSecret.github_app_installation_id
-      kind: Secret
-      name: actions-runner-controller-auth-secret
-      valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_INSTALLATION_ID
-    - targetPath: githubConfigSecret.github_app_private_key
-      kind: Secret
-      name: actions-runner-controller-auth-secret
-      valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_PRIVATE_KEY
+      valuesKey: github_token
   values:
     runnerScaleSetName: arc-runner-set-home-ops
     githubConfigUrl: https://github.com/jalim/home-operations
     minRunners: 1
-    maxRunners: 6
+    maxRunners: 3
     containerMode:
       type: dind
     template:
       spec:
         containers:
           - name: runner
-            image: ghcr.io/onedr0p/actions-runner:2.314.1@sha256:ce221cd0936c29b121fe90e985b682a6cb6428f1416b9a131cd5313ac7a3e420
+            image: ghcr.io/onedr0p/actions-runner:2.314.1@sha256:338d851a66c4942f7a33d4dc3d0ff1459e05e31e258153242521e9f8e4c64dd7
             command: ["/home/runner/run.sh"]
     controllerServiceAccount:
       name: actions-runner-controller-gha-rs-controller
