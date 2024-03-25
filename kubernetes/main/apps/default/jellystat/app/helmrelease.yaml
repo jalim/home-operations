@@ -95,8 +95,7 @@ spec:
               - *host
     persistence:
       backup:
-        enabled: true
-        type: emptyDir
+        existingClaim: jellystat
         globalMounts:
           - path: /app/backend/backup-data
 
