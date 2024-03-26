@@ -13,6 +13,7 @@ resources:
   - ./esphome/ks.yaml
   - ./file-browser/ks.yaml
   - ./home-assistant/ks.yaml
+  - ./invidious/ks.yaml
   - ./jellyfin/ks.yaml
   - ./jellyplex-watched/ks.yaml
   - ./jellystat/ks.yaml
@@ -29,11 +30,10 @@ resources:
   - ./sonarr-kids/ks.yaml
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
-  - ./upgraderr/ks.yaml
   - ./unpackerr/ks.yaml
+  - ./upgraderr/ks.yaml
   # - ./authelia/ks.yaml
   # - ./beer/ks.yaml
-  # - ./invidious/ks.yaml
   # - ./lldap/ks.yaml
   # - ./recyclarr/ks.yaml
   # - ./test-sec/ks.yaml
