@@ -132,20 +132,19 @@ spec:
       main:
         enabled: false
     persistence:
-      config-file:
-        type: configMap
-        name: qbittorrent-tools-configmap
+      # config-file:
+      #   type: configMap
+      #   name: qbittorrent-tools-configmap
+      #   globalMounts:
+      #     - path: /config/config.yaml
+      #       subPath: config.yaml
+      #       readOnly: true
+      secret-file:
+        type: secret
+        name: qbtools-secret
         globalMounts:
           - path: /config/config.yaml
             subPath: config.yaml
             readOnly: true
-    # persistence:
-    #   secret-file:
-    #     type: secret
-    #     name: qbtools-secret
-    #     globalMounts:
-    #       - path: /config/config.yaml
-    #         subPath: config.yaml
-    #         readOnly: true
       media:
         existingClaim: media
