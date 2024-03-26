@@ -28,6 +28,10 @@ trackers:
     urls: ["landof.tv"]
     required_seed_ratio: 1.01
     required_seed_days: 5.1
+  - name: fear-no-peer
+    urls: ["fearnopeer.com"]
+    required_seed_ratio: 1.01
+    required_seed_days: 7.1
   - name: filelist
     urls: ["filelist.io", "flro.org"]
     required_seed_ratio: 1.01
