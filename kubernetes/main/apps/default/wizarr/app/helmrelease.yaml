@@ -39,37 +39,11 @@ spec:
               tag: 3.5.1@sha256:857e2cc517c5e165b868227c3fd68f0a0f4d63af7978891e2bd9d22832ad2b92
             env:
               TZ: Australia/Perth
-            # probes:
-            #   liveness: &probes
-            #     enabled: true
-            #     custom: true
-            #     spec:
-            #       httpGet:
-            #         path: /api/v1/status
-            #         port: *port
-            #       initialDelaySeconds: 30
-            #       periodSeconds: 10
-            #       timeoutSeconds: 1
-            #       failureThreshold: 3
-            #   readiness: *probes
-            #   startup:
-            #     enabled: false
-            # securityContext:
-            #   allowPrivilegeEscalation: false
-            #   readOnlyRootFilesystem: true
-            #   capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
               limits:
                 memory: 300M
-        # pod:
-        #   securityContext:
-        #     runAsUser: 568
-        #     runAsGroup: 568
-        #     runAsNonRoot: true
-        #     fsGroup: 568
-        #     fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         controller: *app
