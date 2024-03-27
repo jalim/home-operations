@@ -1,0 +1,86 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app navidrome
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.0.4
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      navidrome:
+        annotations:
+          reloader.stakater.com/auto: "true" 
+        containers:
+          app:
+            image:
+              repository: ghcr.io/navidrome/navidrome
+              tag: 0.51.1@sha256:ea426987cc4a148eb6a9fcea60ab44cc0dca4d7f0f1e12a4b48f5937454da4d9
+            env:
+              TZ: Australia/Perth
+              ND_DATAFOLDER: /config
+              ND_ENABLEGRAVATAR: "true"
+              ND_LOGLEVEL: info
+              ND_MUSICFOLDER: /media/music
+              ND_PORT: &port 8080
+              # ND_PROMETHEUS_ENABLED: "true"
+              ND_REVERSEPROXYUSERHEADER: "Remote-User"
+              ND_REVERSEPROXYWHITELIST: "0.0.0.0/0"
+              ND_SCANSCHEDULE: "@every 1h"
+              ND_SESSIONTIMEOUT: 24h
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250Mi
+              limits:
+                memory: 750Mi
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups: [10000]
+    service:
+      app:
+        controller: navidrome
+        ports:
+          http:
+            port: *port
+    ingress:
+      app:
+        className: internal
+        hosts:
+          - host: &host "music.lumu.au"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        existingClaim: *app
+        globalMounts:
+          - path: /config
+      media:
+        existingClaim: media
