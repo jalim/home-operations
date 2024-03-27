@@ -17,6 +17,7 @@ resources:
   - ./jellyfin/ks.yaml
   - ./jellyplex-watched/ks.yaml
   - ./jellystat/ks.yaml
+  - ./lidarr/ks.yaml
   - ./navidrome/ks.yaml
   - ./overseerr/ks.yaml
   - ./plex/ks.yaml

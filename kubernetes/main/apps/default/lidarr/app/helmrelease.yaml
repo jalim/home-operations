@@ -1,0 +1,121 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app lidarr
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.0.4
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+  values:
+    controllers:
+      lidarr:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+              pullPolicy: IfNotPresent
+            envFrom: &envFrom
+              - secretRef:
+                  name: lidarr-secret
+        containers:
+          app:
+            image:
+              repository: ghcr.io/onedr0p/lidarr-develop
+              tag: 2.2.3.4098@sha256:898dfe168227126c5b835aafbb80afed2c5a3a741130251cc4518a0ffefcfae4
+            env:
+              TZ: Australia/Perth
+              PUSHOVER_DEBUG: "false"
+              LIDARR__AUTHENTICATION_METHOD: External
+              LIDARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
+              LIDARR__INSTANCE_NAME: Lidarr
+              LIDARR__PORT: &port 80
+              LIDARR__LOG_LEVEL: info
+              LIDARR__THEME: dark
+            envFrom: *envFrom
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 30
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 1Gi
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups: [10000]
+    service:
+      app:
+        controller: lidarr
+        ports:
+          http:
+            port: *port
+    ingress:
+      app:
+        className: internal
+        hosts:
+          - host: &host "lidarr.lumu.au"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: *app
+      # pushover-notify:
+      #   type: configMap
+      #   name: lidarr-configmap
+      #   defaultMode: 0775
+      #   globalMounts:
+      #     - path: /scripts/pushover-notify.sh
+      #       subPath: pushover-notify.sh
+      #       readOnly: true
+      tmp:
+        type: emptyDir
+      media:
+        existingClaim: media
