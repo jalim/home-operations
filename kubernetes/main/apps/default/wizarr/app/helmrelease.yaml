@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/wizarrrr/wizarr
-              tag: 3.4.8@sha256:d29f1f6482695ab49624dadf9a652a2ce55edef92c73726fd286e18d73aaca7d
+              tag: 3.5.1@sha256:857e2cc517c5e165b868227c3fd68f0a0f4d63af7978891e2bd9d22832ad2b92
             env:
               TZ: Australia/Perth
             # probes:
