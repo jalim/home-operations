@@ -27,6 +27,7 @@ spec:
       name: actions-runner-controller-auth-secret
       valuesKey: github_token
   values:
+    nameOverride: arc-runner-set-home-ops
     runnerScaleSetName: arc-runner-set-home-ops
     githubConfigUrl: https://github.com/jalim/home-operations
     minRunners: 1
