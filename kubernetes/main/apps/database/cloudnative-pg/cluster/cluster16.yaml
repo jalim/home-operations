@@ -34,7 +34,7 @@ spec:
       wal:
         compression: bzip2
         maxParallel: 8
-      destinationPath: s3://cnpg/
+      destinationPath: s3://postgres/
       endpointURL: http://minio.storage.svc.cluster.local:9000
       serverName: &currentCluster postgres16-v3
       s3Credentials:
