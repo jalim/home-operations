@@ -90,3 +90,8 @@ spec:
         existingClaim: pinchflat
       tmp:
         type: emptyDir
+      media:
+        existingClaim: media
+        globalMounts:
+          - path: /downloads
+            subPath: youtube
