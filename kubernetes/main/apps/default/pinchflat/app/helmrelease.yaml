@@ -72,7 +72,7 @@ spec:
         controller: pinchflat
         ports:
           http:
-            port: *port
+            port: 8945
     ingress:
       app:
         className: internal
