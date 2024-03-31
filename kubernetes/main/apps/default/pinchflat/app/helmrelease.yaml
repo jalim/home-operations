@@ -88,3 +88,5 @@ spec:
     persistence:
       config:
         existingClaim: pinchflat
+      tmp:
+        type: emptyDir
