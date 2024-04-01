@@ -43,7 +43,7 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/lidarr-develop
-              tag: 2.2.3.4098@sha256:898dfe168227126c5b835aafbb80afed2c5a3a741130251cc4518a0ffefcfae4
+              tag: 2.2.3.4098@sha256:c321cc2d1b2f704dc8ef1a1dfb1b76c57ba4ad54e624de72227fbfbdc18ec93b
             env:
               TZ: Australia/Perth
               PUSHOVER_DEBUG: "false"
