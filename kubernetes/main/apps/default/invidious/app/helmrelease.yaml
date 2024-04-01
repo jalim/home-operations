@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: quay.io/invidious/invidious
-              tag: 2024.03.31-08390ac@sha256:b46c32a88d7038b18226e62e59349c50541c1c80345111bf1cf8033861e8780d
+              tag: 624425cfa8531eccab07b40c254fe84f6702fb60-quic@sha256:3125595b3a5b83bce10e585d9a091f04757a49f7a0ccb79baffd9c0142a75016
               pullPolicy: IfNotPresent
             envFrom: *envFrom
     service:
