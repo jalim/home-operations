@@ -57,7 +57,7 @@ spec:
           enabled: true
           className: internal
           hosts:
-            - &host hubble.devbu.io
+            - &host hubble.lumu.au
           tls:
             - hosts:
                 - *host
