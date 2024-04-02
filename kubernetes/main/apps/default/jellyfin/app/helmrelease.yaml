@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -21,21 +21,19 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
-  uninstall:
-    keepHistory: false
   values:
     defaultPodOptions:
       enableServiceLinks: false
       nodeSelector:
         intel.feature.node.kubernetes.io/gpu: "true"
-
     controllers:
-      main:
+      jellyfin:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/jellyfin
               tag: 10.8.11@sha256:926e2a9f6677a0c7b12feba29f36c954154869318d6a52df72f72ff9c74cf494
@@ -75,11 +73,13 @@ spec:
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
+            runAsNonRoot: true
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups: [44, 105, 10000]
     service:
-      main:
+      app:
+        controller: jellyfin
         type: LoadBalancer
         loadBalancerIP: 10.88.0.35
         externalTrafficPolicy: Local
@@ -87,7 +87,7 @@ spec:
           http:
             port: 8096
     ingress:
-      main:
+      app:
         enabled: true
         className: external
         annotations:
@@ -97,14 +97,12 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
-          - hosts:
-              - *host
+          - hosts: [*host]
     persistence:
       config:
-        enabled: true
         existingClaim: jellyfin
         globalMounts:
           - path: /config
