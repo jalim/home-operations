@@ -1,16 +1,15 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: &app jellyplex-watched
-  namespace: default
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -21,19 +20,18 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
-      main:
+      jellyplex-watched:
         annotations:
           reloader.stakater.com/auto: "true"
         type: cronjob
         cronjob:
           schedule: "@daily"
         containers:
-          main:
+          app:
             image:
               repository: luigi311/jellyplex-watched
               tag: 5.0.0-slim@sha256:0460a7aab661291d0901f81fdfe137eb25a6cbc6b00d4883d6a9ab4029b2d2b2
@@ -93,6 +91,3 @@ spec:
                 memory: 100Mi
               limits:
                 memory: 200Mi
-    service:
-      main:
-        enabled: false
