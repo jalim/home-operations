@@ -5,6 +5,6 @@ kind: Kustomization
 namespace: default
 resources:
   - ./helmrelease.yaml
-  - ./gatus.yaml
+  - ../../../../templates/gatus/guarded
   - ./externalsecret.yaml
   - ./pvc.yaml
