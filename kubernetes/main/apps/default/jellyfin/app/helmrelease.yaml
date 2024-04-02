@@ -66,7 +66,6 @@ spec:
               limits:
                 gpu.intel.com/i915: 1
                 memory: 4Gi
-              securityContext:
         pod:
           nodeSelector:
             intel.feature.node.kubernetes.io/gpu: "true"
