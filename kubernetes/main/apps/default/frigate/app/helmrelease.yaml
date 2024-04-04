@@ -42,7 +42,7 @@ spec:
               repository: ghcr.io/blakeblackshear/frigate
               tag: 0.13.2@sha256:2906991ccad85035b176941f9dedfd35088ff710c39d45ef1baa9a49f2b16734
             env:
-              TZ: America/New_York
+              TZ: ${TIMEZONE}
               LIBVA_DRIVER_NAME: i965
             envFrom:
               - secretRef:
@@ -93,7 +93,7 @@ spec:
       app:
         className: internal
         hosts:
-          - host: &host "{{ .Release.Name }}.devbu.io"
+          - host: &host "{{ .Release.Name }}.lumu.au"
             paths:
               - path: /
                 service:
@@ -126,8 +126,4 @@ spec:
         globalMounts:
           - path: /dev/bus/usb
       media:
-        type: nfs
-        server: expanse.turbo.ac
-        path: /eros/Frigate
-        globalMounts:
-          - path: /media
+        existingClaim: media
