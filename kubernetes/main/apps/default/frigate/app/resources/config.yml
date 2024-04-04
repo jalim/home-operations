@@ -70,3 +70,6 @@ cameras:
       width: 960
       height: 720
       fps: 10
+    motion:
+      mask:
+        - 682,0,682,40,277,40,277,0
