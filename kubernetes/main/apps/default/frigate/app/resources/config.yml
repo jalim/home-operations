@@ -6,7 +6,7 @@ logger:
   #   frigate.record: debug
 
 mqtt:
-  enabled: false
+  enabled: true
   host: 10.20.0.120
   topic_prefix: frigate
   user: mqtt
