@@ -7,10 +7,10 @@ logger:
 
 mqtt:
   enabled: true
-  host: 10.20.0.120
+  host: mosquitto.default.svc.cluster.local
   topic_prefix: frigate
-  user: mqtt
-  password: mqtt_pass
+  user: "{FRIGATE_MQTT_USERNAME}"
+  password: "{FRIGATE_MQTT_PASSWORD}"
 
 database:
   path: /data/frigate.db
