@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/kieraneglin/pinchflat
-              tag: v0.1.9@sha256:dd9a963f535dc844a4c9ac473c56a00536c1ea4a270c2e272f67cd6faeea5d39
+              tag: v0.1.10@sha256:efe7bbfa99e844cbbce82ec53596d309bc812b19417f35e2fe4b8a5fccde2f96
             env:
               TZ: Australia/Perth
             # probes:
