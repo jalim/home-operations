@@ -16,9 +16,9 @@ spec:
   # replicantTemplate:
   #   spec:
   #     replicas: 3
-  # listenersServiceTemplate:
-  #   metadata:
-  #     annotations:
-  #       io.cilium/lb-ipam-ips: 10.88.0.35
-  #   spec:
-  #     type: LoadBalancer
+  listenersServiceTemplate:
+    metadata:
+      annotations:
+        io.cilium/lb-ipam-ips: 10.88.0.35
+    spec:
+      type: LoadBalancer
