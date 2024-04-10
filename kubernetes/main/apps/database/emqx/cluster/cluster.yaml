@@ -10,9 +10,9 @@ spec:
   config:
     data: |
       log.console.level = debug
-  # coreTemplate:
-    # spec:
-      # replicas: 3
+  coreTemplate:
+    spec:
+      replicas: 3
   # replicantTemplate:
   #   spec:
   #     replicas: 3
