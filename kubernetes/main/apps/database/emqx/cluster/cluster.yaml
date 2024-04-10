@@ -10,6 +10,21 @@ spec:
   config:
     data: |
       log.console.level = debug
+      authentication = {
+        mechanism = password_based
+        backend = postgresql
+        enable = true
+
+        password_hash_algorithm {
+          name = sha256
+          salt_position = suffix
+        }
+        database = mqtt
+        username = postgres
+        password = public
+        server = "127.0.0.1:5432"
+        query = "SELECT password_hash, salt, is_superuser FROM users where username = ${username} LIMIT 1"
+      }
   coreTemplate:
     spec:
       replicas: 3
