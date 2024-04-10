@@ -10,15 +10,15 @@ spec:
   config:
     data: |
       log.console.level = debug
-  coreTemplate:
-    spec:
-      replicas: 3
+  # coreTemplate:
+    # spec:
+      # replicas: 3
   # replicantTemplate:
   #   spec:
   #     replicas: 3
   listenersServiceTemplate:
     metadata:
       annotations:
-        io.cilium/lb-ipam-ips: 192.168.42.129
+        io.cilium/lb-ipam-ips: 10.88.0.35
     spec:
       type: LoadBalancer
