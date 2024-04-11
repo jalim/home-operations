@@ -10,23 +10,31 @@ spec:
   config:
     data: |
       log.console.level = debug
-      authentication = [{
-        mechanism = password_based
-        backend = postgresql
-        enable = true
-
-        password_hash_algorithm {
-          name = bcrypt
-          salt_position = suffix
+      authentication = [
+        {
+          backend = postgresql
+          database = emqx
+          enable = true
+          mechanism = password_based
+          password = ${EMQX_POSTGRES_PASS}
+          password_hash_algorithm {name = bcrypt}
+          pool_size = 8
+          query = "SELECT password_hash, salt FROM mqtt_user where username = ${username} LIMIT 1"
+          server = "postgres16-rw.database.svc.cluster.local:5432"
+          ssl {
+            ciphers = []
+            depth = 10
+            enable = false
+            hibernate_after = 5s
+            log_level = notice
+            reuse_sessions = true
+            secure_renegotiate = true
+            verify = verify_none
+            versions = [tlsv1.3, tlsv1.2]
+          }
+          username = emqx
         }
-
-        database = emqx
-        username = emqx
-        password = ${EMQX_POSTGRES_PASS}
-        server = "postgres16-rw.database.svc.cluster.local:5432"
-        query = "SELECT password_hash, salt, is_superuser FROM users where username = ${username} LIMIT 1"
-      }]
-
+      ]
   coreTemplate:
     spec:
       replicas: 3
