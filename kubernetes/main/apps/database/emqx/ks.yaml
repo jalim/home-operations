@@ -45,5 +45,5 @@ spec:
   postBuild:
     substituteFrom:
       - kind: Secret
-        name: emqx_config
+        name: emqx-secret
         optional: false
