@@ -17,6 +17,7 @@ spec:
 
         password_hash_algorithm {
           name = bcrypt
+          salt_position = suffix
         }
 
         database = emqx
