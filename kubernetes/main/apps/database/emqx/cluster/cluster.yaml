@@ -10,7 +10,7 @@ spec:
   config:
     data: |
       log.console.level = debug
-      authentication = {
+      authentication = [{
         mechanism = password_based
         backend = postgresql
         enable = true
@@ -24,7 +24,7 @@ spec:
         password = ${EMQX_POSTGRES_PASS}
         server = "postgres16-rw.database.svc.cluster.local:5432"
         query = "SELECT password_hash, salt, is_superuser FROM users where username = ${username} LIMIT 1"
-      }
+      }]
 
   coreTemplate:
     spec:
