@@ -16,15 +16,16 @@ spec:
         enable = true
 
         password_hash_algorithm {
-          name = sha256
-          salt_position = suffix
+          name = bcrypt
         }
-        database = mqtt
-        username = postgres
-        password = public
-        server = "127.0.0.1:5432"
+
+        database = emqx
+        username = emqx
+        password = ${EMQX_POSTGRES_PASS}
+        server = "postgres16-rw.database.svc.cluster.local:5432"
         query = "SELECT password_hash, salt, is_superuser FROM users where username = ${username} LIMIT 1"
       }
+
   coreTemplate:
     spec:
       replicas: 3
