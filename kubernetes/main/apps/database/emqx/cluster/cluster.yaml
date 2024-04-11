@@ -24,6 +24,7 @@ spec:
           username = emqx
         }
       ]
+    mode: Replace
   coreTemplate:
     spec:
       replicas: 3
