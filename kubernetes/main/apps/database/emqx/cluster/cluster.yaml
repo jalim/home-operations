@@ -10,8 +10,7 @@ spec:
   config:
     data: |
       log.console.level = debug
-      authentication = [
-        {
+      authentication {
           backend = postgresql
           database = emqx
           enable = true
@@ -22,11 +21,26 @@ spec:
           query = "SELECT password_hash, salt FROM mqtt_user where username = $${username} LIMIT 1"
           server = "postgres16-rw.database.svc.cluster.local:5432"
           username = emqx
-        }
-      ]
+      }
+      authorization {
+        sources = [
+          {
+            type = built_in_database
+            enable = true
+          }
+        ]
+        no_match: "deny"
+      }
     mode: Replace
   coreTemplate:
     spec:
+      volumeClaimTemplates:
+        storageClassName: ceph-block
+        resources:
+          requests:
+            storage: 20Mi
+        accessModes:
+        - ReadWriteOnce
       replicas: 3
   # dashboardServiceTemplate:
   #   spec:
