@@ -76,5 +76,12 @@ spec:
               - *host
     persistence:
       config:
-        enabled: true
         existingClaim: esphome
+        advancedMounts:
+          esphome:
+            app:
+              - path: /config
+      esphome-cache:
+        type: emptyDir
+        globalMounts:
+          - path: /config/.esphome
