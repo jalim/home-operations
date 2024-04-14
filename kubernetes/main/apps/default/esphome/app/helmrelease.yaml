@@ -29,7 +29,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/esphome/esphome
               tag: 2024.3.2
@@ -76,9 +76,12 @@ spec:
               - *host
     persistence:
       config:
-        enabled: true
-        existingClaim: esphome
-      # esphome-cache:
-      #   type: emptyDir
-      #   globalMounts:
-      #     - path: /config/.esphome
+        existingClaim: esphome-config
+        advancedMounts:
+          esphome:
+            app:
+              - path: /config
+      esphome-cache:
+        type: emptyDir
+        globalMounts:
+          - path: /config/.esphome
