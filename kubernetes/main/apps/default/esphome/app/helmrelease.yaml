@@ -35,8 +35,8 @@ spec:
               tag: 2024.3.2
             env:
               TZ: Australia/Perth
-              PLATFORMIO_CORE_DIR: .plattformio
-              PLATFORMIO_GLOBALLIB_DIR: .plattformioLibs
+              # PLATFORMIO_CORE_DIR: .plattformio
+              # PLATFORMIO_GLOBALLIB_DIR: .plattformioLibs
             resources:
               requests:
                 cpu: 5m
@@ -76,11 +76,8 @@ spec:
               - *host
     persistence:
       config:
+        enabled: true
         existingClaim: esphome
-        advancedMounts:
-          esphome:
-            app:
-              - path: /config
       esphome-cache:
         type: emptyDir
         globalMounts:
