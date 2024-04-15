@@ -46,6 +46,12 @@ spec:
         pod:
           hostNetwork: true
           dnsPolicy: ClusterFirstWithHostNet
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"multus-iot",
+                "namespace": "network"
+              }]
         #   securityContext:
         #     runAsUser: 568
         #     runAsGroup: 568
