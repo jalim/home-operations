@@ -47,7 +47,7 @@ spec:
                 spec:
                   httpGet:
                     path: /status
-                    port: &port 8181
+                    port: &port 80
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
