@@ -19,7 +19,7 @@ resources:
   - ./jellyplex-watched/ks.yaml
   - ./jellystat/ks.yaml
   - ./lidarr/ks.yaml
-  - ./mosquitto/ks.yaml
+  # - ./mosquitto/ks.yaml
   - ./navidrome/ks.yaml
   - ./overseerr/ks.yaml
   - ./pinchflat/ks.yaml
