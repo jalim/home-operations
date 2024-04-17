@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: luigi311/jellyplex-watched
-              tag: 5.1-slim@sha256:6ab5d2426c5ee4d8f9d808ae313923691c111dc343f544f5080c38846009cea1
+              tag: 5.1.0@sha256:bfd3a8b1492f31aed6b454d246df42d2ebda928527dfd13b5907fa3989a58445
             envFrom:
               - secretRef:
                   name: plex-secret
