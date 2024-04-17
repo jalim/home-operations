@@ -45,7 +45,7 @@ spec:
               ## Additional logging information
               DEBUG: "True"
               ## Debugging level, "info" is default, "debug" is more verbose
-              DEBUG_LEVEL: "info"
+              DEBUG_LEVEL: "debug"
               ## How often to run the script in seconds
               #SLEEP_DURATION: "3600"
               # SLEEP_DURATION: "21600"
