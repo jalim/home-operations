@@ -33,7 +33,7 @@ spec:
         initContainers:
           init-db:
             image:
-              repository: ghcr.io/onedr0p/postgres-init
+              repository: ghcr.io/jalim/postgres-init
               tag: 16
               pullPolicy: IfNotPresent
             envFrom: &envFrom
@@ -43,7 +43,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jalim/readarr-develop
-              tag: 0.3.22.2499@sha256:be1dda2f2d3e4f990e3a6ebd8d59d107a281b237b26bd749448f94cb47eaac13
+              tag: 0.3.22.2499@sha256:2c38600223af2579fbe34089133cb10f8f331a19f0603f7fdac1478103635a75
             env:
               COMPlus_EnableDiagnostics: "0"
               PUSHOVER_DEBUG: "false"

@@ -30,7 +30,7 @@ spec:
         initContainers:
           init-db:
             image:
-              repository: ghcr.io/onedr0p/postgres-init
+              repository: ghcr.io/jalim/postgres-init
               tag: 16
               pullPolicy: IfNotPresent
             envFrom: &envFrom
@@ -39,8 +39,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/prowlarr-develop
-              tag: 1.16.1.4420@sha256:b92e309da6b8724671b8e52d6718cb7376131a8dedb2a79224d7eecb02fb68ae
+              repository: ghcr.io/jalim/prowlarr-develop
+              tag: 1.16.1.4420@sha256:e03749645077288090a2799830f8aa3e919910263521316ba81706be2954d82a
             env:
               TZ: Australia/Perth
               PROWLARR__INSTANCE_NAME: Prowlarr

@@ -35,8 +35,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/home-assistant
-              tag: 2024.4.3@sha256:71e02388dcd720e2f49538046f81bb1932e64e7680c73230fae1b2ace7400805
+              repository: ghcr.io/jalim/home-assistant
+              tag: 2024.4.3@sha256:e169c565d68f6b14901a4fd079641377765ad8e82fa678f6022ff6ecfb1f1fef
             env:
               TZ: Australia/Perth
               POSTGRES_HOST: postgres16-rw.database.svc.cluster.local
@@ -50,7 +50,7 @@ spec:
                 enabled: false
             resources:
               requests:
-                cpu: 10m
+                cpu: 10mta
                 memory: 128Mi
               limits:
                 memory: 1Gi

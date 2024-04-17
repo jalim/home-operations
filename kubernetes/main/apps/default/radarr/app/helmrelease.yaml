@@ -33,7 +33,7 @@ spec:
         initContainers:
           init-db:
             image:
-              repository: ghcr.io/onedr0p/postgres-init
+              repository: ghcr.io/jalim/postgres-init
               tag: 16
               pullPolicy: IfNotPresent
             envFrom: &envFrom
@@ -42,8 +42,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/radarr-develop
-              tag: 5.4.6.8723@sha256:3bd1545c444c318eefbe4e332da13ab4a3761a7eea8fd0a47474074b0c00f8ff
+              repository: ghcr.io/jalim/radarr-develop
+              tag: 5.4.6.8723@sha256:f791cbd0920087228713d9b55fa45714555e420a3d197ce9ad94dce1bfdf50f6
             env:
               COMPlus_EnableDiagnostics: "0"
               TZ: Australia/Perth

@@ -33,7 +33,7 @@ spec:
         initContainers:
           init-db:
             image:
-              repository: ghcr.io/onedr0p/postgres-init
+              repository: ghcr.io/jalim/postgres-init
               tag: 16
               pullPolicy: IfNotPresent
             envFrom: &envFrom
@@ -42,8 +42,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/lidarr-develop
-              tag: 2.2.5.4141@sha256:e51459be55b325d51038a2dd2cb70ef3647eb277e1b185daa7245ced00b624b9
+              repository: ghcr.io/jalim/lidarr-develop
+              tag: 2.2.5.4141@sha256:a50f00f196503da4fe573c571db9d9bf296f6abf855f19533d24dfada73f33c9
             env:
               TZ: Australia/Perth
               PUSHOVER_DEBUG: "false"
