@@ -30,8 +30,8 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/golift/unpackerr
-              tag: 0.13.1
+              repository: ghcr.io/unpackerr/unpackerr
+              tag: 0.13.1@sha256:04fcb43fa70e6db88331962760607842cdf19889e6d35d9d2fde0cf6a1550eaf
             env:
               TZ: Australia/Perth
               UN_WEBSERVER_METRICS: "true"
@@ -52,14 +52,15 @@ spec:
                 memory: 1Gi
               limits:
                 memory: 4Gi
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            runAsNonRoot: true
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups: [10000]
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000 
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [10000]
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: unpackerr
@@ -76,5 +77,7 @@ spec:
             interval: 1m
             scrapeTimeout: 10s
     persistence:
+      logs:
+        type: emptyDir
       media:
         existingClaim: media
