@@ -6,7 +6,7 @@ metadata:
   name: emqx5
   namespace: database
 spec:
-  image: public.ecr.aws/emqx/emqx:5.6.0
+  image: public.ecr.aws/emqx/emqx:5.6.1
   config:
     data: |
       log.console.level = debug
