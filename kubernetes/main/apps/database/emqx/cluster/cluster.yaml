@@ -9,7 +9,6 @@ spec:
   image: public.ecr.aws/emqx/emqx:5.6.1
   config:
     data: |
-      log.console.level = debug
       authentication {
           backend = postgresql
           database = emqx
@@ -29,18 +28,11 @@ spec:
             enable = true
           }
         ]
-        no_match: "deny"
+        no_match: "allow"
       }
     mode: Replace
   coreTemplate:
     spec:
-      volumeClaimTemplates:
-        storageClassName: ceph-block
-        resources:
-          requests:
-            storage: 20Mi
-        accessModes:
-        - ReadWriteOnce
       replicas: 3
   # dashboardServiceTemplate:
   #   spec:
