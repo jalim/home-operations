@@ -62,9 +62,6 @@ spec:
     service:
       app:
         controller: esphome
-        type: LoadBalancer
-        annotations:
-          io.cilium/lb-ipam-ips: 10.88.0.42
         ports:
           http:
             port: 6052
