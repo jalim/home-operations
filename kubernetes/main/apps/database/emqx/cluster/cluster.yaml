@@ -17,7 +17,7 @@ spec:
           password = ${EMQX_POSTGRES_PASS}
           password_hash_algorithm {name = bcrypt}
           pool_size = 8
-          query = "SELECT password_hash, salt FROM mqtt_user where username = $${username} LIMIT 1"
+          query = "SELECT password_hash, salt, is_superuser FROM mqtt_user where username = $${username} LIMIT 1"
           server = "postgres16-rw.database.svc.cluster.local:5432"
           username = emqx
       }
@@ -28,7 +28,7 @@ spec:
             enable = true
           }
         ]
-        no_match: "allow"
+        no_match: "deny"
       }
     mode: Replace
   coreTemplate:
