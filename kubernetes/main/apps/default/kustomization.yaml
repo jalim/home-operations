@@ -8,11 +8,13 @@ resources:
 
   # Apps:
   - ./audiobookshelf/ks.yaml
+  - ./authelia/ks.yaml
   - ./autobrr/ks.yaml
   - ./cross-seed/ks.yaml
   - ./esphome/ks.yaml
   - ./file-browser/ks.yaml
   - ./frigate/ks.yaml
+  - ./glauth/ks.yaml
   - ./home-assistant/ks.yaml
   - ./invidious/ks.yaml
   - ./jellyfin/ks.yaml
@@ -38,7 +40,6 @@ resources:
   - ./unpackerr/ks.yaml
   - ./upgraderr/ks.yaml
   - ./wizarr/ks.yaml
-  # - ./authelia/ks.yaml
   # - ./beer/ks.yaml
   # - ./lldap/ks.yaml
   # - ./recyclarr/ks.yaml
