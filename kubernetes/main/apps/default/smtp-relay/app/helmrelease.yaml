@@ -38,9 +38,9 @@ spec:
               SMTP_RELAY_SMTP_PORT: &port 25
               SMTP_RELAY_METRICS_PORT: &metricsPort 8080
               SMTP_RELAY_SERVER_PORT: 465
-            # envFrom:
-              # - secretRef:
-                  # name: smtp-relay-secret
+            envFrom:
+              - secretRef:
+                  name: smtp-relay-secret
             resources:
               requests:
                 cpu: 5m
