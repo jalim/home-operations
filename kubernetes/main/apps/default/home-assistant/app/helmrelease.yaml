@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jalim/home-assistant
-              tag: 2024.4.3@sha256:e169c565d68f6b14901a4fd079641377765ad8e82fa678f6022ff6ecfb1f1fef
+              tag: 2024.4.4@sha256:358e0c749dd3cc6d5fdf943374f4fd70f98877bed12bfa28687c605200be1e85
             env:
               TZ: Australia/Perth
               POSTGRES_HOST: postgres16-rw.database.svc.cluster.local
