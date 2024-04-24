@@ -111,7 +111,7 @@ spec:
       app:
         className: external
         annotations:
-          external-dns.alpha.kubernetes.io/target: ingress.lumu.au
+          external-dns.alpha.kubernetes.io/target: external.lumu.au
         hosts:
           - host: &host status.lumu.au
             paths:
