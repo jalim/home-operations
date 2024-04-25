@@ -3,6 +3,7 @@ auths:
   public_v3:
     security_level: noAuthNoPriv
     username: apc
+    community: public
     version: 3
   public_v1:
     version: 1
