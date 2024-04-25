@@ -2,9 +2,9 @@
 auths:
   public_v1:
     community: public
-    security_level: noAuthNoPriv
-    auth_protocol: MD5
-    priv_protocol: DES
+    # security_level: noAuthNoPriv
+    # auth_protocol: MD5
+    # priv_protocol: DES
     version: 1
 
 modules:

@@ -40,8 +40,8 @@ spec:
       params:
         - name: APC
           module: ["apcups"]
-          target: 10.15.0.42
-          auth: ["public"]
+          target: 10.15.0.40
+          auth: ["public_v1"]
       path: /snmp
       scrapeTimeout: 10s
       relabelings:
