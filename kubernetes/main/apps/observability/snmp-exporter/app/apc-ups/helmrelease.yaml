@@ -43,6 +43,6 @@ spec:
           target: apcups.mullan.net.au
           auth: ["public_v3"]
       path: /snmp
-      scrapeTimeout: 120s
+      scrapeTimeout: 59s
       relabelings:
         - { sourceLabels: ["__param_target"], targetLabel: instance }
