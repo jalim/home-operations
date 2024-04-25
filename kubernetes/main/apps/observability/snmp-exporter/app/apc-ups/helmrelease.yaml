@@ -38,9 +38,9 @@ spec:
     serviceMonitor:
       enabled: true
       params:
-        - name: apc-ups-0
+        - name: apcups.mullan.net.au
           module: ["apcups"]
-          target: 10.15.0.40
+          target: apcups.mullan.net.au
           auth: ["public_v1"]
       path: /snmp
       scrapeTimeout: 20s
