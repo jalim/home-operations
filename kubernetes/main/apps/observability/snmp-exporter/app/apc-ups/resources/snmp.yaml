@@ -1,15 +1,17 @@
 # WARNING: This file was auto-generated using snmp_exporter generator, manual changes will be lost.
 auths:
-  public_v3:
-    security_level: noAuthNoPriv
-    username: apc
-    community: public
-    version: 3
   public_v1:
-    version: 1
     community: public
     security_level: noAuthNoPriv
-
+    auth_protocol: MD5
+    priv_protocol: DES
+    version: 1
+  public_v2:
+    community: public
+    security_level: noAuthNoPriv
+    auth_protocol: MD5
+    priv_protocol: DES
+    version: 2
 modules:
   apcups:
     walk:
