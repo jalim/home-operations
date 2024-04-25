@@ -27,6 +27,13 @@ modules:
     - 1.3.6.1.4.1.318.1.1.26.6.3
     - 1.3.6.1.4.1.318.1.1.26.8.3
     get:
+    - 1.3.6.1.4.1.318.1.1.1.2.3.1.0
+    - 1.3.6.1.4.1.318.1.1.1.2.3.13.0
+    - 1.3.6.1.4.1.318.1.1.1.2.3.2.0
+    - 1.3.6.1.4.1.318.1.1.1.2.3.3.0
+    - 1.3.6.1.4.1.318.1.1.1.2.3.4.0
+    - 1.3.6.1.4.1.318.1.1.1.2.3.5.0
+    - 1.3.6.1.4.1.318.1.1.1.2.3.6.0
     - 1.3.6.1.4.1.318.1.1.1.8.1.0
     metrics:
     - name: upsOutletGroupStatusTableSize
@@ -560,6 +567,37 @@ modules:
       enum_values:
         1: twoWire
         2: threeWire
+    - name: upsHighPrecBatteryCapacity
+      oid: 1.3.6.1.4.1.318.1.1.1.2.3.1
+      type: gauge
+      help: The remaining battery capacity expressed in tenths of percent of full
+        capacity. - 1.3.6.1.4.1.318.1.1.1.2.3.1
+    - name: upsHighPrecExtdBatteryTemperature
+      oid: 1.3.6.1.4.1.318.1.1.1.2.3.13
+      type: gauge
+      help: The current internal UPS temperature expressed in tenths of degrees Celsius
+        - 1.3.6.1.4.1.318.1.1.1.2.3.13
+    - name: upsHighPrecBatteryTemperature
+      oid: 1.3.6.1.4.1.318.1.1.1.2.3.2
+      type: gauge
+      help: The current internal UPS temperature expressed in tenths of degrees Celsius
+        - 1.3.6.1.4.1.318.1.1.1.2.3.2
+    - name: upsHighPrecBatteryNominalVoltage
+      oid: 1.3.6.1.4.1.318.1.1.1.2.3.3
+      type: gauge
+      help: The nominal battery voltage in tenths of Volts. - 1.3.6.1.4.1.318.1.1.1.2.3.3
+    - name: upsHighPrecBatteryActualVoltage
+      oid: 1.3.6.1.4.1.318.1.1.1.2.3.4
+      type: gauge
+      help: The actual battery bus voltage in tenths of Volts. - 1.3.6.1.4.1.318.1.1.1.2.3.4
+    - name: upsHighPrecBatteryCurrent
+      oid: 1.3.6.1.4.1.318.1.1.1.2.3.5
+      type: gauge
+      help: The battery current in tenths of Amps - 1.3.6.1.4.1.318.1.1.1.2.3.5
+    - name: upsHighPrecTotalDCCurrent
+      oid: 1.3.6.1.4.1.318.1.1.1.2.3.6
+      type: gauge
+      help: The total DC current in tenths of Amps. - 1.3.6.1.4.1.318.1.1.1.2.3.6
     - name: upsBasicInputPhase
       oid: 1.3.6.1.4.1.318.1.1.1.3.1.1
       type: gauge
