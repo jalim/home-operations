@@ -38,7 +38,7 @@ spec:
     serviceMonitor:
       enabled: true
       params:
-        - name: 10.15.0.40
+        - name: APC
           module: ["apcups"]
           target: 10.15.0.40
           auth: ["public"]
