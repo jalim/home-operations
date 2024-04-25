@@ -8,6 +8,10 @@ auths:
     priv_protocol: AES
     priv_password: 2nyPpg7kzxJz2weHnVAqGJyLvpq3Dr
     version: 3
+  public_v1:
+    version: 1
+    community: public
+    security_level: noAuthNoPriv
 modules:
   apcups:
     walk:

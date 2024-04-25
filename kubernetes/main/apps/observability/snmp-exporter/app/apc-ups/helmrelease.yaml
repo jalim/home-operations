@@ -41,8 +41,8 @@ spec:
         - name: 10.15.0.40
           module: ["apcups"]
           target: 10.15.0.40
-          auth: ["public_v3"]
+          auth: ["public_v1"]
       path: /snmp
-      scrapeTimeout: 120s
+      scrapeTimeout: 20s
       relabelings:
         - { sourceLabels: ["__param_target"], targetLabel: instance }
