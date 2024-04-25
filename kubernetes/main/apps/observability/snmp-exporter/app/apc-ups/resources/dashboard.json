@@ -1061,7 +1061,7 @@
         "datasource": "Prometheus",
         "definition": "label_values(upsCommStatus,instance)",
         "hide": 0,
-        "includeAll": true,
+        "includeAll": false,
         "label": "Device",
         "multi": false,
         "name": "instance",
