@@ -1,12 +1,8 @@
 # WARNING: This file was auto-generated using snmp_exporter generator, manual changes will be lost.
 auths:
   public_v3:
-    security_level: authPriv
+    security_level: noAuthNoPriv
     username: apc
-    password: 2nyPpg7kzxJz2weHnVAqGJyLvpq3Dr
-    auth_protocol: MD5
-    priv_protocol: AES
-    priv_password: 2nyPpg7kzxJz2weHnVAqGJyLvpq3Dr
     version: 3
   public_v1:
     version: 1

@@ -41,7 +41,7 @@ spec:
         - name: apcups.mullan.net.au
           module: ["apcups"]
           target: apcups.mullan.net.au
-          auth: ["public_v1"]
+          auth: ["public_v3"]
       path: /snmp
       scrapeTimeout: 20s
       relabelings:
