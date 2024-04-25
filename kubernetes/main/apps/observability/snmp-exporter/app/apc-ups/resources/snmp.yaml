@@ -1,6 +1,6 @@
 # WARNING: This file was auto-generated using snmp_exporter generator, manual changes will be lost.
 auths:
-  auth_name:
+  public_v3:
     community: public
     security_level: authPriv
     username: apc
