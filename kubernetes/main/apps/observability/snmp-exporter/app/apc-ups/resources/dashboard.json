@@ -1061,7 +1061,7 @@
         "datasource": "Prometheus",
         "definition": "label_values(upsCommStatus,instance)",
         "hide": 0,
-        "includeAll": false,
+        "includeAll": true,
         "label": "Device",
         "multi": false,
         "name": "instance",
@@ -1099,7 +1099,7 @@
     "time_options": ["5m", "15m", "1h", "6h", "12h", "24h", "2d", "7d", "30d"]
   },
   "timezone": "",
-  "title": "APC Smart UPS 1500",
+  "title": "Smart-UPS SRT 2200",
   "uid": "000000012",
   "version": 9
 }
