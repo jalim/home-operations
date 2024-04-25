@@ -12,6 +12,12 @@ configMapGenerator:
     options:
       labels:
         grafana_dashboard: "true"
+  - name: apc-ups-dashboard1
+    files:
+      - 15735_rev2=./resources/15735_rev2
+    options:
+      labels:
+        grafana_dashboard: "true"
   - name: apc-ups-snmp-configmap
     files:
       - snmp.yaml=./resources/snmp.yaml
