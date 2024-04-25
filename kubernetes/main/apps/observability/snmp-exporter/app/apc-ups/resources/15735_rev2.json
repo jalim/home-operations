@@ -1359,36 +1359,13 @@
             "uid": "$datasource"
           },
           "exemplar": true,
-          "expr": "upsPhaseOutputCurrentL1 / 10",
+          "expr": "upsPhaseOutputCurrent / 10",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "L1",
+          "legendFormat": "Output",
           "metric": "apcupsd_battery_nominal_volts",
           "refId": "A",
           "step": 120
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "exemplar": true,
-          "expr": "upsPhaseOutputCurrentL2 / 10",
-          "interval": "",
-          "legendFormat": "L2",
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "exemplar": true,
-          "expr": "upsPhaseOutputCurrentL3 / 10",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "L3",
-          "refId": "C"
         }
       ],
       "thresholds": [],
