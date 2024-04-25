@@ -1359,7 +1359,7 @@
             "uid": "$datasource"
           },
           "exemplar": true,
-          "expr": "upsPhaseOutputCurrent / 10",
+          "expr": "upsHighPrecOutputCurrent / 10",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Output",
