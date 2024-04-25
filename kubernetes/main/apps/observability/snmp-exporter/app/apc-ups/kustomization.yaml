@@ -14,7 +14,7 @@ configMapGenerator:
         grafana_dashboard: "true"
   - name: apc-ups-dashboard1
     files:
-      - 15735_rev2=./resources/15735_rev2
+      - 15735_rev2.json=./resources/15735_rev2.json
     options:
       labels:
         grafana_dashboard: "true"
