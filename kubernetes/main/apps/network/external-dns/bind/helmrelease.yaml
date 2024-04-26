@@ -27,9 +27,9 @@ spec:
     provider: rfc2136
     env:
       - name: EXTERNAL_DNS_RFC2136_HOST
-        value: "10.1.2.3"
+        value: "10.1.2.2"
       - name: EXTERNAL_DNS_RFC2136_PORT
-        value: "53530"
+        value: "53"
       - name: EXTERNAL_DNS_RFC2136_ZONE
         value: &domain lumu.au
       - name: EXTERNAL_DNS_RFC2136_TSIG_AXFR
