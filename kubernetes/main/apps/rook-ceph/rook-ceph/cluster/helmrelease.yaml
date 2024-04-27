@@ -38,9 +38,6 @@ spec:
         host:
           name: &host rook.lumu.au
           path: /
-        tls:
-          - hosts:
-              - *host
     toolbox:
       enabled: true
     configOverride: |
