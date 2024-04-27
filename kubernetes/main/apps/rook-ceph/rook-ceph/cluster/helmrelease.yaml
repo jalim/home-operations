@@ -36,7 +36,7 @@ spec:
       dashboard:
         ingressClassName: internal
         host:
-          name: &host rook.lumu.au
+          name: rook.lumu.au
           path: /
     toolbox:
       enabled: true
@@ -219,6 +219,3 @@ spec:
           host:
             name: &host rgw.lumu.au
             path: /
-          tls:
-            - hosts:
-                - *host
