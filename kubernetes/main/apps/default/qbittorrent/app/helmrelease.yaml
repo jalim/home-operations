@@ -41,7 +41,7 @@ spec:
               TZ: Australia/Perth
               QBITTORRENT__PORT: &port 80
               QBITTORRENT__BT_PORT: &bittorrentPort 50410
-              QBT_Application__MemoryWorkingSetLimit: 10000
+              QBT_Application__MemoryWorkingSetLimit: 8000
               QBT_Preferences__WebUI__AlternativeUIEnabled: false
               QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
               QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
@@ -74,7 +74,7 @@ spec:
               requests:
                 cpu: 100m
               limits:
-                memory: 12Gi
+                memory: 9Gi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
