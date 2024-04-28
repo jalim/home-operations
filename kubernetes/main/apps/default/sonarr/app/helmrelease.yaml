@@ -43,7 +43,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jalim/sonarr-develop
-              tag: 4.0.4.1515@sha256:b255fa5a8a510639d6185a6184997513b5100eb17f937fd2bff0afbbec969bcc
+              tag: 4.0.4.1572@sha256:a22b9af4e8762d536b56c88f7c3904daa7aa7bb912be48ae9584dc4c29678f85
             env:
               TZ: Australia/Perth
               PUSHOVER_DEBUG: "false"
