@@ -82,6 +82,13 @@ spec:
             interval: 1m
             scrapeTimeout: 10s
     persistence:
+      dkim_key:
+        type: secret
+        name: smtp-relay-secret
+        defaultMode: 256
+        globalMounts:
+          - path: /config/dkim_keys/lumu.au_selector.key
+            subPath: DKIM_KEY
       config:
         enabled: true
         type: configMap
