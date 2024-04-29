@@ -89,7 +89,7 @@ spec:
         name: smtp-relay-secret
         defaultMode: 256
         globalMounts:
-          - path: /data/dkim_keys/lumu.au_selector.key
+          - path: /data/dkim_keys/lumu.au_s2.key
             subPath: DKIM_KEY
       config:
         enabled: true
