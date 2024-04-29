@@ -84,13 +84,13 @@ spec:
     persistence:
       data:
         type: emptyDir
-      # dkim-key:
-      #   type: secret
-      #   name: smtp-relay-secret
-      #   defaultMode: 256
-      #   globalMounts:
-      #     - path: /data/dkim_keys/lumu.au_s2.key
-      #       subPath: DKIM_KEY
+      dkim-key:
+        type: secret
+        name: smtp-relay-secret
+        defaultMode: 256
+        globalMounts:
+          - path: /data/dkim_keys/lumu.au_s2.key
+            subPath: DKIM_KEY
       config:
         enabled: true
         type: configMap
