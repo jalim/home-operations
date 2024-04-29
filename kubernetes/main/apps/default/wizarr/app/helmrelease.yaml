@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/wizarrrr/wizarr
-              tag: 3.5.1@sha256:857e2cc517c5e165b868227c3fd68f0a0f4d63af7978891e2bd9d22832ad2b92
+              tag: 4.0.0@sha256:a1655bf1527f547a90e3c3734ebd97dfe81784a4311d05d50959d5f0a308fdb5
             env:
               TZ: Australia/Perth
             resources:
