@@ -82,7 +82,7 @@ spec:
             interval: 1m
             scrapeTimeout: 10s
     persistence:
-      dkim_key:
+      dkim-key:
         type: secret
         name: smtp-relay-secret
         defaultMode: 256
