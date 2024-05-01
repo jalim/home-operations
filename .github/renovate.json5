@@ -9,7 +9,7 @@
     ":dependencyDashboard",
     ":semanticCommits",
     ":skipStatusChecks",
-    "extends": ["mergeConfidence:all-badges"],
+    "mergeConfidence:all-badges",
     "github>jalim/home-operations//.github/renovate/allowedVersions.json5",
     "github>jalim/home-operations//.github/renovate/autoMerge.json5",
     "github>jalim/home-operations//.github/renovate/commitMessage.json5",
