@@ -52,7 +52,7 @@ spec:
               SONARR__INSTANCE_NAME: Sonarr-kids
               SONARR__PORT: &port 80
               SONARR__LOG_LEVEL: info
-              THEME: light
+              SONARR__APP__THEME: light
             envFrom: *envFrom
             probes:
               liveness: &probes
