@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jalim/sabnzbd
-              tag: 4.3.0@sha256:aafc27ebcddb8097776e4cac47522a4e0fd9a0374dd187302a6c1c4d50bfac86
+              tag: 4.3.1@sha256:1ad54a63639be23d31fd157c4469e60084eb664e1f00b116b3eee3c10cd043fc
             env:
               TZ: Australia/Perth
               SABNZBD__PORT: &port 80
