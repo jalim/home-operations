@@ -46,13 +46,13 @@ spec:
               tag: 4.0.4.1616@sha256:baea29fcc8ba39eb05e36debefb34b6f0cb6ae33c9fa85dc27524a8a60dedb2d
             env:
               TZ: Australia/Perth
-              PUSHOVER_DEBUG: "false"
-              SONARR__AUTHENTICATION_METHOD: External
-              SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-              SONARR__INSTANCE_NAME: Sonarr-kids
-              SONARR__PORT: &port 80
-              SONARR__LOG_LEVEL: info
-              SONARR__APP__THEME: light
+              SONARR__APP__INSTANCENAME: Sonarr-Kids
+              SONARR__APP__THEME: dark
+              SONARR__AUTH__METHOD: External
+              SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              SONARR__LOG__LEVEL: info
+              SONARR__SERVER__PORT: &port 80
+              SONARR__UPDATE__BRANCH: develop
             envFrom: *envFrom
             probes:
               liveness: &probes
