@@ -1,0 +1,91 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: minecraft
+spec:
+  chart:
+    spec:
+      chart: minecraft
+      version: 4.14.0
+      sourceRef:
+        kind: HelmRepository
+        name: minecraft-server
+        namespace: flux-system
+  interval: 30m
+  values:
+    deploymentAnnotations:
+      secret.reloader.stakater.com/reload: &secret minecraft-secret
+    image:
+      repository: itzg/minecraft-server
+      tag: 2024.2.0-java17
+    resources:
+      limits:
+        memory: 3000Mi
+      requests:
+        cpu: 1000m
+        memory: 2000Mi
+    securityContext:
+      runAsUser: 568
+      fsGroup: 568
+    livenessProbe:
+      enabled: false
+    readinessProbe:
+      enabled: false
+    startupProbe:
+      enabled: false
+    extraEnv:
+      TZ: ${TIMEZONE}
+      ENABLE_ROLLING_LOGS: true
+      UID: 568
+      GID: 568
+    persistence:
+      dataDir:
+        enabled: true
+        existingClaim: minecraft
+    serviceAnnotations:
+      io.cilium/lb-ipam-ips: 10.88.0.33
+    minecraftServer:
+      eula: true
+      version: 1.20.2
+      type: PAPER
+      difficulty: normal
+      whitelist: ""
+      ops: ""
+      pvp: true
+      motd: Meh
+      worldSaveName: Kubeworld
+      viewDistance: 12
+      forceReDownload: true
+      memory: ""
+      jvmXXOpts: "-XX:MaxRAMPercentage=75"
+      spigetResources:
+        - 36618
+      #   # Dynmap
+      #   - 274
+      rcon:
+        enabled: true
+        serviceType: ClusterIP
+      serviceType: LoadBalancer
+      extraPorts:
+        - name: map
+          containerPort: 8123
+          protocol: TCP
+          service:
+            enabled: true
+            embedded: false
+            type: ClusterIP
+            port: 8123
+          ingress:
+            ingressClassName: public
+            enabled: true
+            hosts:
+              - name: &host ${HOSTNAME}
+                path: /
+            tls: [hosts: [*host]]
+  valuesFrom:
+    - kind: Secret
+      name: *secret
+      valuesKey: RCON_PASSWORD
+      targetPath: minecraftServer.rcon.password
