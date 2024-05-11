@@ -40,3 +40,6 @@ spec:
       gracefulRestart:
         enabled: true
         restartTimeSeconds: 120
+   podIPPoolSelector:
+      matchExpressions:
+         - {key: somekey, operator: NotIn, values: ['never-used-value']}
