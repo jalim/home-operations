@@ -6,7 +6,7 @@ metadata:
   namespace: database
   annotations:
     external-dns.alpha.kubernetes.io/hostname: "postgres.lumu.au"
-    io.cilium/lb-ipam-ips: 10.88.0.48
+    io.cilium/lb-ipam-ips: 10.88.0.47
 spec:
   type: LoadBalancer
   ports:
