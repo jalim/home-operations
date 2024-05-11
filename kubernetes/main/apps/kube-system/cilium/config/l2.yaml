@@ -29,7 +29,7 @@ metadata:
  name: bgp-peering-policy
 spec:
  virtualRouters:
- - localASN: 65502
+ - localASN: 65001
    neighbors:
     - peerAddress: '10.88.0.1/32'
       peerASN: 65002
