@@ -43,7 +43,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jalim/lidarr-develop
-              tag: 2.3.2.4183@sha256:a0420a4b022f454824719ee7f05dbbc9219f238de34276993da5aa0fbcbe1d0b
+              tag: 2.3.3.4204@sha256:05bd3e920689b0a7a64e41f5ba933941747f0c50b7dce52e808801c01cd364fd
             env:
               TZ: Australia/Perth
               PUSHOVER_DEBUG: "false"
