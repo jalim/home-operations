@@ -16,3 +16,5 @@ kubeconfig
 talosconfig
 config.xml
 other/
+
+megalinter-reports/
