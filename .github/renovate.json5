@@ -20,7 +20,6 @@
     "github>jalim/home-operations//.github/renovate/semanticCommits.json5"
   ],
   "assignees": ["jalim"],
-  "reviewers": ["jalim"],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
   "ignorePaths": ["**/*.sops.*", "**/.archive/**", "**/resources/**"],
