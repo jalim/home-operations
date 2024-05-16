@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jalim/qbittorrent
-              tag: 4.6.4@sha256:176f90b997d6f7cc3c0bc7b3444bcc7b5a9e2a83bcdf1a06b7cd8472b8e4cbcd
+              tag: 4.6.4@sha256:0e11a385e1c3aa3f29b6a721ac806c82c62b02dc5eb5cffba36b88745419c218
             env:
               TZ: Australia/Perth
               QBITTORRENT__PORT: &port 80
