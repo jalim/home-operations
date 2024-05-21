@@ -39,7 +39,7 @@ resources:
   - ./tautulli/ks.yaml
   - ./unpackerr/ks.yaml
   - ./upgraderr/ks.yaml
-  - ./wizarr/ks.yaml
+  # - ./wizarr/ks.yaml
   # - ./beer/ks.yaml
   # - ./lldap/ks.yaml
   # - ./recyclarr/ks.yaml
