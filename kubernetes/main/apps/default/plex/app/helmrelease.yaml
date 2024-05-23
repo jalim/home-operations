@@ -84,7 +84,6 @@ spec:
         className: external
         annotations:
           external-dns.alpha.kubernetes.io/target: external.lumu.au
-          external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
         hosts:
           - host: &host plex.lumu.au
