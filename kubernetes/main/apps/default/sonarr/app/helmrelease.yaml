@@ -43,7 +43,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jalim/sonarr-develop
-              tag: 4.0.4.1695@sha256:0805d5cab4e9ee402f5d4d8264e5588c998696bde30240b0fbc748e5ab43333d
+              tag: 4.0.4.1699@sha256:4ce038555bba3bd394ac4ee3fdc566918a906c4bdf4a309eb49d6955950a8f4d
             env:
               TZ: Australia/Perth
               SONARR__APP__INSTANCENAME: Sonarr
