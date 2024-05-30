@@ -37,7 +37,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jalim/plex-beta
-              tag: 1.40.2.8395-c67dce28e@sha256:023e9d1977dd5c738193a92a414ae642b8b875d11664cc0df290470e856dbd6b
+              tag: 1.40.3.8502-f4f0b17e1@sha256:97c9c98304311c17a03cc8b110aafe6f5d95bdee8db6648427478ae469d1ea48
             env:
               TZ: ${TIMEZONE}
             probes:
