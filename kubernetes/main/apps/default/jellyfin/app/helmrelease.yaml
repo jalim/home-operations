@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jalim/jellyfin
-              tag: 10.9.3@sha256:8b0ad4b6bb2955e1982be0016272f5314103a074bddad56c41541c7b697e164e
+              tag: 10.9.6@sha256:39460d56bbe995ba8c12ff40ce285a0b16b0318d82e39b97c744cb9c5dccffd6
             env:
               DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
               JELLYFIN_FFmpeg__probesize: 50000000
