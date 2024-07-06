@@ -33,7 +33,7 @@ spec:
           app:
             image:
               repository: quay.io/minio/minio
-              tag: RELEASE.2024-06-13T22-53-53Z
+              tag: RELEASE.2024-07-04T14-25-45Z
             env:
               MINIO_API_CORS_ALLOW_ORIGIN: https://minio.lumu.au,https://s3.lumu.au,http://minio.storage.svc.cluster.local
               MINIO_BROWSER_REDIRECT_URL: https://minio.lumu.au
