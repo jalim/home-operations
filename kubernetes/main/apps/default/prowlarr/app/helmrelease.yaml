@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jalim/prowlarr-develop
-              tag: 1.20.0.4590@sha256:c73d8697c4cbab261a944e20f618ca0c1c8ab3cabfbb0fd5f286e5a4cce16ca2
+              tag: 1.20.1.4603@sha256:9ece2798282680212c58e3521bcc669c5db2e1e3fb3c3a15498f32f665fcaa58
             env:
               TZ: Australia/Perth
               PROWLARR__APP__INSTANCENAME: Prowlarr
