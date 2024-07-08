@@ -43,7 +43,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jalim/readarr-develop
-              tag: 0.3.29.2565@sha256:bdab9fc1ae7a7847eede1b77fa434a24b029c22471b763cbc3f3230e79e7bff0
+              tag: 0.3.30.2576@sha256:caf9edf507aedb41fedd57d228e8dca67f58fd786bb0365bcf96b152db301768
             env:
               COMPlus_EnableDiagnostics: "0"
               PUSHOVER_DEBUG: "false"
