@@ -43,7 +43,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jalim/sonarr-develop
-              tag: 4.0.6.1820@sha256:ea06e23c098b1c2458c20d79bbe11e5bcab9971975aa8efb532ce45ed99a7dd1
+              tag: 4.0.8.1902@sha256:e3f975dbcaaae4b07bd265f250c3d690b789332b40fe60cc9f51027159f710d0
             env:
               TZ: Australia/Perth
               SONARR__APP__INSTANCENAME: Sonarr-Kids
