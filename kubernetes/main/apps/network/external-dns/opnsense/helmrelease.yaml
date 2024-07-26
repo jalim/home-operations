@@ -43,7 +43,7 @@ spec:
                 name: external-dns-opnsense-secret
                 key: api_key
           - name: OPNSENSE_HOST
-            value: https://10.88.0.1 # replace with the address to your OPNsense router
+            value: https://10.88.0.1:8443 # replace with the address to your OPNsense router
           - name: OPNSENSE_SKIP_TLS_VERIFY
             value: "true" # optional depending on your environment
           - name: LOG_LEVEL
