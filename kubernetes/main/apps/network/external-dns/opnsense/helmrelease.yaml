@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app external-dns-bind
+  name: &app external-dns-opnsense
 spec:
   interval: 30m
   chart:
@@ -24,33 +24,55 @@ spec:
       retries: 4
   values:
     fullnameOverride: *app
-    provider: rfc2136
-    env:
-      - name: EXTERNAL_DNS_RFC2136_HOST
-        value: "10.1.2.71"
-      - name: EXTERNAL_DNS_RFC2136_PORT
-        value: "53"
-      - name: EXTERNAL_DNS_RFC2136_ZONE
-        value: &domain lumu.au
-      - name: EXTERNAL_DNS_RFC2136_TSIG_AXFR
-        value: "true"
-      - name: EXTERNAL_DNS_RFC2136_TSIG_KEYNAME
-        value: kubernetes-main-key
-      - name: EXTERNAL_DNS_RFC2136_TSIG_SECRET_ALG
-        value: hmac-sha256
-      - name: EXTERNAL_DNS_RFC2136_TSIG_SECRET
-        valueFrom:
-          secretKeyRef:
-            name: &secret external-dns-bind-secret
-            key: EXTERNAL_DNS_RFC2136_TSIG_SECRET
+    logLevel: debug
+    provider:
+      name: webhook
+      webhook:
+        image:
+          repository: ghcr.io/crutonjohn/external-dns-opnsense-webhook
+          tag: main # replace with a versioned release tag
+        env:
+          - name: OPNSENSE_API_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: external-dns-opnsense-secret
+                key: api_secret
+          - name: OPNSENSE_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: external-dns-opnsense-secret
+                key: api_key
+          - name: OPNSENSE_HOST
+            value: https://10.88.0.1 # replace with the address to your OPNsense router
+          - name: OPNSENSE_SKIP_TLS_VERIFY
+            value: "true" # optional depending on your environment
+          - name: LOG_LEVEL
+            value: debug
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http-wh-metrics
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: http-wh-metrics
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
     extraArgs:
-      - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
-      - --crd-source-kind=DNSEndpoint
+      - --ignore-ingress-tls-spec
     policy: sync
-    sources: ["ingress", "service"]
-    txtOwnerId: default
-    txtPrefix: k8s.
-    domainFilters: [*domain]
+    sources: ["ingress", "service", "crd"]
+    registry: noop
+    domainFilters: [lumu.au]
+    # extraArgs:
+    #   - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
+    #   - --crd-source-kind=DNSEndpoint
+    # policy: sync
+    # sources: ["ingress", "service"]
+    # txtOwnerId: default
+    # txtPrefix: k8s.
     serviceMonitor:
       enabled: true
     podAnnotations:
