@@ -41,7 +41,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jalim/radarr-develop
-              tag: 5.6.0.8846@sha256:1d05875e78e5160411c149dab5313947a5854808496f9520cc45606870c49d0c
+              tag: 5.8.3.8933@sha256:f61d24413b3fbb64fc37d82c0b937a41fef7236c92a5e085f977f9c5ded44053
             env:
               TZ: Australia/Perth
               PUSHOVER_DEBUG: "false"
