@@ -30,7 +30,7 @@ spec:
       webhook:
         image:
           repository: ghcr.io/crutonjohn/external-dns-opnsense-webhook
-          tag: main # replace with a versioned release tag
+          tag: pr-11 # replace with a versioned release tag
         env:
           - name: OPNSENSE_API_SECRET
             valueFrom:
