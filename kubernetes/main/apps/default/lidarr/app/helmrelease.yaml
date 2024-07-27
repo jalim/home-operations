@@ -33,7 +33,7 @@ spec:
         initContainers:
           init-db:
             image:
-              repository: ghcr.io/jalim/postgres-init
+              repository: ghcr.io/onedr0p/postgres-init
               tag: 16
               pullPolicy: IfNotPresent
             envFrom: &envFrom
@@ -42,17 +42,18 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/jalim/lidarr-develop
-              tag: 2.4.3.4248@sha256:cfa845f881bc4cfd0ea1f2ca857b8c1f0c033025dd771093cdeef49e3a17667a
+              repository: ghcr.io/onedr0p/lidarr-develop
+              tag: 2.5.0.4277@sha256:dcc8ed7213f037e0f97c8117fe0e7703dbc47b211d04bf949b6ac8aa6b7b31a0
             env:
               TZ: Australia/Perth
-              PUSHOVER_DEBUG: "false"
-              LIDARR__AUTHENTICATION_METHOD: External
-              LIDARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-              LIDARR__INSTANCE_NAME: Lidarr
-              LIDARR__PORT: &port 80
-              LIDARR__LOG_LEVEL: info
-              LIDARR__THEME: dark
+              LIDARR__APP__INSTANCENAME: Lidarr
+              LIDARR__APP__THEME: dark
+              LIDARR__AUTH__METHOD: External
+              LIDARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              LIDARR__LOG__DBENABLED: "False"
+              LIDARR__LOG__LEVEL: info
+              LIDARR__SERVER__PORT: &port 80
+              LIDARR__UPDATE__BRANCE: develop
             envFrom: *envFrom
             probes:
               liveness: &probes
