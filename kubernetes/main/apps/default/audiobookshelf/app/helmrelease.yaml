@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/advplyr/audiobookshelf
-              tag: 2.10.0@sha256:d9664fca1e3706bef120f7061c10190ec747fe379fec68dbe39e26c602a6895a
+              tag: 2.11.0@sha256:725c287ac1b56f8115dfc7fca75d8490976af59466f893fbf344711bd117f8cb
 
             env:
               TZ: Australia/Perth
