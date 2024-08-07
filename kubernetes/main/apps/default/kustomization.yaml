@@ -20,6 +20,7 @@ resources:
   - ./jellyfin/ks.yaml
   - ./jellyplex-watched/ks.yaml
   - ./jellystat/ks.yaml
+  - ./jellyseerr/ks.yaml
   - ./lidarr/ks.yaml
   # - ./mosquitto/ks.yaml
   - ./navidrome/ks.yaml
