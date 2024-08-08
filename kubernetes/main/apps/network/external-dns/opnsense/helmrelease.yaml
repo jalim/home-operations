@@ -60,17 +60,17 @@ spec:
             port: http-wh-metrics
           initialDelaySeconds: 10
           timeoutSeconds: 5
-    extraArgs:
-      - --ignore-ingress-tls-spec
-    policy: sync
-    sources: ["ingress", "service", "crd"]
+    # extraArgs:
+      # - --ignore-ingress-tls-spec
+    # policy: sync
+    # sources: ["ingress", "service", "crd"]
     registry: noop
     domainFilters: [lumu.au]
-    # extraArgs:
-    #   - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
-    #   - --crd-source-kind=DNSEndpoint
-    # policy: sync
-    # sources: ["ingress", "service"]
+    extraArgs:
+      - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
+      - --crd-source-kind=DNSEndpoint
+    policy: sync
+    sources: ["ingress", "service"]
     # txtOwnerId: default
     # txtPrefix: k8s.
     serviceMonitor:
