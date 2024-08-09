@@ -36,8 +36,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/plex
-              tag: 1.40.4.8679-424562606@sha256:6caeca24f3b08206a94a6a9c102e2c0c14d46d5a9163241716559e8c83f53ff8
+              repository: ghcr.io/onedr0p/plex-beta
+              tag: 1.40.5.8829-d609c37a9@sha256:4b59d81d7585bfc1559f7dce762988e299349725193ace43da0bf7baacb07b1b
             env:
               TZ: ${TIMEZONE}
             probes:
