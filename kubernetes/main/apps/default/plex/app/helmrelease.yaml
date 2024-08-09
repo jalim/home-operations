@@ -119,6 +119,6 @@ spec:
       tmp:
         type: emptyDir
       media:
-        existingClaim: media
+        existingClaim: media1
         globalMounts:
           - readOnly: true
