@@ -7,5 +7,6 @@ metadata:
 spec:
   endpoints:
     - dnsName: "external.${SECRET_DOMAIN}"
-      recordType: CNAME
-      targets: ["ingress.lumu.au"]
+      recordType: A
+      targets:
+        - ${EXTERNAL_IP}
