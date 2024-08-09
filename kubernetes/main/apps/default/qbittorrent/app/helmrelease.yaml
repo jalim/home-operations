@@ -111,4 +111,4 @@ spec:
       config:
         existingClaim: qbittorrent
       media:
-        existingClaim: media
+        existingClaim: media1

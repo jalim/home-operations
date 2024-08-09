@@ -80,4 +80,4 @@ spec:
       logs:
         type: emptyDir
       media:
-        existingClaim: media
+        existingClaim: media1

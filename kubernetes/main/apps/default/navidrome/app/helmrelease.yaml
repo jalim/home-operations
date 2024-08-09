@@ -83,4 +83,4 @@ spec:
         globalMounts:
           - path: /config
       media:
-        existingClaim: media
+        existingClaim: media1

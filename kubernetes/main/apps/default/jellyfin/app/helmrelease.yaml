@@ -124,6 +124,6 @@ spec:
         globalMounts:
           - path: /cache
       media:
-        existingClaim: media
+        existingClaim: media1
         globalMounts:
           - readOnly: true

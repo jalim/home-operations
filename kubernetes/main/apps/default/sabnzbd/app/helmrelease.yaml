@@ -105,7 +105,7 @@ spec:
       config:
         existingClaim: sabnzbd
       media:
-        existingClaim: media
+        existingClaim: media1
       incomplete:
         type: emptyDir
       tmp:
