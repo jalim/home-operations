@@ -97,4 +97,7 @@ spec:
         existingClaim: file-browser
       media:
         enabled: true
-        existingClaim: media
+        existingClaim: media1
+
+
+
