@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./media-pvc.yaml
-
+  - ./media-pvc-2.yaml
 
   # Apps:
   - ./audiobookshelf/ks.yaml
