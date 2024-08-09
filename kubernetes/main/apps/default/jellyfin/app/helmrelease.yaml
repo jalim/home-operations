@@ -86,13 +86,23 @@ spec:
           http:
             port: 8096
     ingress:
-      app:
-        enabled: true
+      external:
         className: external
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.lumu.au"
         hosts:
           - host: &host "{{ .Release.Name }}.lumu.au"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+      internal:
+        className: internal
+        annotations:
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+        hosts:
+          - host: *host
             paths:
               - path: /
                 service:
