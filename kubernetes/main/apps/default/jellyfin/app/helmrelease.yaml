@@ -99,8 +99,6 @@ spec:
                   port: http
       internal:
         className: internal
-        annotations:
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
         hosts:
           - host: *host
             paths:
