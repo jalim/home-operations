@@ -5,7 +5,7 @@ kind: HelmRelease
 metadata:
   name: frigate
 spec:
-  interval: 30m
+  interval: 25m
   chart:
     spec:
       chart: app-template
