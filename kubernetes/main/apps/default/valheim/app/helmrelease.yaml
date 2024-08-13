@@ -44,15 +44,9 @@ spec:
               requests:
                 cpu: 550m
                 memory: 2000Mi
-    defaultPodOptions:
-      securityContext:
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568 
-        # fsGroupChangePolicy: always
-        # seccompProfile: { type: RuntimeDefault }
-        supplementalGroups:
-          - 100
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: { drop: ["ALL"] } 
     service:
       app:
         controller: valheim
