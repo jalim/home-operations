@@ -49,7 +49,7 @@ spec:
         runAsUser: 568
         runAsGroup: 568
         fsGroup: 568 
-        fsGroupChangePolicy: always
+        # fsGroupChangePolicy: always
         # seccompProfile: { type: RuntimeDefault }
         supplementalGroups:
           - 100
