@@ -106,3 +106,10 @@ spec:
     persistence:
       config:
         existingClaim: valheim
+        globalMounts:
+          - path: /config
+      opt:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /opt/valheim
