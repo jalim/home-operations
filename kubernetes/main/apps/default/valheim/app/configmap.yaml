@@ -24,6 +24,7 @@ data:
   ### server//steam
   # SERVER_PORT: "2456"
   SERVER_PUBLIC: "true"
+  SERVER_ARGS: "-crossplay"
   STATUS_HTTP: "true" # Only useful on public server
   SUPERVISOR_HTTP: "true"
   ### other
