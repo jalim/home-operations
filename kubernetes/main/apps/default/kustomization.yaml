@@ -40,7 +40,7 @@ resources:
   - ./tautulli/ks.yaml
   - ./unpackerr/ks.yaml
   - ./upgraderr/ks.yaml
-  - ./valheim/ks.yaml
+  # - ./valheim/ks.yaml
   # - ./wizarr/ks.yaml
   # - ./beer/ks.yaml
   # - ./lldap/ks.yaml
