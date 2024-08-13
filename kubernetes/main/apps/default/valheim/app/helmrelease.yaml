@@ -45,15 +45,13 @@ spec:
                 cpu: 550m
                 memory: 2000Mi
             securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              allowPrivilegeEscalation: true
+              readOnlyRootFilesystem: false
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
         fsGroupChangePolicy: always
         seccompProfile: { type: RuntimeDefault }
     service:
