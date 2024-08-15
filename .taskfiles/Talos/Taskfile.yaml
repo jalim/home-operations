@@ -10,7 +10,7 @@ vars:
   MATCHBOX_PROFILES_DIR: "{{.MATCHBOX_DIR}}/profiles"
   MATCHBOX_ASSETS_DIR: "{{.MATCHBOX_DIR}}/assets"
   # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-  TALOS_VERSION: v1.7.5
+  TALOS_VERSION: v1.7.6
   TALOS_SCHEMATIC_ID: 76d744fe4579923f39f364e8975d0886f86efe0ca30dcb74d92f16a5ee1ab2fd
   # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
   KUBERNETES_VERSION: v1.30.3
