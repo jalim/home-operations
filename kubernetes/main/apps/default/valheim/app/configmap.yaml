@@ -24,7 +24,7 @@ data:
   ### server//steam
   # SERVER_PORT: "2456"
   SERVER_PUBLIC: "true"
-  SERVER_ARGS: "-crossplay -modifier resources most -modifier DeathPenalty casual -modifier Hammer-mode"
+  SERVER_ARGS: "-crossplay -modifier resources most -modifier DeathPenalty casual -setkey nobuildcost"
   STATUS_HTTP: "true" # Only useful on public server
   SUPERVISOR_HTTP: "true"
   ### other
