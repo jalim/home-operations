@@ -62,13 +62,15 @@ spec:
       app:
         className: internal
         hosts:
-          - host: actual.lumu.au
+          - host: &host actual.lumu.au
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-
+        tls:
+          - hosts:
+              - *host
     persistence:
       data:
         existingClaim: actual
