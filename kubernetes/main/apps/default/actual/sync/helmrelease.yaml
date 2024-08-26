@@ -39,7 +39,7 @@ spec:
           main:
             image:
               repository: ghcr.io/jalim/up_actual_sync
-              tag: v0.0.2@sha256:fa6f7e451b909b1fac6c0c7c6d1ff2daa931758b418c83671188c9f49b7bb89a
+              tag: v0.0.3@sha256:93c756eaeb7441f03459c6317e330c940fc6809a242568853c5f47fe90b0d77f
         pod:
           restartPolicy: OnFailure
           securityContext: &securityContext
