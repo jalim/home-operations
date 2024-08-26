@@ -23,7 +23,7 @@ spec:
           reloader.stakater.com/auto: "true"
 
         pod:
-          securityContext:
+          securityContext: &securityContext
             runAsUser: 1000
             runAsGroup: 1000
             fsGroup: 1000
@@ -63,6 +63,9 @@ spec:
             image:
               repository: docker pull ghcr.io/jalim/up_actual_sync
               tag: v0.0.1@sha256:7d67a8e5b471fd1eae3e0d22aceb297918a241295605371fdc8422396c9088a2
+        pod:
+          restartPolicy: OnFailure
+          securityContext: *securityContext
     service:
       app:
         controller: actual
