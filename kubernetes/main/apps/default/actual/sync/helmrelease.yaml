@@ -1,0 +1,57 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: up-sync
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+    - name: actual
+      namespace: default
+  values:
+    controllers:
+      up-sync:
+        type: cronjob
+        cronjob:
+          schedule: "@hourly"
+          timeZone: &timeZone Australia/Perth
+          concurrencyPolicy: Forbid
+          successfulJobsHistory: 1
+          failedJobsHistory: 1
+        containers:
+          main:
+            image:
+              repository: ghcr.io/jalim/up_actual_sync
+              tag: v0.0.1@sha256:7d67a8e5b471fd1eae3e0d22aceb297918a241295605371fdc8422396c9088a2
+        pod:
+          restartPolicy: OnFailure
+          securityContext: &securityContext
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: "OnRootMismatch"
+    persistence:
+      secret-file:
+        type: secret
+        name: up-sync-secret
+        globalMounts:
+          - path: /home/node/app/config.json
+            subPath: config.json
+            readOnly: true
