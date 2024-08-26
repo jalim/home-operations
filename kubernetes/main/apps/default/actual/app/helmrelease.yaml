@@ -53,8 +53,11 @@ spec:
       up_sync:
         type: cronjob
         cronjob:
-          <<: *cronJobSpec
-          schedule: "@daily"
+          schedule: "@hourly"
+          timeZone: &timeZone Australia/Perth
+          concurrencyPolicy: Forbid
+          successfulJobsHistory: 1
+          failedJobsHistory: 1
         containers:
           main:
             image:
