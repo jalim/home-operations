@@ -28,18 +28,19 @@ spec:
   values:
     controllers:
       up-sync:
-        containers:
-          app:
-            image:
-              repository: ghcr.io/jalim/up_actual_sync
-              tag: v0.0.3@sha256:93c756eaeb7441f03459c6317e330c940fc6809a242568853c5f47fe90b0d77f
+        annotations:
+          reloader.stakater.com/auto: "true"
         pod:
-          restartPolicy: OnFailure
           securityContext: &securityContext
             runAsUser: 1000
             runAsGroup: 1000
             fsGroup: 1000
             fsGroupChangePolicy: "OnRootMismatch"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/jalim/up_actual_sync
+              tag: v0.0.3@sha256:93c756eaeb7441f03459c6317e330c940fc6809a242568853c5f47fe90b0d77f
     persistence:
       secret-file:
         type: secret
