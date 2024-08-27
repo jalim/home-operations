@@ -43,7 +43,7 @@ spec:
               tag: v0.0.5@sha256:111fc5ef1859f4ff792a83d5055d05fc6fb93ded6b4bc35c3620d49e0507ee75
             env:
               USE_NODE_CRON: "true"
-
+              configFile: "/config/config.json"
     persistence:
       secret-file:
         type: secret
