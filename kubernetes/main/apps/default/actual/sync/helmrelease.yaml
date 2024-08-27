@@ -40,9 +40,10 @@ spec:
           app:
             image:
               repository: ghcr.io/jalim/up_actual_sync
-              tag: v0.0.4@sha256:129c75bdf8c14261d4d685ffc9f94ad52a356c123b672f0b29b82d69fd5f9628
+              tag: v0.0.5@sha256:111fc5ef1859f4ff792a83d5055d05fc6fb93ded6b4bc35c3620d49e0507ee75
             env:
               USE_NODE_CRON: "true"
+
     persistence:
       secret-file:
         type: secret
