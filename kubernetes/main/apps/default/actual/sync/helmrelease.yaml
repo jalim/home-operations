@@ -28,15 +28,8 @@ spec:
   values:
     controllers:
       up-sync:
-        type: cronjob
-        cronjob:
-          schedule: "@hourly"
-          timeZone: &timeZone Australia/Perth
-          concurrencyPolicy: Forbid
-          successfulJobsHistory: 1
-          failedJobsHistory: 1
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/jalim/up_actual_sync
               tag: v0.0.3@sha256:93c756eaeb7441f03459c6317e330c940fc6809a242568853c5f47fe90b0d77f
@@ -55,3 +48,9 @@ spec:
           - path: /home/node/app/config.json
             subPath: config.json
             readOnly: true
+      config:
+        existingClaim: up-sync
+        advancedMounts:
+          up-sync:
+            app:
+              - path: /config
