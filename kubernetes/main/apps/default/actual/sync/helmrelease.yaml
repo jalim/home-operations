@@ -46,6 +46,7 @@ spec:
               configFile: "/config/config.json"
               TZ: Australia/Perth
               port: &port 80
+              webUI: "true"
     service:
       app:
         controller: up-sync
