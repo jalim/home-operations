@@ -40,10 +40,31 @@ spec:
           app:
             image:
               repository: ghcr.io/jalim/up_actual_sync
-              tag: v0.0.10@sha256:0e85dd7619481eeb8d5153d315a6cb5d90b253c5cfd97c111b7fc6527f7cde20
+              tag: v0.1.2@sha256:dbf49359e8c0e6d18fe839219cf98f93989a09842f78a34a8199ad51c69fa131
             env:
               USE_NODE_CRON: "true"
               configFile: "/config/config.json"
+              TZ: Australia/Perth
+              port: &port 80
+    service:
+      app:
+        controller: up-sync
+        ports:
+          http:
+            port: *port
+    ingress:
+      app:
+        className: internal
+        hosts:
+          - host: &host "upsync.lumu.au"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
     persistence:
       secret-file:
         type: secret
