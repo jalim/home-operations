@@ -34,3 +34,7 @@ endpoints:
       - "[STATUS] == 200"
     alerts:
       - type: pushover
+  - name: internet
+    group: monitor
+    url: icmp://1.1.1.1
+    interval: 5s
