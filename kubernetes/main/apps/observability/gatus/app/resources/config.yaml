@@ -38,3 +38,5 @@ endpoints:
     group: monitor
     url: icmp://1.1.1.1
     interval: 5s
+    conditions:
+      - "[CONNECTED] == true"
