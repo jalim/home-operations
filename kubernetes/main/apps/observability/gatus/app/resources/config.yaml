@@ -36,7 +36,7 @@ endpoints:
       - type: pushover
   - name: internet
     group: monitor
-    url: icmp://google.com
+    url: https://google.com
     interval: 5s
     client:
       dns-resolver: tcp://1.1.1.1:53
