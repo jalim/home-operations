@@ -47,6 +47,9 @@ spec:
               TZ: Australia/Perth
               port: &port 80
               webUI: "true"
+              cronEnabled: "true"
+              cronShedule: '*/30 * * * *'
+
     service:
       app:
         controller: up-sync
