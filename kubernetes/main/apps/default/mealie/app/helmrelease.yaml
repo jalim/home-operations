@@ -54,7 +54,7 @@ spec:
               SMTP_HOST: smtp-relay
               SMTP_PORT: 25
               SMTP_AUTH_STRATEGY: NONE
-              SMTP_FROM_EMAIL: "Mealie <mealie@lumu.au>"
+              SMTP_FROM_EMAIL: mealie@lumu.au
               # OIDC_AUTH_ENABLED: true
               # OIDC_SIGNUP_ENABLED: true
               # OIDC_CONFIGURATION_URL: https://auth.${DOMAIN}/.well-known/openid-configuration
