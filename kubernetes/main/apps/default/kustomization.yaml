@@ -22,6 +22,7 @@ resources:
   - ./jellystat/ks.yaml
   - ./jellyseerr/ks.yaml
   - ./lidarr/ks.yaml
+  - ./mealie/ks.yaml
   # - ./mosquitto/ks.yaml
   - ./navidrome/ks.yaml
   - ./overseerr/ks.yaml
