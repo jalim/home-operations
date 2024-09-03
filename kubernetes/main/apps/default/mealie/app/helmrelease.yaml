@@ -93,7 +93,9 @@ spec:
             port: 9000
     ingress:
       app:
-        className: internal
+        className: external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: external.lumu.au
         hosts:
           - host: *host
             paths:
