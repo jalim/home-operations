@@ -86,8 +86,6 @@ spec:
       app:
         controller: mealie
         type: LoadBalancer
-        annotations:
-          external-dns.alpha.kubernetes.io/hostname: &host mealie.lumu.au
         ports:
           http:
             port: 9000
@@ -95,17 +93,16 @@ spec:
       app:
         className: external
         annotations:
-          external-dns.alpha.kubernetes.io/target: external.lumu.au
+          external-dns.alpha.kubernetes.io/target: "external.lumu.au"
         hosts:
-          - host: *host
+          - host: &host "mealie.lumu.au"
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
         tls:
-          - hosts:
-              - *host
+          - hosts: [*host]
     persistence:
       config:
         existingClaim: mealie
