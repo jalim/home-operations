@@ -85,7 +85,6 @@ spec:
     service:
       app:
         controller: mealie
-        type: LoadBalancer
         ports:
           http:
             port: 9000
