@@ -48,7 +48,7 @@ spec:
               port: &port 80
               webUI: "true"
               cronEnabled: "true"
-              cronShedule: "*/30 * * * *"
+              cronShedule: "*/5 * * * *"
 
     service:
       app:
