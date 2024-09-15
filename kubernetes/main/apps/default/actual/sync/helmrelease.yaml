@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jalim/up_actual_sync
-              tag: v0.2.2@sha256:833bfa84c4f37c43e2925843fa4199b1d197fb68e9fb489fa507e999f74daab5
+              tag: v0.2.3@sha256:0f349615ed2bc9eede90804d1fb0cd74d65b97fcc7def9b8f0913b6a653ef19f
             env:
               USE_NODE_CRON: "true"
               configFile: "/config/config.json"
