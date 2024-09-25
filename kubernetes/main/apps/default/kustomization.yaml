@@ -25,7 +25,7 @@ resources:
   - ./mealie/ks.yaml
   # - ./mosquitto/ks.yaml
   # - ./navidrome/ks.yaml
-  - ./overseerr/ks.yaml
+  # - ./overseerr/ks.yaml
   - ./pinchflat/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
