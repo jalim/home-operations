@@ -9,10 +9,10 @@ spec:
   chart:
     spec:
       chart: spegel
-      version: v0.0.18
+      version: v0.0.23
       sourceRef:
         kind: HelmRepository
-        name: xenitab
+        name: spegel
         namespace: flux-system
   install:
     remediation:
@@ -20,15 +20,13 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
+  valuesFrom:
+    - kind: ConfigMap
+      name: spegel-helm-values
   values:
-    spegel:
-      containerdSock: /run/containerd/containerd.sock
-      containerdRegistryConfigPath: /etc/cri/conf.d/hosts
-    service:
-      registry:
-        hostPort: 29999
+    grafanaDashboard:
+      enabled: true
     serviceMonitor:
       enabled: true
