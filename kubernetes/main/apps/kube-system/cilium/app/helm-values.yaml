@@ -17,9 +17,6 @@ cluster:
   name: main
 cni:
   exclusive: false
-containerRuntime:
-  integration: containerd
-# devices: eth+
 enableRuntimeDeviceDetection: true
 endpointRoutes:
   enabled: true
