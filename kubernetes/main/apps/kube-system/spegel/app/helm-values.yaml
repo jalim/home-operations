@@ -6,10 +6,3 @@ spegel:
   service:
     registry:
       hostPort: 29999
-  serviceMonitor:
-    enabled: true
-  securityContext:
-    readOnlyRootFilesystem: true
-    capabilities:
-      drop:
-        - ALL
