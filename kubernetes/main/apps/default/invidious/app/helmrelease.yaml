@@ -53,8 +53,6 @@ spec:
               RUST_LOG: debug
             restartPolicy: Always
             securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
               capabilities:
                 drop:
                   - ALL
