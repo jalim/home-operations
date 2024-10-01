@@ -43,7 +43,7 @@ spec:
               pullPolicy: IfNotPresent
             command: ["--tcp", "0.0.0.0:12999"]
             env:
-              RUST_LOG: info
+              RUST_LOG: debug
         containers:
           app:
             image:
