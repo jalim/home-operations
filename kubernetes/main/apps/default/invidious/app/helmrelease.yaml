@@ -41,7 +41,7 @@ spec:
               repository: quay.io/invidious/inv-sig-helper
               tag: latest
               pullPolicy: IfNotPresent
-            command: ["--tcp", "0.0.0.0:12999"]
+            # command: ["--tcp", "0.0.0.0:12999"]
             env:
               RUST_LOG: debug
             restartPolicy: Always
