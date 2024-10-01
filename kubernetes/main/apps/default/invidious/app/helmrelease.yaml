@@ -51,7 +51,7 @@ spec:
             command: ["--tcp", "0.0.0.0:12999"]
             env:
               RUST_LOG: info
-            restartPolicy: unless-stopped
+            restartPolicy: Always
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
