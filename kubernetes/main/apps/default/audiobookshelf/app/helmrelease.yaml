@@ -100,7 +100,7 @@ spec:
         existingClaim: audiobookshelf
       media:
         enabled: true
-        existingClaim: media1
+        existingClaim: media
         globalMounts:
           - path: /books
             subPath: books

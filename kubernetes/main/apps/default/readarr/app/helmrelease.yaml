@@ -112,5 +112,5 @@ spec:
       tmp:
         type: emptyDir
       media:
-        existingClaim: media1
+        existingClaim: media
 #

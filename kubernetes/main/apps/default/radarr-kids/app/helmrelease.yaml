@@ -105,4 +105,4 @@ spec:
       config:
         existingClaim: radarr-kids
       media:
-        existingClaim: media1
+        existingClaim: media

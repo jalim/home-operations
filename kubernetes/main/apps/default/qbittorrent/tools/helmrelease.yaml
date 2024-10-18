@@ -136,4 +136,4 @@ spec:
             subPath: config.yaml
             readOnly: true
       media:
-        existingClaim: media1
+        existingClaim: media

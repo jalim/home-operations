@@ -127,4 +127,4 @@ spec:
         globalMounts:
           - path: /dev/bus/usb
       media:
-        existingClaim: media1
+        existingClaim: media

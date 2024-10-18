@@ -93,7 +93,7 @@ spec:
       tmp:
         type: emptyDir
       media:
-        existingClaim: media1
+        existingClaim: media
         globalMounts:
           - path: /downloads
             subPath: youtube
