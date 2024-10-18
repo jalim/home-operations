@@ -20,6 +20,7 @@ clusterSvcNets:
 
 additionalApiServerCertSans: &san
   - ${clusterName}.${clusterDNSSuffix}
+  - "10.88.0.20"
   - "127.0.0.1" # KubePrism
 additionalMachineCertSans: *san
 
@@ -27,7 +28,7 @@ nodes:
   - hostname: k8s-0
     ipAddress: 10.88.0.10
     controlPlane: true
-    installDisk: /dev/sdb
+    installDisk: /dev/sda
     networkInterfaces:
       - interface: bond0
         addresses:
@@ -66,7 +67,6 @@ nodes:
                   - rshared
                   - rw
           sysctls:
-            net.core.bpf_jit_harden: "1"
             net.ipv6.conf.all.accept_ra: "2"
             net.ipv6.conf.all.forwarding: "1"
   - hostname: k8s-1
@@ -171,8 +171,29 @@ controlPlane:
     - |-
       cluster:
         allowSchedulingOnMasters: true
+        controllerManager:
+          extraArgs:
+            bind-address: 0.0.0.0
+            node-cidr-mask-size-ipv6: "112"
+            node-cidr-mask-size-ipv4: "24"
+        coreDNS:
+          disabled: true
         proxy:
           disabled: true
+        scheduler:
+          extraArgs:
+            bind-address: 0.0.0.0
+
+  # Enable Host DNS: https://www.talos.dev/v1.8/talos-guides/network/host-dns/
+    - |-
+      machine:
+        features:
+          hostDNS:
+            enabled: true
+            resolveMemberNames: true
+            # Incompatible with Cilium bpf masquerade. siderolabs/talos/#8836
+            # Replaced by a Cilium redirect policy.
+            forwardKubeDNSToHost: false
 
     # ETCD configuration
     - |-
@@ -206,9 +227,7 @@ controlPlane:
               hard=True
               noatime=True
               nodiratime=True
-              rsize=131072
-              wsize=131072
-              nconnect=8
+
 
     # Disable default API server admission plugins.
     - |-
