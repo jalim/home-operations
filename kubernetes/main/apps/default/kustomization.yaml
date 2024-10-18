@@ -1,50 +1,50 @@
----
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-  - ./namespace.yaml
-  # - ./media-pvc.yaml
-  - ./media-pvc-2.yaml
+# ---
+# apiVersion: kustomize.config.k8s.io/v1beta1
+# kind: Kustomization
+# resources:
+#   - ./namespace.yaml
+#   # - ./media-pvc.yaml
+#   - ./media-pvc-2.yaml
 
-  # Apps:
-  - ./audiobookshelf/ks.yaml
-  # - ./authelia/ks.yaml
-  - ./autobrr/ks.yaml
-  - ./cross-seed/ks.yaml
-  - ./esphome/ks.yaml
-  - ./file-browser/ks.yaml
-  - ./frigate/ks.yaml
-  - ./glauth/ks.yaml
-  - ./home-assistant/ks.yaml
-  - ./invidious/ks.yaml
-  - ./jellyfin/ks.yaml
-  - ./jellyplex-watched/ks.yaml
-  - ./jellystat/ks.yaml
-  - ./jellyseerr/ks.yaml
-  - ./lidarr/ks.yaml
-  - ./mealie/ks.yaml
-  # - ./mosquitto/ks.yaml
-  # - ./navidrome/ks.yaml
-  - ./overseerr/ks.yaml
-  - ./pinchflat/ks.yaml
-  - ./plex/ks.yaml
-  - ./prowlarr/ks.yaml
-  - ./qbittorrent/ks.yaml
-  - ./radarr-4k/ks.yaml
-  - ./radarr-kids/ks.yaml
-  - ./radarr/ks.yaml
-  - ./readarr/ks.yaml
-  - ./sabnzbd/ks.yaml
-  - ./smtp-relay/ks.yaml
-  - ./sonarr-kids/ks.yaml
-  - ./sonarr/ks.yaml
-  - ./tautulli/ks.yaml
-  - ./unpackerr/ks.yaml
-  - ./upgraderr/ks.yaml
-  - ./valheim/ks.yaml
-  - ./actual/ks.yaml
-  # - ./wizarr/ks.yaml
-  # - ./beer/ks.yaml
-  # - ./lldap/ks.yaml
-  # - ./recyclarr/ks.yaml
-  # - ./test-sec/ks.yaml
+#   # Apps:
+#   - ./audiobookshelf/ks.yaml
+#   # - ./authelia/ks.yaml
+#   - ./autobrr/ks.yaml
+#   - ./cross-seed/ks.yaml
+#   - ./esphome/ks.yaml
+#   - ./file-browser/ks.yaml
+#   - ./frigate/ks.yaml
+#   - ./glauth/ks.yaml
+#   - ./home-assistant/ks.yaml
+#   - ./invidious/ks.yaml
+#   - ./jellyfin/ks.yaml
+#   - ./jellyplex-watched/ks.yaml
+#   - ./jellystat/ks.yaml
+#   - ./jellyseerr/ks.yaml
+#   - ./lidarr/ks.yaml
+#   - ./mealie/ks.yaml
+#   # - ./mosquitto/ks.yaml
+#   # - ./navidrome/ks.yaml
+#   - ./overseerr/ks.yaml
+#   - ./pinchflat/ks.yaml
+#   - ./plex/ks.yaml
+#   - ./prowlarr/ks.yaml
+#   - ./qbittorrent/ks.yaml
+#   - ./radarr-4k/ks.yaml
+#   - ./radarr-kids/ks.yaml
+#   - ./radarr/ks.yaml
+#   - ./readarr/ks.yaml
+#   - ./sabnzbd/ks.yaml
+#   - ./smtp-relay/ks.yaml
+#   - ./sonarr-kids/ks.yaml
+#   - ./sonarr/ks.yaml
+#   - ./tautulli/ks.yaml
+#   - ./unpackerr/ks.yaml
+#   - ./upgraderr/ks.yaml
+#   - ./valheim/ks.yaml
+#   - ./actual/ks.yaml
+#   # - ./wizarr/ks.yaml
+#   # - ./beer/ks.yaml
+#   # - ./lldap/ks.yaml
+#   # - ./recyclarr/ks.yaml
+#   # - ./test-sec/ks.yaml
