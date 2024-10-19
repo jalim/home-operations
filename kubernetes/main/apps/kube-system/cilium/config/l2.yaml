@@ -38,8 +38,8 @@ spec:
           - {key: io.cilium/bgp, operator: NotIn, values: ["deny", "false"]}
           - {key: io.cilium/internal, operator: NotIn, values: ["true"]}
     neighbors:
-      # - peerAddress: "10.88.0.1/32"
-      #   peerASN: 65001
+      - peerAddress: "10.88.0.1/32"
+        peerASN: 65001
         # eBGPMultihopTTL: 10
         # connectRetryTimeSeconds: 120
         # holdTimeSeconds: 90
