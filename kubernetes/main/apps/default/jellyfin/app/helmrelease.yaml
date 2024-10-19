@@ -80,6 +80,10 @@ spec:
       app:
         controller: jellyfin
         type: LoadBalancer
+        ipFamilyPolicy: PreferDualStack
+        ipFamilies:
+          - IPv4
+          - IPv6
         annotations:
           io.cilium/lb-ipam-ips: 10.88.0.35
         ports:
