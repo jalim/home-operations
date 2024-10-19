@@ -30,7 +30,7 @@ ipv4NativeRoutingCIDR: 10.42.0.0/16
 ipv6:
   enabled: true
 # ipv6NativeRoutingCIDR: 2404:e80:942a:42:cafe:0::/96
-enableIPv6Masquerade: false
+enableIPv6Masquerade: true
 k8sServiceHost: 127.0.0.1
 k8sServicePort: 7445
 kubeProxyReplacement: true
