@@ -19,9 +19,9 @@ tasks:
       NODES: '{{.NODES | default "k8s-0,k8s-1,k8s-2"}}'
       ROOK_DISK: '{{.ROOK_DISK | default "/dev/nvme0n1"}}'
     cmds:
-      - { task: etcd, vars: *vars }
-      - { task: conf, vars: *vars }
-      - { task: apps, vars: *vars }
+      # - { task: etcd, vars: *vars }
+      # - { task: conf, vars: *vars }
+      # - { task: apps, vars: *vars }
       - { task: rook, vars: *vars }
       - { task: flux, vars: *vars }
     requires:
@@ -35,7 +35,7 @@ tasks:
     cmd: until talosctl --nodes {{.TALOS_CONTROLLER}} bootstrap; do sleep 10; done
     vars:
       TALOS_CONTROLLER:
-        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | gshuf -n 1
     preconditions:
       - test -f {{.CLUSTER_DIR}}/talosconfig
       - talosctl config info &>/dev/null
@@ -45,7 +45,7 @@ tasks:
     cmd: talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force --force-context-name {{.CLUSTER}} {{.CLUSTER_DIR}}
     vars:
       TALOS_CONTROLLER:
-        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | gshuf -n 1
     preconditions:
       - test -f {{.CLUSTER_DIR}}/talosconfig
       - talosctl config info &>/dev/null
@@ -62,7 +62,7 @@ tasks:
       - talosctl config info &>/dev/null
 
   rook:
-    internal: true
+    internal: false
     vars: &vars
       CLUSTER: '{{.CLUSTER}}'
       NODE: '{{.ITEM}}'
@@ -120,7 +120,7 @@ tasks:
       - test -f {{.BOOTSTRAP_RESOURCES_DIR}}/templates/rook-data-job.yaml.j2
 
   flux:
-    internal: true
+    internal: false
     cmds:
       - kubectl apply --server-side --kustomize {{.CLUSTER_DIR}}/bootstrap/flux
       - for: { var: TEMPLATES }

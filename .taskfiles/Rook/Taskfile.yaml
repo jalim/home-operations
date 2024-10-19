@@ -40,7 +40,7 @@ tasks:
     cmds:
       - envsubst < <(cat {{.ROOK_TEMPLATES_DIR}}/WipeDiskJob.tmpl.yaml) | kubectl --context {{.cluster}} apply -f -
       - bash {{.ROOK_SCRIPTS_DIR}}/wait-for-job.sh {{.job}} default {{.cluster}}
-      - kubectl --context {{.cluster}} -n default wait job/{{.job}} --for condition=complete --timeout=1m
+      - kubectl --context {{.cluster}} -n default wait job/{{.job}} --for condition=complete --timeout=2m
       - kubectl --context {{.cluster}} -n default logs job/{{.job}}
       - kubectl --context {{.cluster}} -n default delete job {{.job}}
     env: *env

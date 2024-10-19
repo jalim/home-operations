@@ -21,6 +21,7 @@ includes:
   kubernetes: .taskfiles/kubernetes
   talos: .taskfiles/talos
   volsync: .taskfiles/volsync
+  rook: .taskfiles/rook
 
 tasks:
 
