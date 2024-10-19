@@ -47,3 +47,12 @@ spec:
         gracefulRestart:
           enabled: true
           restartTimeSeconds: 120
+      - peerAddress: 'fe80::921b:eff:fe53:aca1/128'
+        peerASN: 65001
+        eBGPMultihopTTL: 10
+        connectRetryTimeSeconds: 120
+        holdTimeSeconds: 90
+        keepAliveTimeSeconds: 30
+        gracefulRestart:
+          enabled: true
+          restartTimeSeconds: 120
