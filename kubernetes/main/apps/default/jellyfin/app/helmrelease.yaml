@@ -85,7 +85,7 @@ spec:
           - IPv4
           - IPv6
         annotations:
-          io.cilium/lb-ipam-ips: 10.88.0.35
+          io.cilium/lb-ipam-ips: "10.88.0.35,2404:e80:942a:cafe::35"
         ports:
           http:
             port: 8096
