@@ -29,9 +29,13 @@ spec:
     controller:
       replicaCount: 2
       service:
+        ipFamilyPolicy: PreferDualStack
+        ipFamilies:
+          - IPv4
+          - IPv6
         annotations:
           external-dns.alpha.kubernetes.io/hostname: external.lumu.au
-          io.cilium/lb-ipam-ips: 10.88.0.21
+          io.cilium/lb-ipam-ips: "10.88.0.21,2404:e80:942a:88::21"
       ingressClassResource:
         name: external
         default: false
