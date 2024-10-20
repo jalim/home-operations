@@ -11,6 +11,6 @@ spec:
       targets:
         - ${EXTERNAL_IP}
     - dnsName: "external.${SECRET_DOMAIN}"
-      recordType: A
+      recordType: AAAA
       targets:
         - ${EXTERNAL_IP_AAAA}
