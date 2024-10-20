@@ -1,27 +1,3 @@
-# ---
-# # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/cilium.io/ciliuml2announcementpolicy_v2alpha1.json
-# apiVersion: cilium.io/v2alpha1
-# kind: CiliumL2AnnouncementPolicy
-# metadata:
-#   name: l2-policy
-# spec:
-#   loadBalancerIPs: true
-#   # interfaces: ["^eth.*"]
-#   nodeSelector:
-#     matchLabels:
-#       kubernetes.io/os: linux
----
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/cilium.io/ciliumloadbalancerippool_v2alpha1.json
-apiVersion: cilium.io/v2alpha1
-kind: CiliumLoadBalancerIPPool
-metadata:
-  name: l2-pool
-spec:
-  allowFirstLastIPs: "Yes"
-  blocks:
-    - start: 10.88.0.20
-      stop: 10.88.0.60
-    - cidr: "2404:e80:942a:88::0/64"
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPPeeringPolicy
@@ -38,8 +14,8 @@ spec:
           - {key: io.cilium/bgp, operator: NotIn, values: ["deny", "false"]}
           - {key: io.cilium/internal, operator: NotIn, values: ["true"]}
     neighbors:
-      - peerAddress: "10.88.0.1/32"
-        peerASN: 65001
+      # - peerAddress: "10.88.0.1/32"
+      #   peerASN: 65001
         # eBGPMultihopTTL: 10
         # connectRetryTimeSeconds: 120
         # holdTimeSeconds: 90
