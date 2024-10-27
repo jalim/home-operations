@@ -12,7 +12,7 @@ spec:
       peers:
         - name: peer-65001-udmp-v4
           peerASN: 65001
-          peerAddress: 10.88.0.1
+          peerAddress: "10.88.0.1/32"
           peerConfigRef:
             name: cilium-peer-v4
         - name: peer-65001-udmp-v6
