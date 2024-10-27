@@ -8,10 +8,13 @@ metadata:
 spec:
   advertisements:
     - advertisementType: "PodCIDR"
-      attributes:
-        communities:
-          standard: [ "65000:99" ]
-        localPreference: 99
+      # attributes:
+      #   communities:
+      #     standard: [ "65000:99" ]
+      #   localPreference: 99
+      selector:
+        matchExpressions:
+          - { key: somekey, operator: NotIn, values: ["never-used-value"] }
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPAdvertisement
