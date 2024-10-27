@@ -5,3 +5,5 @@ kind: Kustomization
 resources:
   - ./ip-pool.yaml
   - ./bgp.yaml
+  - ./bgpClusterConfig.yml
+  - ./bgpPeerConfig.yml
