@@ -6,7 +6,7 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/instance: qbittorrent
+      app.kubernetes.io/instance: jellyfin
   ingress:
   - fromEntities:
     - "world"
