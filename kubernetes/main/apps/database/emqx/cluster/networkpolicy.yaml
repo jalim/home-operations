@@ -6,7 +6,7 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/instance: emqx
+      app.kubernetes.io/instance: emqx-cluster
   ingress:
   - fromEntities:
     - "world"
