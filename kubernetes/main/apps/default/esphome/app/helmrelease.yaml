@@ -45,8 +45,8 @@ spec:
               limits:
                 memory: 2Gi
         pod:
-          hostNetwork: true
-          dnsPolicy: ClusterFirstWithHostNet
+          # hostNetwork: true
+          # dnsPolicy: ClusterFirstWithHostNet
           annotations:
             k8s.v1.cni.cncf.io/networks: |
               [{
