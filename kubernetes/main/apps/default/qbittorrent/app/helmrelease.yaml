@@ -75,6 +75,14 @@ spec:
                 cpu: 100m
               limits:
                 memory: 9Gi
+        pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"multus-iot",
+                "namespace": "network",
+                "ips": ["10.10.0.69/24"]
+              }]
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
