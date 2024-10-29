@@ -9,3 +9,4 @@ resources:
  # - ./prometheusrule.yaml
   - ./service.yaml
   - ./cluster16.yaml
+  - ./networkpolicy.yaml
