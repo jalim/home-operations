@@ -10,3 +10,7 @@ spec:
   ingress:
   - fromEntities:
     - "world"
+    toPorts:
+    - ports:
+      - port: "1883"
+        protocol: TCP
