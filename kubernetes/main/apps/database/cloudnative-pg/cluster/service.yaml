@@ -1,13 +1,13 @@
 ---
 apiVersion: v1
 kind: Service
-fullnameOverride: postgres-lb
 metadata:
   name: postgres-lb
   namespace: database
   annotations:
     external-dns.alpha.kubernetes.io/hostname: "postgres.lumu.au"
     lbipam.cilium.io/ips: 10.88.0.47
+    app.kubernetes.io/instance: postgres-lb
 spec:
   type: LoadBalancer
   ports:
