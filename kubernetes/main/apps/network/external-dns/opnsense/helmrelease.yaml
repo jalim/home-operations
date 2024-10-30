@@ -46,8 +46,6 @@ spec:
             value: https://10.88.0.1:8443 # replace with the address to your OPNsense router
           - name: OPNSENSE_SKIP_TLS_VERIFY
             value: "true" # optional depending on your environment
-          - name: LOG_LEVEL
-            value: debug
         # livenessProbe:
         #   httpGet:
         #     path: /healthz
