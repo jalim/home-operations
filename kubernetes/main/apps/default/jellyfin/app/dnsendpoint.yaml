@@ -4,7 +4,7 @@ kind: DNSEndpoint
 metadata:
   name: ${APP}-internal
   annotations:
-    external-dns/private: "true"
+    # external-dns/private: "true"
 spec:
   endpoints:
     - dnsName: ${APP}.lumu.au
