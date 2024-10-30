@@ -6,5 +6,6 @@ namespace: default
 resources:
   - ./helmrelease.yaml
   - ./gatus.yaml
+  - ../../../../templates/externaldns/internal
   - ./externalsecret.yaml
   - ./pvc.yaml
