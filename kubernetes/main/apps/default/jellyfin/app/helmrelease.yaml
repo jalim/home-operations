@@ -101,17 +101,17 @@ spec:
                 service:
                   identifier: app
                   port: http
-      internal:
-        className: internal
-        hosts:
-          - host: *host
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts: [*host]
+      # internal:
+      #   className: internal
+      #   hosts:
+      #     - host: *host
+      #       paths:
+      #         - path: /
+      #           service:
+      #             identifier: app
+      #             port: http
+        # tls:
+        #   - hosts: [*host]
     persistence:
       config:
         existingClaim: jellyfin
