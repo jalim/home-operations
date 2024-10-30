@@ -109,6 +109,7 @@ spec:
     ingress:
       app:
         className: external
+        annotations:
           nginx.ingress.kubernetes.io/configuration-snippet: |
             add_header Cache-Control "no-store";
             add_header Pragma "no-cache";
