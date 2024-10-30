@@ -60,7 +60,6 @@ spec:
             port: http-webhook
           initialDelaySeconds: 10
           timeoutSeconds: 5
-        logLevel: debug
     extraArgs:
       - --ignore-ingress-tls-spec
       - --annotation-filter=external-dns/private in (true)
