@@ -34,7 +34,7 @@ spec:
           - IPv4
           - IPv6
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: external.lumu.au
+          # external-dns.alpha.kubernetes.io/hostname: external.lumu.au
           io.cilium/lb-ipam-ips: "10.88.0.21,${EXTERNAL_IP_AAAA}"
       ingressClassResource:
         name: external
