@@ -82,8 +82,6 @@ spec:
     ingress:
       app:
         className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.lumu.au"
         hosts:
           - host: &host "books.lumu.au"
             paths:

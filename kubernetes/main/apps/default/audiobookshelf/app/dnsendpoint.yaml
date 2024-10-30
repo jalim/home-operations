@@ -7,12 +7,12 @@ metadata:
     external-dns/private: "true"
 spec:
   endpoints:
-    - dnsName: ${APP}.lumu.au
+    - dnsName: books.lumu.au
       recordTTL: 300
       recordType: A
       targets:
         - 10.88.0.21
-    - dnsName: ${APP}.lumu.au
+    - dnsName: books.lumu.au
       recordTTL: 300
       recordType: AAAA
       targets:
@@ -26,12 +26,12 @@ metadata:
     external-dns/public: "true"
 spec:
   endpoints:
-    - dnsName: ${APP}.lumu.au
+    - dnsName: books.lumu.au
       recordTTL: 300
       recordType: A
       targets:
         - ${EXTERNAL_IP}
-    - dnsName: ${APP}.lumu.au
+    - dnsName: books.lumu.au
       recordTTL: 300
       recordType: AAAA
       targets:
