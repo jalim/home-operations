@@ -73,18 +73,18 @@ spec:
           http:
             port: *port
     ingress:
-      internal:
-        className: internal
-        annotations:
-          # external-dns.alpha.kubernetes.io/target: home.mullan.net.au
-          # external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
-        hosts:
-          - host: &host "echoecho.lumu.au"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+      # internal:
+      #   className: internal
+      #   annotations:
+      #     # external-dns.alpha.kubernetes.io/target: home.mullan.net.au
+      #     # external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+      #   hosts:
+      #     - host: &host "echoecho.lumu.au"
+      #       paths:
+      #         - path: /
+      #           service:
+      #             identifier: app
+      #             port: http
       external:
         className: external
         annotations:
@@ -97,5 +97,3 @@ spec:
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts: [*host]

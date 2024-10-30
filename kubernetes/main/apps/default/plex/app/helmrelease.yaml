@@ -94,19 +94,19 @@ spec:
                 service:
                   identifier: app
                   port: http
-      internal:
-        className: internal
-        annotations:
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-        hosts:
-          - host: *host
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts: [*host]
+      # internal:
+      #   className: internal
+      #   annotations:
+      #     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      #   hosts:
+      #     - host: *host
+      #       paths:
+      #         - path: /
+      #           service:
+      #             identifier: app
+      #             port: http
+      #   tls:
+      #     - hosts: [*host]
     persistence:
       config:
         enabled: true
