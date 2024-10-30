@@ -8,11 +8,11 @@ metadata:
     external-dns/private: "true"
 spec:
   endpoints:
-    - dnsName: "${GATUS_SUBDOMAIN:-${APP}}.${SECRET_DOMAIN}"
+    - dnsName: "minio.${SECRET_DOMAIN}"
       recordType: A
       targets:
         - ${INTERNAL_IP}
-    - dnsName: "${GATUS_SUBDOMAIN:-${APP}}.${SECRET_DOMAIN}"
+    - dnsName: "minio.${SECRET_DOMAIN}"
       recordType: AAAA
       targets:
         - ${INTERNAL_IP_AAAA}
