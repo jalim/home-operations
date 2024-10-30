@@ -76,7 +76,7 @@ spec:
       external:
         className: external
         hosts:
-          - host: &host "echo.lumu.au"
+          - host: &host "echo-server.lumu.au"
             paths:
               - path: /
                 service:
