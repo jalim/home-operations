@@ -2,15 +2,17 @@
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: nginx-external
+  name: plex-external
   namespace: networking
+  annotations:
+    external-dns/private: "true"
 spec:
   endpoints:
-    - dnsName: "external.${SECRET_DOMAIN}"
+    - dnsName: "${APP}.${SECRET_DOMAIN}"
       recordType: A
       targets:
-        - ${EXTERNAL_IP}
-    - dnsName: "external.${SECRET_DOMAIN}"
+        - 10.88.0.21
+    - dnsName: "${APP}.${SECRET_DOMAIN}"
       recordType: AAAA
       targets:
         - ${EXTERNAL_IP_AAAA}
@@ -18,15 +20,17 @@ spec:
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: nginx-external-private
+  name: plex-internal
   namespace: networking
+  annotations:
+    external-dns/public: "true"
 spec:
   endpoints:
-    - dnsName: "external.${SECRET_DOMAIN}"
+    - dnsName: "${APP}.${SECRET_DOMAIN}"
       recordType: A
       targets:
-        - ${EXTERNAL_IP}
-    - dnsName: "external.${SECRET_DOMAIN}"
+        - 10.88.0.21
+    - dnsName: "${APP}.${SECRET_DOMAIN}"
       recordType: AAAA
       targets:
         - ${EXTERNAL_IP_AAAA}
