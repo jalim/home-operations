@@ -8,11 +8,11 @@ metadata:
     external-dns/private: "true"
 spec:
   endpoints:
-    - dnsName: "${APP}.${SECRET_DOMAIN}"
+    - dnsName: "status.${SECRET_DOMAIN}"
       recordType: A
       targets:
         - 10.88.0.21
-    - dnsName: "${APP}.${SECRET_DOMAIN}"
+    - dnsName: "status.${SECRET_DOMAIN}"
       recordType: AAAA
       targets:
         - ${EXTERNAL_IP_AAAA}
@@ -26,11 +26,11 @@ metadata:
     external-dns/public: "true"
 spec:
   endpoints:
-    - dnsName: "${APP}.${SECRET_DOMAIN}"
+    - dnsName: "status.${SECRET_DOMAIN}"
       recordType: A
       targets:
         - ${EXTERNAL_IP}
-    - dnsName: "${APP}.${SECRET_DOMAIN}"
+    - dnsName: "status.${SECRET_DOMAIN}"
       recordType: AAAA
       targets:
         - ${EXTERNAL_IP_AAAA}
