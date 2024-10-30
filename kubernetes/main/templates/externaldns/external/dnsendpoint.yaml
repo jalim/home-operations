@@ -30,7 +30,7 @@ spec:
     - dnsName: "${GATUS_SUBDOMAIN:-${APP}}.${SECRET_DOMAIN}"
       recordType: A
       targets:
-        - ${EXTERNAL_IP}
+        - 10.88.0.21
     - dnsName: "${GATUS_SUBDOMAIN:-${APP}}.${SECRET_DOMAIN}"
       recordType: AAAA
       targets:
