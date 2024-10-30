@@ -8,3 +8,4 @@ resources:
   - ../../../../templates/volsync
   - ../../../../templates/gatus/external
   - ./networkpolicy.yaml
+  - ./dnsendpoint.yaml
