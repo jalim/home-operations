@@ -2,7 +2,7 @@
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: plex-external
+  name: plex-internal
   namespace: networking
   annotations:
     external-dns/private: "true"
@@ -20,7 +20,7 @@ spec:
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: plex-internal
+  name: plex-external
   namespace: networking
   annotations:
     external-dns/public: "true"
@@ -29,7 +29,7 @@ spec:
     - dnsName: "${APP}.${SECRET_DOMAIN}"
       recordType: A
       targets:
-        - 10.88.0.21
+        - ${EXTERNAL_IP}
     - dnsName: "${APP}.${SECRET_DOMAIN}"
       recordType: AAAA
       targets:
