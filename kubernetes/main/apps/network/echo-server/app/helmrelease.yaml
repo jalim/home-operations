@@ -87,11 +87,8 @@ spec:
       #             port: http
       external:
         className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: external.lumu.au
-          # external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
         hosts:
-          - host: &host "echoecho.lumu.au"
+          - host: &host "echo.lumu.au"
             paths:
               - path: /
                 service:
