@@ -4,7 +4,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: default
 resources:
-  - ./dnsendpoint.yaml
   - ./helmrelease.yaml
   - ./upsync.secret.sops.yaml
   - ../../../../templates/volsync
+  - ../../../../templates/externaldns/internal
