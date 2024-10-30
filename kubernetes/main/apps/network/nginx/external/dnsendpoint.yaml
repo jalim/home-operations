@@ -4,6 +4,8 @@ kind: DNSEndpoint
 metadata:
   name: nginx-external
   namespace: networking
+  annotations:
+    external-dns/public: "true"
 spec:
   endpoints:
     - dnsName: "external.${SECRET_DOMAIN}"
@@ -20,6 +22,8 @@ kind: DNSEndpoint
 metadata:
   name: nginx-external-private
   namespace: networking
+  annotations:
+    external-dns/private: "true"
 spec:
   endpoints:
     - dnsName: "external.${SECRET_DOMAIN}"
