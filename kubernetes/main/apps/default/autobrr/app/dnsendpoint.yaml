@@ -2,17 +2,17 @@
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: up-sync-internal
+  name: ${APP}-internal
   namespace: networking
   annotations:
     external-dns/private: "true"
 spec:
   endpoints:
-    - dnsName: "upsync.${SECRET_DOMAIN}"
+    - dnsName: "${APP}.${SECRET_DOMAIN}"
       recordType: A
       targets:
         - ${INTERNAL_IP}
-    - dnsName: "upsync.${SECRET_DOMAIN}"
+    - dnsName: "${APP}.${SECRET_DOMAIN}"
       recordType: AAAA
       targets:
         - ${INTERNAL_IP_AAAA}
