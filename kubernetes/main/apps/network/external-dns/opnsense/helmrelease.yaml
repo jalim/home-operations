@@ -51,19 +51,15 @@ spec:
         livenessProbe:
           httpGet:
             path: /healthz
-            port: http-wh-metrics
+            port: http-webhook
           initialDelaySeconds: 10
           timeoutSeconds: 5
         readinessProbe:
           httpGet:
             path: /readyz
-            port: http-wh-metrics
+            port: http-webhook
           initialDelaySeconds: 10
           timeoutSeconds: 5
-    # extraArgs:
-      # - --ignore-ingress-tls-spec
-    # policy: sync
-    # sources: ["ingress", "service", "crd"]
     registry: noop
     domainFilters: [lumu.au]
     extraArgs:
@@ -71,7 +67,5 @@ spec:
       - --crd-source-kind=DNSEndpoint
     policy: sync
     sources: ["ingress", "service"]
-    # txtOwnerId: default
-    # txtPrefix: k8s.
     serviceMonitor:
-      enabled: true
+      enabled: false
