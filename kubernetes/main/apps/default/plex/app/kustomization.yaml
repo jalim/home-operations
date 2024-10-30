@@ -8,4 +8,4 @@ resources:
   - ./helmrelease.yaml
   - ../../../../templates/volsync
   - ../../../../templates/gatus/external
-  - ./dnsendpoint.yaml
+  # - ./dnsendpoint.yaml
