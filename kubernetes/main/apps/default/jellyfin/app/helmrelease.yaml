@@ -92,8 +92,8 @@ spec:
     ingress:
       external:
         className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.lumu.au"
+        # annotations:
+        #   external-dns.alpha.kubernetes.io/target: "external.lumu.au"
         hosts:
           - host: &host "{{ .Release.Name }}.lumu.au"
             paths:
