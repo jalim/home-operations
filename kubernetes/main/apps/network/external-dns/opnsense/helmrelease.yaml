@@ -60,13 +60,13 @@ spec:
             port: http-webhook
           initialDelaySeconds: 10
           timeoutSeconds: 5
-    registry: noop
-    domainFilters: [lumu.au]
+        logLevel: debug
     extraArgs:
-      - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
-      - --crd-source-kind=DNSEndpoint
+      - --ignore-ingress-tls-spec
       - --annotation-filter=external-dns/private in (true)
     policy: sync
+    registry: noop
     sources: ["crd"]
+    domainFilters: ["${SECRET_DOMAIN}"]
     serviceMonitor:
       enabled: false
