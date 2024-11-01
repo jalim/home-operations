@@ -72,7 +72,7 @@ spec:
             runAsNonRoot: true
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups: [10000]
+            supplementalGroups: [10000, 568]
     service:
       app:
         controller: file-browser
