@@ -32,15 +32,25 @@ spec:
       }
     mode: Replace
   coreTemplate:
-    spec:
-      replicas: 3
-  # dashboardServiceTemplate:
-  #   spec:
-  #     type: LoadBalancer
-  listenersServiceTemplate:
     metadata:
       annotations:
-        external-dns.alpha.kubernetes.io/hostname: mqtt.lumu.au
+        reloader.stakater.com/auto: "true"
+    spec:
+      replicas: 3
+      envFrom:
+        - secretRef:
+            name: emqx-secret
+      extraVolumeMounts:
+        - name: init-user
+          mountPath: /opt/init-user.json
+          subPath: init-user.json
+          readOnly: true
+      extraVolumes:
+        - name: init-user
+          secret:
+            secretName: emqx-init-user-secret
+  listenersServiceTemplate:
+    metadata:
         io.cilium/lb-ipam-ips: 10.88.0.36
     spec:
       type: LoadBalancer
