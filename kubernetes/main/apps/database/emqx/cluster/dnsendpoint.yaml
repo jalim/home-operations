@@ -4,7 +4,7 @@ kind: DNSEndpoint
 metadata:
   name: mqtt-dns
   annotations:
-    external-dns/public: "true"
+    external-dns/private: "true"
 spec:
   endpoints:
     - dnsName: mqtt.lumu.au
