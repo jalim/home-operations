@@ -7,3 +7,4 @@ resources:
   - ./ingress.yaml
   - ./networkpolicy.yaml
   - ../../../../templates/externaldns/internal
+  - ./dnsendpoint.yaml
