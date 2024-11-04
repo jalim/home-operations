@@ -76,6 +76,7 @@ spec:
       app:
         controller: plex
         type: LoadBalancer
+        ipFamilyPolicy: PreferDualStack
         annotations:
           io.cilium/lb-ipam-ips: 10.88.0.32
         ports:
