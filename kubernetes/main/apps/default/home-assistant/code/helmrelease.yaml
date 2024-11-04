@@ -63,6 +63,10 @@ spec:
     service:
       app:
         controller: home-assistant-code
+        ipFamilyPolicy: PreferDualStack
+        ipFamilies:
+        - IPv6
+        - IPv4
         ports:
           http:
             port: 80

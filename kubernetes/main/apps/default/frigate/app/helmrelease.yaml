@@ -85,6 +85,10 @@ spec:
     service:
       app:
         controller: frigate
+        ipFamilyPolicy: PreferDualStack
+        ipFamilies:
+        - IPv6
+        - IPv4
         ports:
           http:
             port: *port

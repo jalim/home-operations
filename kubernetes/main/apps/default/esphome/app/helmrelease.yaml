@@ -64,6 +64,10 @@ spec:
     service:
       app:
         controller: esphome
+        ipFamilyPolicy: PreferDualStack
+        ipFamilies:
+        - IPv6
+        - IPv4
         ports:
           http:
             port: 6052

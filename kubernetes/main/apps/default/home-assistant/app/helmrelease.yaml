@@ -71,6 +71,10 @@ spec:
     service:
       app:
         controller: home-assistant
+        ipFamilyPolicy: PreferDualStack
+        ipFamilies:
+        - IPv6
+        - IPv4
         ports:
           http:
             port: 8123
