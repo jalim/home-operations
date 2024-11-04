@@ -85,8 +85,8 @@ spec:
         controller: *app
         ipFamilyPolicy: PreferDualStack
         ipFamilies:
-        - IPv6
-        - IPv4
+          - IPv6
+          - IPv4
         ports:
           http:
             port: *port
