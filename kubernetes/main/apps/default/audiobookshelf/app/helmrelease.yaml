@@ -77,9 +77,6 @@ spec:
       app:
         controller: audiobookshelf
         ipFamilyPolicy: PreferDualStack
-        ipFamilies:
-        - IPv6
-        - IPv4
         ports:
           http:
             port: *port

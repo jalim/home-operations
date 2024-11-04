@@ -53,9 +53,6 @@ spec:
       app:
         controller: actual
         ipFamilyPolicy: PreferDualStack
-        ipFamilies:
-        - IPv6
-        - IPv4
         ports:
           http:
             port: 5006

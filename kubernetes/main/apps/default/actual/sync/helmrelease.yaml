@@ -54,9 +54,6 @@ spec:
       app:
         controller: up-sync
         ipFamilyPolicy: PreferDualStack
-        ipFamilies:
-        - IPv6
-        - IPv4
         ports:
           http:
             port: *port
