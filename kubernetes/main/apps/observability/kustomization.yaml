@@ -8,4 +8,4 @@ resources:
   - ./namespace.yaml
   - ./smartctl-exporter/ks.yaml
   - ./snmp-exporter/ks.yaml
-  - ./thanos/ks.yaml
+  # - ./thanos/ks.yaml
