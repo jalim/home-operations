@@ -16,9 +16,6 @@ spec:
       protocol: TCP
       targetPort: 5432
   ipFamilyPolicy: PreferDualStack
-  ipFamilies:
-    - IPv6
-    - IPv4
   selector:
     cnpg.io/cluster: postgres16
     role: primary
