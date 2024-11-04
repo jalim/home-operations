@@ -137,13 +137,11 @@ spec:
               implementation: prometheus
     dashboards:
       default:
-        # blocky:
-        #   # renovate: depName="blocky"
-        #   gnetId: 13768
-        #   revision: 3
-        #   datasource:
-        #     - { name: DS_PROMETHEUS, value: Prometheus }
-        #     - { name: VAR_BLOCKY_URL, value: 'http:\\/\\/192.168.254.9:4000' }
+        apc-ups:
+          # renovate: depName="APC UPS (SNMP)"
+          gnetId: 12340
+          revision: 1
+          datasource: Prometheus
         cloudflared:
           # renovate: depName="Cloudflare Tunnels (cloudflared)"
           gnetId: 17457
