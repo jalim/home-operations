@@ -87,8 +87,8 @@ spec:
               "--exclude-tag", "added:1d",
               "--exclude-tag", "added:7d",
               "--include-tag", "expired",
-              "--with-data",
-              "--dry-run"
+              "--with-data"
+              # "--dry-run"
             ]
         pod:
           restartPolicy: OnFailure
