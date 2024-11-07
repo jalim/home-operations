@@ -49,9 +49,6 @@ spec:
             envFrom:
               - secretRef:
                   name: qbtools-secret
-            command:
-              - "sleep"
-              - "604800"
             args: [
               "tagging",
               "--added-on",
