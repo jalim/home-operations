@@ -142,6 +142,9 @@ spec:
           gnetId: 12340
           revision: 1
           datasource: Prometheus
+        dovecot:
+          url: https://alfaexploit.com/files/dovecot_prometheus/dovecot_prometheus.json
+          datasource: Prometheus
         cloudflared:
           # renovate: depName="Cloudflare Tunnels (cloudflared)"
           gnetId: 17457
