@@ -29,7 +29,7 @@ spec:
       targetLabel: job
       replacement: *name
     - action: replace
-      targetLabel: scrape_interval
+      targetLabel: __scrape_timeout__
       replacement: 30s
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/scrapeconfig_v1alpha1.json
