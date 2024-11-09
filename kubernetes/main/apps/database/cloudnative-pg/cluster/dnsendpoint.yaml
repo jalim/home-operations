@@ -2,17 +2,17 @@
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: postgress-dns
+  name: postgres-dns
   annotations:
     external-dns/private: "true"
 spec:
   endpoints:
-    - dnsName: postgress.lumu.au
+    - dnsName: postgres.lumu.au
       recordTTL: 300
       recordType: A
       targets:
         - 10.88.0.47
-    - dnsName: postgress.lumu.au
+    - dnsName: postgres.lumu.au
       recordTTL: 300
       recordType: AAAA
       targets:
