@@ -66,12 +66,12 @@ spec:
           nodeSelector:
             intel.feature.node.kubernetes.io/gpu: "true"
           securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
+            runAsUser: 568
+            runAsGroup: 568
             runAsNonRoot: true
-            fsGroup: 1000
+            fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups: [44, 10000]
+            supplementalGroups: [44, 1000, 10000]
     service:
       app:
         controller: plex
