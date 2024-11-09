@@ -3,14 +3,16 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app snapshot-controller
+  name: &app autodiscover
   namespace: flux-system
 spec:
-  targetNamespace: storage
+  targetNamespace: default
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/main/apps/storage/snapshot-controller/app
+  dependsOn:
+    - name: external-secrets-stores
+  path: ./kubernetes/main/apps/default/autodiscover/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -19,3 +21,6 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
+  postBuild:
+    substitute:
+      APP: *app
