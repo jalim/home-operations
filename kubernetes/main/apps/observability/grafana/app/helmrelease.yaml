@@ -144,7 +144,8 @@ spec:
           datasource: Prometheus
         dovecot:
           url: https://alfaexploit.com/files/dovecot_prometheus/dovecot_prometheus.json
-          datasource: Prometheus
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         cloudflared:
           # renovate: depName="Cloudflare Tunnels (cloudflared)"
           gnetId: 17457
