@@ -1,0 +1,14 @@
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: servers-dns
+  namespace: networking
+  annotations:
+    external-dns/private: "true"
+spec:
+  endpoints:
+    - dnsName: "pve2.${SECRET_DOMAIN}"
+      recordType: A
+      targets:
+        - 10.1.2.177
