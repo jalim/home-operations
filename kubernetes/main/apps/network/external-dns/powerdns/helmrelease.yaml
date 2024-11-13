@@ -39,7 +39,6 @@ spec:
       - --annotation-filter=external-dns/private in (true)
       - --provider=pdns
       - --pdns-server="10.1.2.193"
-      - --pdns-server-id="localhost"
       - --pdns-api-key="asdfkjhuvwienhrf78sdf77kjshdfskjhdfskdf"
       - --txt-owner-id="kubernetes"
       - --log-level=debug
