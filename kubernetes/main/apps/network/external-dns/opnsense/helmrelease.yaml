@@ -65,7 +65,7 @@ spec:
       - --annotation-filter=external-dns/private in (true)
     policy: sync
     registry: noop
-    sources: ["crd"]
+    sources: ["service"]
     domainFilters: ["${SECRET_DOMAIN}"]
     serviceMonitor:
       enabled: false
