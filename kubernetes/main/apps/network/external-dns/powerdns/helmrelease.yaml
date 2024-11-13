@@ -39,7 +39,6 @@ spec:
       - --annotation-filter=external-dns/private in (true)
       - --pdns-server="10.1.2.193"
       - --pdns-api-key="asdfkjhuvwienhrf78sdf77kjshdfskjhdfskdf"
-      - --interval=30s
     policy: sync
     sources: ["crd"]
     txtPrefix: k8s.
