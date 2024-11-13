@@ -12,11 +12,11 @@ spec:
       recordType: A
       targets:
         - 10.1.2.177
-    - dnsName: lumu.au
+    - dnsName: "lumu.au"
       recordType: MX
       targets:
         - 10 mail.lumu.au
-    - dnsName: *.lumu.au
+    - dnsName: "*.lumu.au"
       recordType: MX
       targets:
         - 10 mail.lumu.au
