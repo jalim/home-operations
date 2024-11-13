@@ -11,4 +11,4 @@ spec:
     - dnsName: "pve2.${SECRET_DOMAIN}"
       recordType: A
       targets:
-        - 10.1.2.177
+        - 10.1.2.17
