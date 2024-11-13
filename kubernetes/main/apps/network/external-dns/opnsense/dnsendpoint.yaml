@@ -16,7 +16,9 @@ spec:
       recordType: MX
       targets:
         - 10 mail.lumu.au
+        - 20 backup.lumu.au
     - dnsName: "*.lumu.au"
       recordType: MX
       targets:
         - 10 mail.lumu.au
+        - 20 backup.lumu.au
