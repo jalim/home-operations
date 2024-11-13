@@ -41,10 +41,6 @@ spec:
       - --pdns-api-key=asdfkjhuvwienhrf78sdf77kjshdfskjhdfskdf
     policy: sync
     sources: ["crd"]
-    managedRecordTypes:
-      - A
-      - AAAA
-      - MX
     txtPrefix: k8s.
     txtOwnerId: default
     domainFilters: ["${SECRET_DOMAIN}","${SECONDARY_DOMAIN}"]
