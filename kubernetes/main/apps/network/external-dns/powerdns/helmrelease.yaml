@@ -37,7 +37,7 @@ spec:
       - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
       - --crd-source-kind=DNSEndpoint
       - --annotation-filter=external-dns/private in (true)
-      - --pdns-server=10.1.2.193
+      - --pdns-server=10.1.2.193:8081
       - --pdns-api-key=asdfkjhuvwienhrf78sdf77kjshdfskjhdfskdf
     policy: sync
     sources: ["crd"]
