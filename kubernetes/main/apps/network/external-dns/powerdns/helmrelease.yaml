@@ -39,6 +39,7 @@ spec:
       - --annotation-filter=external-dns/private in (true)
       - --pdns-server=http://10.1.2.193:8081
       - --pdns-api-key=asdfkjhuvwienhrf78sdf77kjshdfskjhdfskdf
+      - --managed-record-types MX
     policy: sync
     sources: ["crd"]
     txtPrefix: k8s.
