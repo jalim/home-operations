@@ -28,17 +28,17 @@ spec:
     fullnameOverride: *app
     provider: pdns
     env:
-      - name: CF_API_TOKEN
+      - name: PDNS_API_KEY
         valueFrom:
           secretKeyRef:
-            name: external-dns-secret
-            key: api-token
+            name: external-dns-powerdns-secret
+            key: api_key
     extraArgs:
       - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
       - --crd-source-kind=DNSEndpoint
       - --annotation-filter=external-dns/private in (true)
       - --pdns-server=http://10.1.2.2:8081
-      - --pdns-api-key=asdfkjhuvwienhrf78sdf77kjshdfskjhdfskdf
+      - --pdns-api-key=$(PDNS_API_KEY)
     policy: sync
     sources: ["crd"]
     txtPrefix: k8s.
