@@ -39,7 +39,7 @@ spec:
         containers:
           app:
             image:
-              repository: docker pull ghcr.io/jalim/home-docs
+              repository: ghcr.io/jalim/home-docs
               tag: 2024.11.142317@sha256:c27430f9fab546664a776c93c6873209ea799e56b0d3bf1122c54311f8066ed6
 
     service:
