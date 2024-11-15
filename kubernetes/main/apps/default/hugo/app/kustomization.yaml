@@ -6,4 +6,4 @@ namespace: default
 resources:
   - ./helmrelease.yaml
   # - ../../../../templates/volsync
-  - ../../../../templates/externaldns/internal
+  - ../../../../templates/externaldns/external

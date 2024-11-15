@@ -51,7 +51,7 @@ spec:
             port: 80
     ingress:
       app:
-        className: internal
+        className: external
         hosts:
           - host: "www.lumu.au"
             paths:
