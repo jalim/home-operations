@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jalim/home-docs
-              tag: 2024.11.142317@sha256:c27430f9fab546664a776c93c6873209ea799e56b0d3bf1122c54311f8066ed6
+              tag: 2024.11.142333@sha256:beec4857812c829f58aefa17850ffbeefd9b10d2376871d1bfdab64cfb06f093
 
     service:
       app:
