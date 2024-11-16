@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/plex-beta
-              tag: 1.41.2.9134-3391644e0@sha256:8fc31da87e5bebb7f5e4ba50f178d2e5e9074475e0d4130c6ddf3008c98ea097
+              tag: 1.41.2.9200-c6bbc1b53@sha256:3f9766a7c6ef5b3c75f76b9e4c7f38cca7cdb0491b8407ab2e45be470929a496
             env:
               TZ: ${TIMEZONE}
             probes:
