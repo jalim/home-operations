@@ -31,8 +31,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/esphome/esphome
-              tag: 2024.10.3
+              repository: ghcr.io/bjw-s-labs/esphome
+              tag: 2024.10.3@sha256:4abd302a0642c47bb7a5cad8051b95e5ac19d76f8b9212fa3f6be761ba8a0a2e
             env:
               TZ: Australia/Perth
               ESPHOME_DASHBOARD_USE_PING: "false"
@@ -85,7 +85,9 @@ spec:
           esphome:
             app:
               - path: /config
-      esphome-cache:
+      cache:
         type: emptyDir
-        globalMounts:
-          - path: /config/.esphome
+        advancedMounts:
+          esphome:
+            app:
+              - path: /cache
