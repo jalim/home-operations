@@ -41,7 +41,7 @@ spec:
               DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
               JELLYFIN_FFmpeg__probesize: 50000000
               JELLYFIN_FFmpeg__analyzeduration: 50000000
-              JELLYFIN_PublishedServerUrl: 10.88.0.35
+              JELLYFIN_PublishedServerUrl: https://jellyfin.lumu.au
               TZ: ${TIMEZONE}
             probes:
               liveness: &probes
