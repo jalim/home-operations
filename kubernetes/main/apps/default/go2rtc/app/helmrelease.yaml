@@ -107,3 +107,9 @@ spec:
           - path: /tmp/go2rtc.yaml
             subPath: go2rtc.yaml
             readOnly: true
+      recs:
+        type: nfs
+        server: 10.88.0.80
+        path: /mnt/dead/nvr
+        globalMounts:
+          - path: /recs
