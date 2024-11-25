@@ -32,6 +32,7 @@ spec:
             image:
               repository: ghcr.io/alexxit/go2rtc
               tag: 1.9.7@sha256:41fc2431fc3c867364ab7c8d935d2bddd9736597694afd3a983fe14c175347e8
+            command: ["-config", "/config/go2rtc.yaml","-config","/config/configmap.yaml"]
             probes:
               liveness: &probes
                 enabled: true
@@ -97,11 +98,12 @@ spec:
                   identifier: app
                   port: http
     persistence:
-
       config:
+        existingClaim: go2rtc
+      subconfig:
         type: configMap
         name: go2rtc-configmap
         globalMounts:
-          - path: /config/go2rtc.yaml
+          - path: /config/configmap.yaml
             subPath: go2rtc.yaml
             readOnly: true
