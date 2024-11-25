@@ -25,5 +25,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CLAIM: scrypted-config
       VOLSYNC_CAPACITY: 5Gi
