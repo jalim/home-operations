@@ -104,6 +104,6 @@ spec:
         type: configMap
         name: go2rtc-configmap
         globalMounts:
-          - path: /config/configmap.yaml
+          - path: /config/go2rtc.yaml
             subPath: go2rtc.yaml
             readOnly: true
