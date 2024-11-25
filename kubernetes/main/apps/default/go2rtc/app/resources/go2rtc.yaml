@@ -12,4 +12,8 @@ webrtc:
   # ice_servers:
   #   - urls:
   #      - stun:stun.cloudflare.com:3478
-
+streams:
+  shed:
+    rtmp: rtmp://10.90.0.10/bcs/channel1_main.bcs?channel=1&stream=0&user=go2rtc&password=go2rtc
+homekit:
+  shed:  # same stream ID from streams list, default PIN - 19550224
