@@ -1,0 +1,19 @@
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: go2rtc-dns
+  annotations:
+    external-dns/private: "true"
+spec:
+  endpoints:
+    - dnsName: go2rtc-streams.lumu.au
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 10.88.0.35
+    - dnsName: go2rtc-streams.lumu.au
+      recordTTL: 300
+      recordType: AAAA
+      targets:
+        - 2404:e80:942a:88::35
