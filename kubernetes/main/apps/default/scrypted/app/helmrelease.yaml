@@ -23,6 +23,18 @@ spec:
           reloader.stakater.com/auto: "true"
 
         pod:
+          affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchExpressions:
+                      - key: app.kubernetes.io/name
+                        operator: In
+                        values: ["plex"]
+                  topologyKey: kubernetes.io/hostname
+          nodeSelector:
+            google.feature.node.kubernetes.io/coral: "true"
+            intel.feature.node.kubernetes.io/gpu: "true"
           annotations:
             k8s.v1.cni.cncf.io/networks: |
               [{
@@ -104,3 +116,9 @@ spec:
         path: /mnt/dead/nvr
         globalMounts:
           - path: /recs
+      usb:
+        type: hostPath
+        hostPath: /dev/bus/usb
+        hostPathType: Directory
+        globalMounts:
+          - path: /dev/bus/usb

@@ -13,8 +13,8 @@ resources:
   - ./cross-seed/ks.yaml
   - ./esphome/ks.yaml
   - ./file-browser/ks.yaml
-  - ./frigate/ks.yaml
-  - ./go2rtc/ks.yaml
+  # - ./frigate/ks.yaml
+  # - ./go2rtc/ks.yaml
   # - ./glauth/ks.yaml
   - ./home-assistant/ks.yaml
   - ./hugo/ks.yaml
