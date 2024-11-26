@@ -71,7 +71,8 @@ spec:
                 gpu.intel.com/i915: 1
                 # squat.ai/coral: 1
                 memory: 8192Mi
-
+            securityContext:
+              privileged: true
     service:
       app:
         controller: scrypted
