@@ -9,3 +9,12 @@ resources:
   - ../../../../templates/externaldns/internal
   - ./externalsecret.yaml
   - ./pvc.yaml
+configMapGenerator:
+  - name: sonarr-configmap
+    files:
+      - pushover-notify.sh=./resources/pushover-notify.sh
+      - x-seed.sh=./resources/x-seed.sh
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
