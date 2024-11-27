@@ -44,7 +44,6 @@ resources:
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
   - ./unpackerr/ks.yaml
-  - ./upgraderr/ks.yaml
   - ./valheim/ks.yaml
   - ./actual/ks.yaml
   # - ./wizarr/ks.yaml
