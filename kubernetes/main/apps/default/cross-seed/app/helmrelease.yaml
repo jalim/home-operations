@@ -68,9 +68,6 @@ spec:
     service:
       app:
         controller: cross-seed
-        ipFamilyPolicy: SingleStack
-        ipFamilies:
-          - IPv4
         ports:
           http:
             port: 80
