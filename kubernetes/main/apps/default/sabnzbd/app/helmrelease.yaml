@@ -104,6 +104,12 @@ spec:
         existingClaim: sabnzbd
       media:
         existingClaim: media
+      scripts:
+        type: configMap
+        name: sabnzbd-scripts
+        defaultMode: 0775
+        globalMounts:
+          - readOnly: true
       incomplete:
         type: emptyDir
       tmp:
