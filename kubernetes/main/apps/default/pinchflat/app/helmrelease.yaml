@@ -92,6 +92,10 @@ spec:
         existingClaim: pinchflat
       tmp:
         type: emptyDir
+      yt-dlp:
+        type: emptyDir
+        globalMounts:
+          - path: /etc/yt-dlp
       media:
         existingClaim: media
         globalMounts:
