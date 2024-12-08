@@ -22,7 +22,7 @@ metadata:
   name: &name dovecot
 spec:
   staticConfigs:
-    - targets: ["mail.lumu.au:9900"]
+    - targets: ["imap.lumu.au:9900"]
   metricsPath: /metrics
   relabelings:
     - action: replace
