@@ -10,7 +10,7 @@ resources:
   - ./externalsecret.yaml
   - ./pvc.yaml
 configMapGenerator:
-  - name: sonarr-configmap
+  - name: radarr-kids-configmap
     files:
       - pushover-notify.sh=./resources/pushover-notify.sh
       - x-seed.sh=./resources/x-seed.sh
