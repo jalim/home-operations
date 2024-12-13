@@ -4,18 +4,18 @@
 
 if [[ "${sonarr_eventtype:-}" == "Test" ]]; then
     notification=$(jq -n \
-   --arg tvdbId=391042 \
+   --arg tvdbId="391042" \
    '{tvdbId: $tvdbId)'
 )
 else
     notification=$(jq -n \
-    --arg tvdbId=$(sonarr_series_imdbid) \
+    --arg tvdbId="$(sonarr_series_imdbid)" \
     '{tvdbId: $tvdbId)'
     )
 fi
 
 
-JELLYFIN_API_KEY=$(JELLYFIN_API_KEY)
+JELLYFIN_API_KEY="$(JELLYFIN_API_KEY)"
 
 status_code=$(curl \
     --write-out "%{http_code}" \
