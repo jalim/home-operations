@@ -14,7 +14,6 @@ else
     )
 fi
 
-
 JELLYFIN_API_KEY="${JELLYFIN_API_KEY:-}"
 
 status_code=$(curl \
