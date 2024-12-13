@@ -44,6 +44,7 @@ spec:
             command: ["/app/inv_sig_helper_rust", "--tcp", "0.0.0.0:12999"]
             env:
               RUST_LOG: debug
+              RUST_BACKTRACE: full
             restartPolicy: Always
             securityContext:
               capabilities:
