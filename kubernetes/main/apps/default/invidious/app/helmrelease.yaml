@@ -39,7 +39,7 @@ spec:
           inv-sig-helper:
             image:
               repository: quay.io/invidious/inv-sig-helper
-              tag: latest
+              tag: master-ef11b83@sha256:55ea8e1da0091f538c9916b398a6f4a8f23cc18f725ef3a6bd4424fda16b7922
               pullPolicy: IfNotPresent
             command: ["/app/inv_sig_helper_rust", "--tcp", "0.0.0.0:12999"]
             env:
