@@ -12,7 +12,7 @@ resources:
 configMapGenerator:
   - name: sonarr-configmap
     files:
-      # - jellyfin-update.sh=./resources/jellyfin-update.sh
+      - jellyfin-update.sh=./resources/jellyfin-update.sh
       - pushover-notify.sh=./resources/pushover-notify.sh
       - x-seed.sh=./resources/x-seed.sh
 generatorOptions:
