@@ -9,13 +9,13 @@ if [[ "${sonarr_eventtype:-}" == "Test" ]]; then
 )
 else
     notification=$(jq -n \
-    --arg tvdbId="$(sonarr_series_imdbid)" \
+    --arg tvdbId="${sonarr_series_imdbid:-}" \
     '{tvdbId: $tvdbId)'
     )
 fi
 
 
-JELLYFIN_API_KEY="$(JELLYFIN_API_KEY)"
+JELLYFIN_API_KEY="$(JELLYFIN_API_KEY:-)"
 
 status_code=$(curl \
     --write-out "%{http_code}" \
