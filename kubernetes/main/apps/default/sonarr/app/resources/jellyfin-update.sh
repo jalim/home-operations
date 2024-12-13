@@ -5,14 +5,16 @@
 if [[ "${sonarr_eventtype:-}" == "Test" ]]; then
     notification=$(jq -n \
    --arg tvdbId="391042" \
-   '{tvdbId: $tvdbId)'
+   '{tvdbId: $tvdbId}'
 )
 else
     notification=$(jq -n \
     --arg tvdbId="${sonarr_series_imdbid:-}" \
-    '{tvdbId: $tvdbId)'
+    '{tvdbId: $tvdbId}'
     )
 fi
+
+printf "${sonarr_series_imdbid}"
 
 JELLYFIN_API_KEY="${JELLYFIN_API_KEY:-}"
 
