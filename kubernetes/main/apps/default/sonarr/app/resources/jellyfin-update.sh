@@ -2,10 +2,19 @@
 # shellcheck disable=SC2154
 
 
-notification=$(jq -n \
-   --arg tvdbId=$(sonarr_series_imdbid) \
+if [[ "${sonarr_eventtype:-}" == "Test" ]]; then
+    notification=$(jq -n \
+   --arg tvdbId=391042 \
    '{tvdbId: $tvdbId)'
 )
+else
+    notification=$(jq -n \
+    --arg tvdbId=$(sonarr_series_imdbid) \
+    '{tvdbId: $tvdbId)'
+    )
+fi
+
+
 JELLYFIN_API_KEY=$(JELLYFIN_API_KEY)
 
 status_code=$(curl \
@@ -14,10 +23,10 @@ status_code=$(curl \
     --output /dev/null \
     --header "Authorization: MediaBrowser Token=${JELLYFIN_API_KEY}" \
     --data-binary "${notification}" \
-    --request POST "http://jellyfin:8096/Library/Series/Updated?" \
+    --request POST "http://jellyfin:8096/Library/Series/Updated" \
 )
 
-if [[ "${status_code}" -ne 200 ]] ; then
+if [[ "${status_code}" -ne 204 ]] ; then
     printf "%s - Unable to send notification with status code %s and payload: %s\n" "$(date)" "${status_code}" "$(echo "${notification}" | jq -c)" >&2
     exit 1
 else
