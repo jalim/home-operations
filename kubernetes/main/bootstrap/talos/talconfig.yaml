@@ -44,7 +44,7 @@ nodes:
           - network: 0.0.0.0/0
             gateway: 10.88.0.1
           - network: ::/0
-            gateway: fe80::921b:eff:fe53:aca1
+            gateway: fe80::be24:11ff:fe52:29e7
         vip:
           ip: ${clusterEndpointIP}
         vlans:
@@ -88,7 +88,7 @@ nodes:
           - network: 0.0.0.0/0
             gateway: 10.88.0.1
           - network: ::/0
-            gateway: fe80::921b:eff:fe53:aca1
+            gateway: fe80::be24:11ff:fe52:29e7
         vip:
           ip: ${clusterEndpointIP}
         vlans:
@@ -115,7 +115,7 @@ nodes:
           - network: 0.0.0.0/0
             gateway: 10.88.0.1
           - network: ::/0
-            gateway: fe80::921b:eff:fe53:aca1
+            gateway: fe80::be24:11ff:fe52:29e7
         vip:
           ip: ${clusterEndpointIP}
         vlans:
@@ -141,7 +141,7 @@ nodes:
           - network: 0.0.0.0/0
             gateway: 10.88.0.1
           - network: ::/0
-            gateway: fe80::921b:eff:fe53:aca1
+            gateway: fe80::be24:11ff:fe52:29e7
         vlans:
           - *vlan10
     patches:
