@@ -71,6 +71,7 @@ spec:
         repo1-block: "y"
         repo1-bundle: "y"
         repo1-storage-verify-tls: "n"
+        repo1-storage-port: "9000"
         repo1-path: /crunchy-pgo
         repo1-retention-full: "30" # days
         repo1-retention-full-type: "time"
@@ -93,7 +94,7 @@ spec:
         - name: repo1 # Minio
           s3: &minio
             bucket: "crunchy-postgres"
-            endpoint: "192.168.1.10:9000"
+            endpoint: "s3.lumu.au"
             region: "us-east-1"
           schedules:
             full: "0 1 * * 0" # Sunday at 01:00
