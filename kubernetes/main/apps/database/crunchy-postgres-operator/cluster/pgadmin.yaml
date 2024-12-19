@@ -2,7 +2,7 @@ apiVersion: postgres-operator.crunchydata.com/v1beta1
 kind: PGAdmin
 metadata:
   name: rhino
-  namespace: postgres-operator
+  namespace: database
 spec:
   users:
   - username: rhino@example.com
