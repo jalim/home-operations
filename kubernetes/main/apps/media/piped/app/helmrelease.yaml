@@ -29,7 +29,15 @@ spec:
         strategy: RollingUpdate
         annotations:
           secret.reloader.stakater.com/reload: piped-secret
-
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+              pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: piped-db-secret
         containers:
           app:
             image:
