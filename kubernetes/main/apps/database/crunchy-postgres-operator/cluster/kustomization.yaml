@@ -7,3 +7,4 @@ resources:
   - ./postgrescluster.yaml
   - ./podmonitor.yaml
   - ./dnsendpoint.yaml
+  - ./pgadmin.yaml
