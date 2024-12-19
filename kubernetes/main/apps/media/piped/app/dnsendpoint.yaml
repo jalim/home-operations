@@ -20,6 +20,24 @@ spec:
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
+  name: piped-api-internal
+  namespace: networking
+  annotations:
+    external-dns/private: "true"
+spec:
+  endpoints:
+    - dnsName: "piped-api.${SECRET_DOMAIN}"
+      recordType: A
+      targets:
+        - ${EXTERNAL_IP}
+    - dnsName: "piped-api.${SECRET_DOMAIN}"
+      recordType: AAAA
+      targets:
+        - ${EXTERNAL_IP_AAAA}
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
   name: piped-internal
   namespace: networking
   annotations:
