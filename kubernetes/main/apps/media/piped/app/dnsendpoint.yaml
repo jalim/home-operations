@@ -1,0 +1,54 @@
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: piped-api-external
+  namespace: networking
+  annotations:
+    external-dns/public: "true"
+spec:
+  endpoints:
+    - dnsName: "piped-api.${SECRET_DOMAIN}"
+      recordType: A
+      targets:
+        - ${EXTERNAL_IP}
+    - dnsName: "piped-api.${SECRET_DOMAIN}"
+      recordType: AAAA
+      targets:
+        - ${EXTERNAL_IP_AAAA}
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: piped-internal
+  namespace: networking
+  annotations:
+    external-dns/private: "true"
+spec:
+  endpoints:
+    - dnsName: "piped.${SECRET_DOMAIN}"
+      recordType: A
+      targets:
+        - ${INTERNAL_IP}
+    - dnsName: "piped.${SECRET_DOMAIN}"
+      recordType: AAAA
+      targets:
+        - ${INTERNAL_IP_AAAA}
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: piped-proxy-internal
+  namespace: networking
+  annotations:
+    external-dns/private: "true"
+spec:
+  endpoints:
+    - dnsName: "piped-proxy.${SECRET_DOMAIN}"
+      recordType: A
+      targets:
+        - ${INTERNAL_IP}
+    - dnsName: "piped-proxy.${SECRET_DOMAIN}"
+      recordType: AAAA
+      targets:
+        - ${INTERNAL_IP_AAAA}
