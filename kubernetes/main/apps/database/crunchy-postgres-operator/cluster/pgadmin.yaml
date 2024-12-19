@@ -18,4 +18,4 @@ spec:
         storage: 1Gi
   serverGroups:
   - name: supply
-    postgresClusterSelector: {postgres}
+    postgresClusterSelector: {}
