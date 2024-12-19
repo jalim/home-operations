@@ -63,7 +63,7 @@ spec:
               repository: ghcr.io/bjw-s-labs/piped-frontend
               tag: 2024.12.9@sha256:76c4bc94360721d8439a76f877e310e3c9084ca3b1914762dca9ee025a4c1e8b
             env:
-              BACKEND_HOSTNAME: piped-api.bjw-s.dev
+              BACKEND_HOSTNAME: piped-api.lumu.au
             probes:
               liveness:
                 enabled: true
@@ -169,10 +169,10 @@ spec:
       backend:
         annotations:
           nginx.ingress.kubernetes.io/enable-cors: "true"
-          nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.bjw-s.dev, https://piped-api.bjw-s.dev, https://piped-proxy.bjw-s.dev"
-        className: "external-nginx"
+          nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.lumu.au, https://piped-api.lumu.au, https://piped-proxy.lumu.au"
+        className: "external"
         hosts:
-          - host: piped-api.bjw-s.dev
+          - host: piped-api.lumu.au
             paths:
               - path: /
                 service:
@@ -181,10 +181,10 @@ spec:
       frontend:
         annotations:
           nginx.ingress.kubernetes.io/enable-cors: "true"
-          nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.bjw-s.dev, https://piped-api.bjw-s.dev, https://piped-proxy.bjw-s.dev"
-        className: "internal-nginx"
+          nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.lumu.au, https://piped-api.lumu.au, https://piped-proxy.lumu.au"
+        className: "internal"
         hosts:
-          - host: piped.bjw-s.dev
+          - host: piped.lumu.au
             paths:
               - path: /
                 service:
@@ -193,10 +193,10 @@ spec:
       ytproxy:
         annotations:
           nginx.ingress.kubernetes.io/enable-cors: "true"
-          nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.bjw-s.dev, https://piped-api.bjw-s.dev, https://piped-proxy.bjw-s.dev"
-        className: "internal-nginx"
+          nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.lumu.au, https://piped-api.lumu.au, https://piped-proxy.lumu.au"
+        className: "internal"
         hosts:
-          - host: piped-proxy.bjw-s.dev
+          - host: piped-proxy.lumu.au
             paths:
               - path: /
                 service:
