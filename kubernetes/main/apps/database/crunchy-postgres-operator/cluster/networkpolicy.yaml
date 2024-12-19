@@ -1,0 +1,16 @@
+---
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "crunchy-allow-ingress"
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: crunchy-postgres-pgbouncer
+  ingress:
+  - fromEntities:
+    - "world"
+    toPorts:
+    - ports:
+      - port: "5432"
+        protocol: TCP
