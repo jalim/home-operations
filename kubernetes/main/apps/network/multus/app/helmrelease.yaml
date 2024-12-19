@@ -29,7 +29,7 @@ spec:
       image:
         repository: ghcr.io/buroa/cni-plugins
         tag: 1.6.1@sha256:01707442d33aa5fe57a19a669edc3e38e73ca9e9377aee4902f0c0dffd59f5f1
-      logLevel: error
+      logLevel: debug
       paths:
         bin: /opt/cni/bin
         config: /etc/cni/net.d
