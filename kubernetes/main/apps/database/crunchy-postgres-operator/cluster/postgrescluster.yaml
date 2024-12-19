@@ -77,6 +77,7 @@ spec:
         # Minio
         repo1-block: "y"
         repo1-bundle: "y"
+        repo1-storage-verify-tls: "n"
         repo1-path: /crunchy-pgo
         repo1-retention-full: "30" # days
         repo1-retention-full-type: "time"
@@ -114,14 +115,14 @@ spec:
         #     full: "0 2 * * 0" # Sunday at 02:00
         #     incremental: "0 2 * * 1-6/2" # Mon-Sat at 02:00, every 2nd day
 
-  # dataSource:
-  #   pgbackrest:
-  #     stanza: "db"
-  #     configuration: *backupConfig
-  #     global: *backupFlag
-  #     repo:
-  #       name: "repo1"
-  #       s3: *minio
+  dataSource:
+    pgbackrest:
+      stanza: "db"
+      configuration: *backupConfig
+      global: *backupFlag
+      repo:
+        name: "repo1"
+        s3: *minio
 
   monitoring:
     pgmonitor:
