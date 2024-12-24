@@ -53,3 +53,10 @@ hostnames:
     - (.*\.)?stackoverflow.com$
     - (.*\.)?askubuntu.com$
     - (.*\.)?superuser.com$
+engines:
+- name: piped
+  engine: piped
+  piped_filter: videos
+  frontend_url: https://piped.lumu.au
+  backend_url:
+    - https://piped-api.lumu.au
