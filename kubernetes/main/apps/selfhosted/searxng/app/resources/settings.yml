@@ -57,6 +57,7 @@ engines:
 - name: piped
   engine: piped
   piped_filter: videos
+  weight: 10
   frontend_url: https://piped.lumu.au
   backend_url:
     - https://piped-api.lumu.au
