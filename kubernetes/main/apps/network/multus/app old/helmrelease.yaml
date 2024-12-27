@@ -1,5 +1,4 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -14,27 +13,30 @@ spec:
         kind: HelmRepository
         name: angelnu
         namespace: flux-system
-      interval: 30m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
   values:
     image:
-      repository: ghcr.io/k8snetworkplumbingwg/multus-cni
-      tag: v4.1.4-thick
-
+      repository: ghcr.io/buroa/multus-cni
+      tag: dev@sha256:873788c07144c6339fde6b734b67208f425a533607a7d915291f0f46bad92084
     cni:
       image:
-        repository: ghcr.io/angelnu/cni-plugins
-        tag: 1.6.1
-
+        repository: ghcr.io/buroa/cni-plugins
+        tag: 1.6.1@sha256:01707442d33aa5fe57a19a669edc3e38e73ca9e9377aee4902f0c0dffd59f5f1
+      logLevel: debug
       paths:
-        config: /etc/cni/net.d
         bin: /opt/cni/bin
-
+        config: /etc/cni/net.d
     resources:
       requests:
-        cpu: 5m
-        memory: 96Mi
+        cpu: 10m
       limits:
-        memory: 96Mi
-
+        memory: 1024Mi
     hostPaths:
       netns: /var/run/netns
