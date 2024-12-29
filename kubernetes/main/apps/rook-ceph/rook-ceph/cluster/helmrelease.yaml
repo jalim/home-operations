@@ -22,7 +22,7 @@ spec:
     cleanupOnFail: true
     remediation:
       strategy: rollback
-      retries: 3
+      retries: 6
   dependsOn:
     - name: rook-ceph-operator
       namespace: rook-ceph
@@ -112,7 +112,7 @@ spec:
     cephBlockPoolsVolumeSnapshotClass:
       enabled: true
       name: csi-ceph-blockpool
-      isDefault: false
+      isDefault: falset
       deletionPolicy: Delete
     cephFileSystems:
       - name: &cephFileSystemName ceph-filesystem
