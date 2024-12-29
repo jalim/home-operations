@@ -53,11 +53,14 @@ hostnames:
     - (.*\.)?stackoverflow.com$
     - (.*\.)?askubuntu.com$
     - (.*\.)?superuser.com$
+  rewrite:
+    '(.*\.)?youtube\.com$': 'piped.lumu.au'
+    '(.*\.)?youtu\.be$': 'piped.lumu.au'
 engines:
 - name: piped
   engine: piped
   piped_filter: videos
-  weight: 10
+  weight: 1
   frontend_url: https://piped.lumu.au
   backend_url:
     - https://piped-api.lumu.au
