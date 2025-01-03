@@ -11,7 +11,7 @@ spec:
     - dnsName: "mail.${SECRET_DOMAIN}"
       recordType: A
       targets:
-        - "10.1.2.150"
+        - "10.1.2.25"
     - dnsName: "mail.${SECRET_DOMAIN}"
       recordType: AAAA
       targets:
