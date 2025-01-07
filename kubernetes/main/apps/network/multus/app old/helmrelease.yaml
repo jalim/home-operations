@@ -28,7 +28,7 @@ spec:
     cni:
       image:
         repository: ghcr.io/buroa/cni-plugins
-        tag: 1.6.2@sha256:128ea94b39f43adcc24452669cfc95f72c282746e238c9d1ef41eb2ae9cd8fe3
+        tag: 1.6.2@sha256:b8bf519bda14762782525bb5607d852a76c4bf0da5ffbd8ca021469818ccd8f8
       logLevel: debug
       paths:
         bin: /opt/cni/bin
