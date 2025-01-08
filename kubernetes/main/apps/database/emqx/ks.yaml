@@ -10,7 +10,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/main/apps/database/emqx/app
+  path: ./kubernetes/main/apps/database/emqx/operator
   prune: true
   sourceRef:
     kind: GitRepository
