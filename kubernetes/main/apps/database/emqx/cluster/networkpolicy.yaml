@@ -6,7 +6,7 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      apps.emqx.io/instance: emqx5
+      apps.emqx.io/instance: emqx
   ingress:
   - fromEntities:
     - "world"
