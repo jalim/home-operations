@@ -1,25 +1,22 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/apps.emqx.io/emqx_v2beta1.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/apps.emqx.io/emqx_v2beta1.json
 apiVersion: apps.emqx.io/v2beta1
 kind: EMQX
 metadata:
-  name: emqx5
-  namespace: database
+  name: emqx
 spec:
   image: public.ecr.aws/emqx/emqx:5.8.4
   config:
     data: |
       authentication {
-          backend = postgresql
-          database = emqx
-          enable = true
-          mechanism = password_based
-          password = ${EMQX_POSTGRES_PASS}
-          password_hash_algorithm {name = bcrypt}
-          pool_size = 8
-          query = "SELECT password_hash, salt, is_superuser FROM mqtt_user where username = $${username} LIMIT 1"
-          server = "postgres16-rw.database.svc.cluster.local:5432"
-          username = emqx
+        backend = "built_in_database"
+        mechanism = "password_based"
+        password_hash_algorithm {
+            name = "bcrypt"
+        }
+        user_id_type = "username"
+        bootstrap_file = "/opt/init-user.json"
+        bootstrap_type = "plain"
       }
       authorization {
         sources = [
@@ -27,16 +24,19 @@ spec:
             type = built_in_database
             enable = true
           }
+          {
+            type = file
+            path = "/opt/init-acl"
+          }
         ]
         no_match: "deny"
       }
-    mode: Replace
   coreTemplate:
     metadata:
       annotations:
         reloader.stakater.com/auto: "true"
     spec:
-      replicas: 3
+      replicas: 2
       envFrom:
         - secretRef:
             name: emqx-secret
@@ -44,6 +44,10 @@ spec:
         - name: init-user
           mountPath: /opt/init-user.json
           subPath: init-user.json
+          readOnly: true
+        - name: init-user
+          mountPath: /opt/init-acl
+          subPath: init-acl
           readOnly: true
       extraVolumes:
         - name: init-user
