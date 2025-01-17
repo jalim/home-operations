@@ -25,8 +25,6 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: volsync
-      namespace: volsync-system
   values:
     controllers:
       qbittorrent:
@@ -59,7 +57,7 @@ spec:
               requests:
                 cpu: 100m
               limits:
-                memory: 9Gi
+                memory: 8Gi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -69,7 +67,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
         supplementalGroups: [1000, 10000]
         seccompProfile: { type: RuntimeDefault }
-      terminationGracePeriodSeconds: 300
     service:
       app:
         controller: qbittorrent
