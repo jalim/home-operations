@@ -6,5 +6,5 @@ namespace: networking
 resources:
   # - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ./dnsendpoint.yaml
+  # - ./dnsendpoint.yaml
   - ./networkpolicy.yaml

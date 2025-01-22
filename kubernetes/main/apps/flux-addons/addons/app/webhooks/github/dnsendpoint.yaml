@@ -9,11 +9,6 @@ spec:
   endpoints:
     - dnsName: flux-webhook.lumu.au
       recordTTL: 300
-      recordType: A
+      recordType: CNAME
       targets:
-        - ${EXTERNAL_IP}
-    - dnsName: flux-webhook.lumu.au
-      recordTTL: 300
-      recordType: AAAA
-      targets:
-        - ${EXTERNAL_IP_AAAA}
+        - tunnel.lumu.au

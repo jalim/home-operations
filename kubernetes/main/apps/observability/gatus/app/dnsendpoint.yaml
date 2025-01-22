@@ -27,10 +27,6 @@ metadata:
 spec:
   endpoints:
     - dnsName: "status.${SECRET_DOMAIN}"
-      recordType: A
+      recordType: CNAME
       targets:
-        - ${EXTERNAL_IP}
-    - dnsName: "status.${SECRET_DOMAIN}"
-      recordType: AAAA
-      targets:
-        - ${EXTERNAL_IP_AAAA}
+        - tunnel.lumu.au

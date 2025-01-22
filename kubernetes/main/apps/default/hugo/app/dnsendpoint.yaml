@@ -9,14 +9,9 @@ spec:
   endpoints:
     - dnsName: lumu.au
       recordTTL: 300
-      recordType: A
+      recordType: CNAME
       targets:
-        - ${EXTERNAL_IP}
-    - dnsName: lumu.au
-      recordTTL: 300
-      recordType: AAAA
-      targets:
-        - ${EXTERNAL_IP_AAAA}
+        - tunnel.lumu.au
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
