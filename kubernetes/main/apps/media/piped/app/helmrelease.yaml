@@ -69,7 +69,7 @@ spec:
           app:
             image:
               repository: ghcr.io/bjw-s-labs/piped-frontend
-              tag: 2025.1.22@sha256:514c2f032c18938db9ec1871f1b225a525e7a1a690042722de04e290e0c9b805
+              tag: 2025.1.27@sha256:e687e4809586650da415706ae2feb5f796da024dc0f6225acf3bc7cf627e22be
             env:
               BACKEND_HOSTNAME: piped-api.lumu.au
             probes:
