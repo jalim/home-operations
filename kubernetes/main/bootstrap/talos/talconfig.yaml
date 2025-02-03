@@ -52,8 +52,8 @@ nodes:
             vlanId: 10
             mtu: 1500
             dhcp: false
-            dhcpOptions:
-              routeMetric: 4096
+            # dhcpOptions:
+            #   routeMetric: 4096
     patches:
       - &kubelet_extra_mounts |-
         machine:
