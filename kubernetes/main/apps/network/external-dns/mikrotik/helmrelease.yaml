@@ -33,53 +33,53 @@ spec:
           repository: ghcr.io/mirceanton/external-dns-provider-mikrotik
           tag: v1.4.1@sha256:a0c9d5d0a80221a75993d1745e8aafdc247c038ccaadc83306df1c4d909d4a4b
           pullPolicy: IfNotPresent
-      env:
-        - name: LOG_FORMAT
-          value: json
-        - name: LOG_LEVEL
-          value: debug
-        - name: MIKROTIK_DEFAULT_TTL
-          value: "1800"
-        - name: MIKROTIK_DEFAULT_COMMENT
-          value: Managed by ExternalDNS
-        - name: MIKROTIK_BASEURL
-          valueFrom:
-            secretKeyRef:
-              name: mikrotik-credentials
-              key: MIKROTIK_BASEURL
-        - name: MIKROTIK_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: mikrotik-credentials
-              key: MIKROTIK_USERNAME
-        - name: MIKROTIK_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mikrotik-credentials
-              key: MIKROTIK_PASSWORD
-        - name: MIKROTIK_SKIP_TLS_VERIFY
-          valueFrom:
-            secretKeyRef:
-              name: mikrotik-credentials
-              key: MIKROTIK_SKIP_TLS_VERIFY
-      extraArgs:
-        - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
-        - --crd-source-kind=DNSEndpoint
-        - --annotation-filter=external-dns/private in (true)
-        - --ignore-ingress-tls-spec
-        - --managed-record-types=A
-        - --managed-record-types=AAAA
-        - --managed-record-types=CNAME
-        - --managed-record-types=TXT
-        - --managed-record-types=MX
-        - --managed-record-types=SRV
-        - --managed-record-types=NS
-      policy: sync
-      sources: ["crd"]
-      txtPrefix: k8s.
-      txtOwnerId: default
-      domainFilters: ["${SECRET_DOMAIN}","${SECONDARY_DOMAIN}"]
-      serviceMonitor:
-        enabled: true
-      podAnnotations:
-        secret.reloader.stakater.com/reload: external-dns-secret
+        env:
+          - name: LOG_FORMAT
+            value: json
+          - name: LOG_LEVEL
+            value: debug
+          - name: MIKROTIK_DEFAULT_TTL
+            value: "1800"
+          - name: MIKROTIK_DEFAULT_COMMENT
+            value: Managed by ExternalDNS
+          - name: MIKROTIK_BASEURL
+            valueFrom:
+              secretKeyRef:
+                name: mikrotik-credentials
+                key: MIKROTIK_BASEURL
+          - name: MIKROTIK_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: mikrotik-credentials
+                key: MIKROTIK_USERNAME
+          - name: MIKROTIK_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mikrotik-credentials
+                key: MIKROTIK_PASSWORD
+          - name: MIKROTIK_SKIP_TLS_VERIFY
+            valueFrom:
+              secretKeyRef:
+                name: mikrotik-credentials
+                key: MIKROTIK_SKIP_TLS_VERIFY
+    extraArgs:
+      - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
+      - --crd-source-kind=DNSEndpoint
+      - --annotation-filter=external-dns/private in (true)
+      - --ignore-ingress-tls-spec
+      - --managed-record-types=A
+      - --managed-record-types=AAAA
+      - --managed-record-types=CNAME
+      - --managed-record-types=TXT
+      - --managed-record-types=MX
+      - --managed-record-types=SRV
+      - --managed-record-types=NS
+    policy: sync
+    sources: ["crd"]
+    txtPrefix: k8s.
+    txtOwnerId: default
+    domainFilters: ["${SECRET_DOMAIN}","${SECONDARY_DOMAIN}"]
+    serviceMonitor:
+      enabled: true
+    podAnnotations:
+      secret.reloader.stakater.com/reload: external-dns-secret
