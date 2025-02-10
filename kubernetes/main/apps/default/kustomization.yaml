@@ -12,7 +12,7 @@ resources:
   - ./autobrr/ks.yaml
   - ./cross-seed/ks.yaml
   - ./esphome/ks.yaml
-  - ./file-browser/ks.yaml
+  # - ./file-browser/ks.yaml
   # - ./frigate/ks.yaml
   # - ./go2rtc/ks.yaml
   # - ./glauth/ks.yaml
@@ -32,7 +32,7 @@ resources:
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
-  - ./radarr-4k/ks.yaml
+  # - ./radarr-4k/ks.yaml
   - ./radarr-kids/ks.yaml
   - ./radarr/ks.yaml
   - ./readarr/ks.yaml
