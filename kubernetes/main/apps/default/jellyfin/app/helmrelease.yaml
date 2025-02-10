@@ -115,6 +115,9 @@ spec:
         globalMounts:
           - path: /cache
       media:
-        existingClaim: media
+        type: nfs
+        server: 10.88.0.80
+        path: /mnt/dead/media
         globalMounts:
-          - readOnly: true
+          - path: /media
+            readOnly: true
