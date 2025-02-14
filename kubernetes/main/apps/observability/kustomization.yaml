@@ -7,4 +7,4 @@ resources:
   - ./kube-prometheus-stack/ks.yaml
   - ./namespace.yaml
   - ./smartctl-exporter/ks.yaml
-  - ./snmp-exporter/ks.yaml
+  # - ./snmp-exporter/ks.yaml
