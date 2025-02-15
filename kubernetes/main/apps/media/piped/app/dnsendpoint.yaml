@@ -9,9 +9,13 @@ metadata:
 spec:
   endpoints:
     - dnsName: "piped-api.${SECRET_DOMAIN}"
-      recordType: CNAME
+      recordType: A
       targets:
-        - tunnel.lumu.au
+        - ${EXTERNAL_IP}
+    - dnsName: "piped-api.${SECRET_DOMAIN}"
+      recordType: AAAA
+      targets:
+        - ${EXTERNAL_IP_AAAA}
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
