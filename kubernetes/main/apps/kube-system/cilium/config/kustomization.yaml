@@ -7,4 +7,4 @@ resources:
   - ./bgp.yaml
   - ./bgpClusterConfig.yml
   - ./bgpPeerConfig.yml
-  - ./clusterwidenetworkpolicy.yaml
+  # - ./clusterwidenetworkpolicy.yaml
