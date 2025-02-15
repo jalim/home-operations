@@ -8,7 +8,7 @@ spec:
       kubernetes.io/os: linux
   bgpInstances:
     - name: instance-65002
-      localASN: 65002
+      localASN: 65001
       peers:
         - name: peer-65001-udmp-v4
           peerASN: 65001
