@@ -103,3 +103,5 @@ spec:
         existingClaim: mealie
         globalMounts:
           - path: /app/data
+      nltk_data:
+        type: emptyDir
