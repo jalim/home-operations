@@ -48,8 +48,8 @@ spec:
               BASE_URL: https://mealie.lumu.au
               API_DOCS: false
               DB_ENGINE: postgres
-              PUID: 568
-              PGID: 568
+              PUID: 911
+              PGID: 911
               TZ: Australia/Perth
               SMTP_HOST: smtp-relay
               SMTP_PORT: 25
