@@ -106,4 +106,4 @@ spec:
       nltk-data:
         type: emptyDir
         globalMounts:
-          - path: /nltk_data
+          - path: /app/nltk_data
