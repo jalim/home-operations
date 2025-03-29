@@ -77,11 +77,11 @@ spec:
                 memory: 600Mi
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
+            runAsUser: 911
+            runAsGroup: 911
             runAsNonRoot: true
-            fsGroup: 568
-            supplementalGroups: [911]
+            fsGroup: 911
+            supplementalGroups: [568]
             fsGroupChangePolicy: OnRootMismatch
     service:
       app:
