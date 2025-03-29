@@ -81,6 +81,7 @@ spec:
             runAsGroup: 568
             runAsNonRoot: true
             fsGroup: 568
+            supplementalGroups: [911]
             fsGroupChangePolicy: OnRootMismatch
     service:
       app:
@@ -103,7 +104,7 @@ spec:
         existingClaim: mealie
         globalMounts:
           - path: /app/data
-      nltk-data:
-        type: emptyDir
-        globalMounts:
-          - path: /nltk_data
+      # nltk-data:
+      #   type: emptyDir
+      #   globalMounts:
+      #     - path: /nltk_data
