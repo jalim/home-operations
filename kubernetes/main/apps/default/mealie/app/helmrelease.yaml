@@ -48,8 +48,8 @@ spec:
               BASE_URL: https://mealie.lumu.au
               API_DOCS: false
               DB_ENGINE: postgres
-              PUID: 911
-              PGID: 911
+              PUID: 568
+              PGID: 568
               TZ: Australia/Perth
               SMTP_HOST: smtp-relay
               SMTP_PORT: 25
@@ -77,11 +77,10 @@ spec:
                 memory: 600Mi
         pod:
           securityContext:
-            runAsUser: 911
-            runAsGroup: 911
+            runAsUser: 568
+            runAsGroup: 568
             runAsNonRoot: true
-            fsGroup: 911
-            supplementalGroups: [568]
+            fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
     service:
       app:
@@ -104,7 +103,7 @@ spec:
         existingClaim: mealie
         globalMounts:
           - path: /app/data
-      # nltk-data:
-      #   type: emptyDir
-      #   globalMounts:
-      #     - path: /nltk_data
+      nltk-data:
+        type: emptyDir
+        globalMounts:
+          - path: /nltk_data
