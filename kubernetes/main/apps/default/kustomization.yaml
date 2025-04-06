@@ -23,6 +23,7 @@ resources:
   - ./jellyplex-watched/ks.yaml
   - ./jellystat/ks.yaml
   - ./jellyseerr/ks.yaml
+  - ./jellyseerr-plex/ks.yaml
   - ./lidarr/ks.yaml
   - ./mealie/ks.yaml
   # - ./mosquitto/ks.yaml
