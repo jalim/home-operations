@@ -82,13 +82,7 @@ spec:
       app:
         className: external
         hosts:
-          - host: &host jp.lumu.au
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-          - host: requests.lumu.au
+          - host: &host requests.lumu.au
             paths:
               - path: /
                 service:
