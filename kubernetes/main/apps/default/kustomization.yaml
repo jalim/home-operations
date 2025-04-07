@@ -40,7 +40,7 @@ resources:
   - ./sabnzbd/ks.yaml
 #  - ./slskd/ks.yaml
   - ./scrypted/ks.yaml
-  - ./smtp-relay/ks.yaml
+  # - ./smtp-relay/ks.yaml
   - ./sonarr-kids/ks.yaml
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
