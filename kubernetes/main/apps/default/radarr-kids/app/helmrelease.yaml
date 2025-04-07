@@ -28,15 +28,15 @@ spec:
       radarr-kids:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/onedr0p/postgres-init
-              tag: 16
-              pullPolicy: IfNotPresent
-            envFrom: &envFrom
-              - secretRef:
-                  name: radarr-kids-secret
+        # initContainers:
+        #   init-db:
+        #     image:
+        #       repository: ghcr.io/onedr0p/postgres-init
+        #       tag: 16
+        #       pullPolicy: IfNotPresent
+        #     envFrom: &envFrom
+        #       - secretRef:
+        #           name: radarr-kids-secret
         containers:
           app:
             image:
@@ -50,7 +50,7 @@ spec:
               RADARR__LOG__DBENABLED: "False"
               RADARR__LOG__LEVEL: info
               RADARR__SERVER__PORT: &port 80
-              RADARR__UPDATE__BRANCH: develop
+              # RADARR__UPDATE__BRANCH: develop
               TZ: Australia/Perth
             envFrom: *envFrom
             probes:
