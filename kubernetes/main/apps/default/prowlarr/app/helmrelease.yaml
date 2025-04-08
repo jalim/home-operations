@@ -95,3 +95,5 @@ spec:
     persistence:
       config:
         existingClaim: prowlarr
+      tmp:
+        type: emptyDir
