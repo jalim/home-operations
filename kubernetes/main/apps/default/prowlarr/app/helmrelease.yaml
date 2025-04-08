@@ -94,5 +94,4 @@ spec:
           - hosts: [*host]
     persistence:
       config:
-        enabled: true
-        type: emptyDir
+        existingClaim: prowlarr
