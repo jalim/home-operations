@@ -112,11 +112,3 @@ spec:
           - path: /config/MediaCover
       media:
         existingClaim: media
-      x-seed:
-        type: configMap
-        name: sonarr-configmap
-        defaultMode: 0775
-        globalMounts:
-          - path: /scripts/x-seed.sh
-            subPath: x-seed.sh
-            readOnly: true

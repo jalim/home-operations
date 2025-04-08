@@ -5,17 +5,8 @@ kind: Kustomization
 namespace: default
 resources:
   - ./helmrelease.yaml
-  - ./gatus.yaml
+  - ../../../../templates/gatus/guarded
   - ../../../../templates/volsync
   - ../../../../templates/externaldns/internal
   - ./externalsecret.yaml
   - ./pvc.yaml
-configMapGenerator:
-  - name: radarr-kids-configmap
-    files:
-      - pushover-notify.sh=./resources/pushover-notify.sh
-      - x-seed.sh=./resources/x-seed.sh
-generatorOptions:
-  disableNameSuffixHash: true
-  annotations:
-    kustomize.toolkit.fluxcd.io/substitute: disabled

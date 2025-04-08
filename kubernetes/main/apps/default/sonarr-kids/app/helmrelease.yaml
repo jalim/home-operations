@@ -99,6 +99,10 @@ spec:
       config:
         enabled: true
         existingClaim: sonarr-kids
+      config-cache:
+        existingClaim: sonarr-kids-cache
+        globalMounts:
+          - path: /config/MediaCover
       tmp:
         type: emptyDir
       media:

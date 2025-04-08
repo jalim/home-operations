@@ -98,30 +98,10 @@ spec:
       config:
         enabled: true
         existingClaim: sonarr
-      jellyfin-update:
-        type: configMap
-        name: sonarr-configmap
-        defaultMode: 0775
+      config-cache:
+        existingClaim: sonarr-cache
         globalMounts:
-          - path: /scripts/jellyfin-update.sh
-            subPath: jellyfin-update.sh
-            readOnly: true
-      pushover-notify:
-        type: configMap
-        name: sonarr-configmap
-        defaultMode: 0775
-        globalMounts:
-          - path: /scripts/pushover-notify.sh
-            subPath: pushover-notify.sh
-            readOnly: true
-      x-seed:
-        type: configMap
-        name: sonarr-configmap
-        defaultMode: 0775
-        globalMounts:
-          - path: /scripts/x-seed.sh
-            subPath: x-seed.sh
-            readOnly: true
+          - path: /config/MediaCover
       tmp:
         type: emptyDir
       media:
