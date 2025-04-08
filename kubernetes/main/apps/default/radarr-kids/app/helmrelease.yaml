@@ -106,6 +106,10 @@ spec:
     persistence:
       config:
         existingClaim: radarr-kids
+      config-cache:
+        existingClaim: radarr-kids-cache
+        globalMounts:
+          - path: /config/MediaCover
       media:
         existingClaim: media
       x-seed:
