@@ -6,6 +6,7 @@ namespace: default
 resources:
   - ./helmrelease.yaml
   - ./gatus.yaml
+  - ../../../../templates/volsync
   - ../../../../templates/externaldns/internal
   - ./externalsecret.yaml
   - ./pvc.yaml
