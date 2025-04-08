@@ -85,7 +85,11 @@ spec:
                   identifier: app
                   port: http
     persistence:
-      tmp:
-        type: emptyDir
       config:
+        existingClaim: autobrr
+      config-log:
+        type: emptyDir
+        globalMounts:
+          - path: /config/log
+      tmp:
         type: emptyDir
