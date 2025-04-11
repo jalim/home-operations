@@ -56,7 +56,7 @@ spec:
   dependsOn:
     - name: cert-manager
       namespace: flux-system
-  interval: 1m
+  interval: 1h
   path: ./kubernetes/main/apps/kube-system/cilium/gateway
   prune: true
   sourceRef:
