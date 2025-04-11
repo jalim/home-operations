@@ -7,46 +7,46 @@ resources:
 #   - ./media-pvc-2.yaml
 
   # Apps:
+  - ./actual/ks.yaml
   - ./audiobookshelf/ks.yaml
   - ./autobrr/ks.yaml
   - ./cross-seed/ks.yaml
   - ./esphome/ks.yaml
-  # - ./file-browser/ks.yaml
-  # - ./frigate/ks.yaml
-  # - ./go2rtc/ks.yaml
-  # - ./glauth/ks.yaml
   - ./home-assistant/ks.yaml
   - ./hugo/ks.yaml
   - ./jellyfin/ks.yaml
   - ./jellyplex-watched/ks.yaml
-  - ./jellystat/ks.yaml
-  - ./jellyseerr/ks.yaml
   - ./jellyseerr-plex/ks.yaml
+  - ./jellyseerr/ks.yaml
+  - ./jellystat/ks.yaml
   - ./lidarr/ks.yaml
   - ./mealie/ks.yaml
-  # - ./mosquitto/ks.yaml
-  # - ./navidrome/ks.yaml
-  # - ./overseerr/ks.yaml
   - ./pinchflat/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
-  # - ./radarr-4k/ks.yaml
   - ./radarr-kids/ks.yaml
   - ./radarr/ks.yaml
   - ./readarr/ks.yaml
   - ./sabnzbd/ks.yaml
-#  - ./slskd/ks.yaml
   - ./scrypted/ks.yaml
-  # - ./smtp-relay/ks.yaml
   - ./sonarr-kids/ks.yaml
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
   - ./unpackerr/ks.yaml
-#  - ./valheim/ks.yaml
-  - ./actual/ks.yaml
-  # - ./wizarr/ks.yaml
   # - ./beer/ks.yaml
+  # - ./file-browser/ks.yaml
+  # - ./frigate/ks.yaml
+  # - ./glauth/ks.yaml
+  # - ./go2rtc/ks.yaml
   # - ./lldap/ks.yaml
+  # - ./mosquitto/ks.yaml
+  # - ./navidrome/ks.yaml
+  # - ./overseerr/ks.yaml
+  # - ./radarr-4k/ks.yaml
   # - ./recyclarr/ks.yaml
+  # - ./smtp-relay/ks.yaml
   # - ./test-sec/ks.yaml
+  # - ./wizarr/ks.yaml
+#  - ./slskd/ks.yaml
+#  - ./valheim/ks.yaml
