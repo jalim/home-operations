@@ -27,8 +27,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: network
-  dependsOn:
-    - name: nginx-certificates
+  # dependsOn:
+  #   - name: nginx-certificates
   path: ./kubernetes/main/apps/network/nginx/external
   prune: true
   sourceRef:
@@ -47,8 +47,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: network
-  dependsOn:
-    - name: nginx-certificates
+  # dependsOn:
+  #   - name: nginx-certificates
   path: ./kubernetes/main/apps/network/nginx/internal
   prune: true
   sourceRef:
