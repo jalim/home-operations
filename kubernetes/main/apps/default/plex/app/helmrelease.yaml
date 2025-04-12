@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: plex
+  name: &app plex
 spec:
   interval: 30m
   chart:
@@ -82,18 +82,29 @@ spec:
         ports:
           http:
             port: 32400
-    ingress:
-      external:
-        className: external
-        annotations:
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-        hosts:
-          - host: &host plex.lumu.au
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.lumu.au"
+        parentRefs:
+          - name: external
+            namespace: flux-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
+            filters:
+              - type: RequestHeaderModifier
+                requestHeaderModifier:
+                  remove: ["Range"]
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /library/streams
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       config:
         enabled: true
