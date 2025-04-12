@@ -89,7 +89,7 @@ spec:
         hostnames: ["{{ .Release.Name }}.lumu.au"]
         parentRefs:
           - name: internal
-            namespace: kube-system
+            namespace: flux-system
             sectionName: https
         rules:
           - backendRefs:
