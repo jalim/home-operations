@@ -78,16 +78,17 @@ spec:
         ports:
           http:
             port: *port
-    ingress:
+    route:
       app:
-        className: external
-        hosts:
-          - host: &host requests.lumu.au
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["requests.lumu.au"]
+        parentRefs:
+          - name: external
+            namespace: flux-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
 
     persistence:
       config:

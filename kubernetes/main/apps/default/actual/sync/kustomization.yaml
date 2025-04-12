@@ -7,4 +7,3 @@ resources:
   - ./helmrelease.yaml
   - ./upsync.secret.sops.yaml
   - ../../../../templates/volsync
-  - ../../../../templates/externaldns/internal
