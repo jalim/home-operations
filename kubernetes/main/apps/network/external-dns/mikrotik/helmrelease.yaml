@@ -75,7 +75,7 @@ spec:
       - --managed-record-types=SRV
       - --managed-record-types=NS
     policy: sync
-    sources: ["crd"]
+    sources: ["crd", "gateway-httproute"]
     txtPrefix: k8s.
     txtOwnerId: default
     domainFilters: ["${SECRET_DOMAIN}","${SECONDARY_DOMAIN}"]

@@ -4,4 +4,3 @@ kind: Kustomization
 namespace: network
 resources:
   - ./helmrelease.yaml
-  # - ../../../../templates/externaldns/external

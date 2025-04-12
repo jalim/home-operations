@@ -79,6 +79,9 @@ spec:
           - name: external
             namespace: flux-system
             sectionName: https
+          - name: internal
+            namespace: flux-system
+            sectionName: https
         rules:
           - backendRefs:
               - name: *app
