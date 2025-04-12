@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: mealie
+  name: &app mealie
 spec:
   interval: 30m
   chart:
@@ -87,17 +87,18 @@ spec:
         controller: mealie
         ports:
           http:
-            port: 9000
-    ingress:
+            port: &port 9000
+    route:
       app:
-        className: external
-        hosts:
-          - host: &host "mealie.lumu.au"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["{{ .Release.Name }}.lumu.au"]
+        parentRefs:
+          - name: internal
+            namespace: flux-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       config:
         existingClaim: mealie
