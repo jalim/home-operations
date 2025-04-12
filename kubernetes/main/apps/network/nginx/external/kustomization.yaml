@@ -7,4 +7,4 @@ resources:
   # - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ./dnsendpoint.yaml
-  - ./networkpolicy.yaml
+  # - ./networkpolicy.yaml
