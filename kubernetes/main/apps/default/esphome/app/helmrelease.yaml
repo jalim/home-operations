@@ -67,7 +67,7 @@ spec:
         ipFamilyPolicy: PreferDualStack
         ports:
           http:
-            port: 6052
+            port: &port 6052
     route:
       app:
         hostnames: ["{{ .Release.Name }}.lumu.au"]
