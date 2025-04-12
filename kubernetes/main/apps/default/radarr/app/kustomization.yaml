@@ -8,7 +8,6 @@ resources:
   - ./helmrelease.yaml
   - ../../../../templates/volsync
   - ../../../../templates/gatus/guarded
-  - ../../../../templates/externaldns/internal
 configMapGenerator:
   - name: radarr-configmap
     files:
