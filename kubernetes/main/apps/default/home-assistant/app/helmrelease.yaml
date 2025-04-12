@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: home-assistant
+  name: &app home-assistant
 spec:
   interval: 30m
   chart:
@@ -39,8 +39,8 @@ spec:
               tag: 2025.4.1@sha256:9495fb2aff6e56e13bf8ccc8f57b6e931b37c44ea1ffef69f6ee3fc5a951633a
             env:
               TZ: Australia/Perth
-              POSTGRES_HOST: postgres16-rw.database.svc.cluster.local
-              POSTGRES_DB: home_assistant
+              # POSTGRES_HOST: postgres16-rw.database.svc.cluster.local
+              # POSTGRES_DB: home_assistant
             probes:
               liveness:
                 enabled: false
@@ -77,18 +77,17 @@ spec:
         ports:
           http:
             port: 8123
-    ingress:
+    route:
       app:
-        className: external
-        hosts:
-          - host: &host hass.lumu.au
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts: [*host]
+        hostnames: ["hass.lumu.au"]
+        parentRefs:
+          - name: internal
+            namespace: flux-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       config:
         existingClaim: home-assistant
