@@ -7,4 +7,3 @@ resources:
   - ../../../../templates/gatus/guarded
   - ../../../../templates/volsync
   # - ./networkpolicy.yaml
-  - ../../../../templates/externaldns/internal
