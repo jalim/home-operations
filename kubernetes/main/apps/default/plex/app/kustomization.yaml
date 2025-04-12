@@ -6,7 +6,7 @@ namespace: default
 resources:
   - ./pvc.yaml
   - ./helmrelease.yaml
-  - ./networkpolicy.yaml
+  # - ./networkpolicy.yaml
   - ../../../../templates/volsync
   - ../../../../templates/gatus/external
   - ../../../../templates/externaldns/external

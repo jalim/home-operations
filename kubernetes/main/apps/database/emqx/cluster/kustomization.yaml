@@ -5,6 +5,6 @@ kind: Kustomization
 resources:
   - ./cluster.yaml
   - ./ingress.yaml
-  - ./networkpolicy.yaml
+  # - ./networkpolicy.yaml
   - ../../../../templates/externaldns/internal
   - ./dnsendpoint.yaml

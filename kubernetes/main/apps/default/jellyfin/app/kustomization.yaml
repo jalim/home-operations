@@ -8,5 +8,5 @@ resources:
   - ../../../../templates/volsync
   - ../../../../templates/gatus/external
   - ../../../../templates/externaldns/external
-  - ./networkpolicy.yaml
+  # - ./networkpolicy.yaml
 
