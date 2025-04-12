@@ -76,7 +76,7 @@ spec:
         ipFamilyPolicy: PreferDualStack
         ports:
           http:
-            port: 8123
+            port: &port 8123
     route:
       app:
         hostnames: ["hass.lumu.au"]
