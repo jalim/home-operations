@@ -7,6 +7,5 @@ resources:
   - ./helmrelease.yaml
   - ../../../../templates/volsync
   - ../../../../templates/gatus/external
-  - ../../../../templates/externaldns/external
   # - ./networkpolicy.yaml
 
