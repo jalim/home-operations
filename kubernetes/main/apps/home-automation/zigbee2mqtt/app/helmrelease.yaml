@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: zigbee2mqtt
+  name: &app zigbee2mqtt
 spec:
   interval: 30m
   chart:
@@ -63,7 +63,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_LEGACY: false
               ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_RETAIN: true
               ZIGBEE2MQTT_CONFIG_EXPERIMENTAL_NEW_API: true
-              ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: 8080
+              ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 8080
               ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://zigbee2mqtt.lumu.au
               ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_DISCOVERY_TOPIC: homeassistant
               ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_EXPERIMENTAL_EVENT_ENTITIES: true
@@ -106,27 +106,6 @@ spec:
                   - ALL
                 add:
                   - NET_BIND_SERVICE
-          code-server:
-            image:
-              repository: ghcr.io/coder/code-server
-              tag: 4.99.1@sha256:f316e875c21d6d340a3d2754d19636f231ceb87c17223c5c3ace1d3135e677e2
-            args:
-              - --auth
-              - none
-              - --disable-telemetry
-              - --disable-update-check
-              - --user-data-dir
-              - /data/.code-server
-              - --extensions-dir
-              - /data/.code-server
-              - --port
-              - "12321"
-              - /data
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 512Mi
 
     service:
       app:
@@ -134,35 +113,24 @@ spec:
         ports:
           http:
             primary: true
-            port: 8080
+            port: *port
           metrics:
             port: 9000
-          code-server:
-            port: 12321
-
-    ingress:
+    route:
       app:
-        className: internal
-        annotations:
-          nginx.ingress.kubernetes.io/rewrite-target: /$1
-        hosts:
-          - host: zigbee2mqtt.lumu.au
-            paths:
-              - path: /(.*)
-                service:
-                  identifier: app
-                  port: http
-              - path: /code/(.*)
-                service:
-                  identifier: app
-                  port: code-server
-
+        hostnames: ["{{ .Release.Name }}.lumu.au"]
+        parentRefs:
+          - name: internal
+            namespace: flux-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       data:
         existingClaim: zigbee2mqtt
         advancedMounts:
           zigbee2mqtt:
             app:
-              - path: /data
-            code-server:
               - path: /data
