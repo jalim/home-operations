@@ -55,7 +55,7 @@ spec:
         ipFamilyPolicy: PreferDualStack
         ports:
           http:
-            port: 5006
+            port: &port 5006
     route:
       app:
         hostnames: ["{{ .Release.Name }}.lumu.au"]
