@@ -322,10 +322,14 @@ spec:
       - vonage-status-panel
     serviceMonitor:
       enabled: true
-    ingress:
-      enabled: true
-      ingressClassName: internal
-      hosts: ["grafana.lumu.au"]
+        route:
+      main:
+        enabled: true
+        hostnames: ["{{ .Release.Name }}.lumu.au"]
+        parentRefs:
+          - name: internal
+            namespace: flux-system
+            sectionName: https
     persistence:
       enabled: false
     testFramework:
