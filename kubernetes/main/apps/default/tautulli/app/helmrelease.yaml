@@ -114,7 +114,7 @@ spec:
           - backendRefs:
               - name: *app
                 port: *port
-             matches:
+            matches:
               - path:
                   type: PathPrefix
                   value: /image
