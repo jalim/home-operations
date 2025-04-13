@@ -121,6 +121,10 @@ spec:
     persistence:
       config:
         existingClaim: "${APP}"
+      config-cache:
+        existingClaim: tautulli-cache
+        globalMounts:
+          - path: /config/cache
       tmp:
         type: emptyDir
       add-ons:
