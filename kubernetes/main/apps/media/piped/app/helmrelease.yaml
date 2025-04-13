@@ -203,44 +203,6 @@ spec:
           - backendRefs:
               - name: ytproxy
                 port: *port
-    ingress:
-      backend:
-        annotations:
-          nginx.ingress.kubernetes.io/enable-cors: "true"
-          nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.lumu.au, https://piped-api.lumu.au, https://piped-proxy.lumu.au"
-        className: "external"
-        hosts:
-          - host: piped-api.lumu.au
-            paths:
-              - path: /
-                service:
-                  identifier: backend
-                  port: http
-      frontend:
-        annotations:
-          nginx.ingress.kubernetes.io/enable-cors: "true"
-          nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.lumu.au, https://piped-api.lumu.au, https://piped-proxy.lumu.au"
-        className: "internal"
-        hosts:
-          - host: piped.lumu.au
-            paths:
-              - path: /
-                service:
-                  identifier: frontend
-                  port: http
-      ytproxy:
-        annotations:
-          nginx.ingress.kubernetes.io/enable-cors: "true"
-          nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.lumu.au, https://piped-api.lumu.au, https://piped-proxy.lumu.au"
-        className: "internal"
-        hosts:
-          - host: piped-proxy.lumu.au
-            paths:
-              - path: /
-                service:
-                  identifier: ytproxy
-                  port: http
-
     persistence:
       config:
         type: secret
