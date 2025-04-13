@@ -8,4 +8,3 @@ resources:
   - ./prometheusrule.yaml
   - ./scrapeconfig.yaml
   - ../../../../templates/externaldns/internal
-  - ./dnsendpoint.yaml
