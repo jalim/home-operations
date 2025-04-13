@@ -32,12 +32,6 @@ spec:
     monitoring:
       enabled: true
       createPrometheusRules: true
-    ingress:
-      dashboard:
-        ingressClassName: internal
-        host:
-          name: rook.lumu.au
-          path: /
     toolbox:
       enabled: true
     configOverride: |
