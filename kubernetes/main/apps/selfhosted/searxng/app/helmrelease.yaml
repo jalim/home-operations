@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: searxng
+  name: &app search
 spec:
   interval: 30m
   chart:
@@ -108,16 +108,17 @@ spec:
           http:
             port: 6379
 
-    ingress:
+    route:
       app:
-        className: "internal"
-        hosts:
-          - host: search.lumu.au
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["{{ .Release.Name }}.lumu.au"]
+        parentRefs:
+          - name: internal
+            namespace: flux-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *httpPort
 
     persistence:
       config:

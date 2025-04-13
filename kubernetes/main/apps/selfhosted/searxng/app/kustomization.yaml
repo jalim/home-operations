@@ -6,7 +6,6 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ../../../../templates/gatus/guarded
-  - ../../../../templates/externaldns/internal
 configMapGenerator:
   - name: searxng-configmap
     files:
