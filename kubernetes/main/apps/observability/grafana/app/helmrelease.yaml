@@ -322,7 +322,7 @@ spec:
       - vonage-status-panel
     serviceMonitor:
       enabled: true
-        route:
+    route:
       main:
         enabled: true
         hostnames: ["{{ .Release.Name }}.lumu.au"]
