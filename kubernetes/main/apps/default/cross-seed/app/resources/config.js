@@ -10,7 +10,8 @@ module.exports = {
     `http://prowlarr.default.svc.cluster.local/72/api?apikey=$${process.env.PROWLARR_API_KEY}` // FNP
   ],
   port: Number(process.env.CROSS_SEED_PORT),
-  apiAuth: false,
+  apiAuth: true,
+  api
   action: "inject",
   includeEpisodes: false,
   includeSingleEpisodes: true,
