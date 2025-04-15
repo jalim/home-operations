@@ -8,4 +8,4 @@ resources:
   - ../../../../templates/externaldns/internal
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ./pvc.yaml
+  # - ./pvc.yaml
