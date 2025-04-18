@@ -97,16 +97,6 @@ spec:
       app:
         hostnames: ["{{ .Release.Name }}.lumu.au"]
         parentRefs:
-          - name: internal
-            namespace: flux-system
-            sectionName: https
-        rules:
-          - backendRefs:
-              - name: *app
-                port: *port
-      ext:
-        hostnames: ["{{ .Release.Name }}.lumu.au"]
-        parentRefs:
           - name: external
             namespace: flux-system
             sectionName: https
@@ -114,10 +104,20 @@ spec:
           - backendRefs:
               - name: *app
                 port: *port
-            matches:
-              - path:
-                  type: PathPrefix
-                  value: /image
+      # ext:
+      #   hostnames: ["{{ .Release.Name }}.lumu.au"]
+      #   parentRefs:
+      #     - name: external
+      #       namespace: flux-system
+      #       sectionName: https
+      #   rules:
+      #     - backendRefs:
+      #         - name: *app
+      #           port: *port
+      #       matches:
+      #         - path:
+      #             type: PathPrefix
+      #             value: /image
     persistence:
       config:
         existingClaim: "${APP}"
