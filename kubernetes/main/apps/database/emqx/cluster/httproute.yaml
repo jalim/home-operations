@@ -21,5 +21,5 @@ spec:
             value: /
       sessionPersistence:
         absoluteTimeout: 35m
-        sessionName: app
+        sessionName: emqx
         type: Cookie
