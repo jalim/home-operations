@@ -101,7 +101,7 @@ spec:
             matches:
               - path:
                   type: PathPrefix
-                  value: /library/streams/
+                  value: /library/streams
           - backendRefs:
               - name: *app
                 port: *port
