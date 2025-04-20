@@ -19,3 +19,6 @@ spec:
         - path:
             type: PathPrefix
             value: /
+      sessionPersistence:
+        type: Cookie
+        idleTimeout: 300s
