@@ -87,7 +87,7 @@ spec:
         hostnames:
           - "{{ .Release.Name }}.lumu.au"
         parentRefs:
-          - name: external
+          - name: internal
             namespace: flux-system
             sectionName: https
         rules:
