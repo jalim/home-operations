@@ -19,7 +19,3 @@ spec:
         - path:
             type: PathPrefix
             value: /
-      sessionPersistence:
-        absoluteTimeout: 35m
-        sessionName: emqx
-        type: Cookie

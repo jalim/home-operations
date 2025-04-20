@@ -59,3 +59,4 @@ spec:
         io.cilium/lb-ipam-ips: 10.88.0.36
     spec:
       type: LoadBalancer
+      SessionAffinity: ClientIP
