@@ -20,5 +20,8 @@ spec:
             type: PathPrefix
             value: /
       sessionPersistence:
+        sessionName: Session-A
         type: Cookie
-        idleTimeout: 300s
+        absoluteTimeout: 10s
+        cookieConfig:
+          lifetimeType: Permanent
