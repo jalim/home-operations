@@ -20,8 +20,6 @@ spec:
             type: PathPrefix
             value: /
       sessionPersistence:
-        sessionName: Session-A
+        absoluteTimeout: 35m
+        sessionName: app
         type: Cookie
-        absoluteTimeout: 10s
-        cookieConfig:
-          lifetimeType: Permanent
