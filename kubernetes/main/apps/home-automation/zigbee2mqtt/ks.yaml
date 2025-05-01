@@ -22,7 +22,6 @@ spec:
     - name: rook-ceph-cluster
     - name: volsync
     - name: external-secrets-stores
-    - name: emqx-cluster
   postBuild:
     substitute:
       APP: *app
