@@ -15,7 +15,7 @@ resources:
   - ./home-assistant/ks.yaml
   # - ./hugo/ks.yaml
   # - ./jellyfin/ks.yaml
-  - ./jellyplex-watched/ks.yaml
+  # - ./jellyplex-watched/ks.yaml
   - ./jellyseerr-plex/ks.yaml
   # - ./jellyseerr/ks.yaml
   # - ./jellystat/ks.yaml
