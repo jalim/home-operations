@@ -6,4 +6,4 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  - ./piped/ks.yaml
+  # - ./piped/ks.yaml
