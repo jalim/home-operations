@@ -1,0 +1,76 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app changedetection
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.3
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      changedetection:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/dgtlmoon/changedetection.io
+              tag: 0.49.17@sha256:ad9e90fe42af85d012bd8ae98a7123b47056fd9e39025e21065f579f7cd3c641
+            env:
+              TZ: Australia/Perth
+              BASE_URL: https://{{ .Release.Name }}.lumu.au
+            resources:
+              requests:
+                cpu: 5m
+                memory: 1Gi
+              limits:
+                memory: 2Gi
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        controller: changedetection
+        ipFamilyPolicy: PreferDualStack
+        ports:
+          http:
+            port: &port 5000
+    route:
+      app:
+        hostnames: ["{{ .Release.Name }}.lumu.au"]
+        parentRefs:
+          - name: internal
+            namespace: flux-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
+    persistence:
+      config:
+        existingClaim: changedetection
+        advancedMounts:
+          changedetection:
+            app:
+              - path: /datastore
