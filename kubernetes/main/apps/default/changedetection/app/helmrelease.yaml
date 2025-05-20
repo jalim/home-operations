@@ -36,6 +36,7 @@ spec:
             env:
               TZ: Australia/Perth
               BASE_URL: https://{{ .Release.Name }}.lumu.au
+              USE_X_SETTINGS: 1
             resources:
               requests:
                 cpu: 5m
