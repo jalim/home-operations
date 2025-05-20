@@ -37,6 +37,7 @@ spec:
               TZ: Australia/Perth
               BASE_URL: "https://{{ .Release.Name }}.lumu.au"
               USE_X_SETTINGS: 1
+              PORT: &port 5000
             resources:
               requests:
                 cpu: 5m
@@ -51,14 +52,13 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
     service:
-      app:
-        controller: changedetection
-        ipFamilyPolicy: SingleStack
+      changedetection:
+        controller: *app
         ports:
           http:
-            port: &port 5000
+            port: *port
     route:
-      app:
+      changedetection:
         hostnames: ["{{ .Release.Name }}.lumu.au"]
         parentRefs:
           - name: internal
