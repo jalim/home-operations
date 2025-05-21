@@ -38,7 +38,7 @@ spec:
               BASE_URL: "https://{{ .Release.Name }}.lumu.au"
               USE_X_SETTINGS: 1
               PORT: &port 5000
-              PLAYWRIGHT_DRIVER_URL: ws://localhost:3000/?stealth=1&--disable-web-security=true&--user-data-dir=~/browserless-cache-123
+              PLAYWRIGHT_DRIVER_URL: ws://localhost:3000?token=TESTING6R0W53R135510
             resources:
               requests:
                 cpu: 5m
@@ -58,6 +58,7 @@ spec:
               CONCURRENT: "10"
               DATA_DIR: /profile
               DOWNLOAD_DIR: /downloads
+              TOKEN: TESTING6R0W53R135510
             securityContext:
               allowPrivilegeEscalation: false
     defaultPodOptions:
