@@ -45,6 +45,10 @@ spec:
                 memory: 1Gi
               limits:
                 memory: 2Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: { drop: ["ALL"] }
+              readOnlyRootFilesystem: true
           browser:
             image:
               repository: ghcr.io/browserless/chromium
