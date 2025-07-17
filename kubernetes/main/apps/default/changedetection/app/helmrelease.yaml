@@ -52,7 +52,7 @@ spec:
           browser:
             image:
               repository: ghcr.io/browserless/chromium
-              tag: v2.32.0@sha256:1c7e90e7c30ced050d60bfac99aa21aa277d61d84be3c307e95b29cfadb0026a
+              tag: v2.33.0@sha256:a7ef061130e593b2a8e03c3b1c379ef0cbca95f857ae532831d66ba6a933cd72
               pullPolicy: IfNotPresent
             env:
               CONCURRENT: "10"
