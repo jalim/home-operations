@@ -21,7 +21,7 @@ resources:
   # - ./jellyseerr/ks.yaml
   # - ./jellystat/ks.yaml
   # - ./lidarr/ks.yaml
-  # - ./mealie/ks.yaml
+  - ./mealie/ks.yaml
   - ./pinchflat/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
