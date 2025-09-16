@@ -65,7 +65,7 @@ spec:
     extraArgs:
       - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
       - --crd-source-kind=DNSEndpoint
-      - --exclude-target-net=203.12.14.62/32
+      - --exclude-target-net=203.12.14.62/32,210.56.150.86/32
       - --ignore-ingress-tls-spec
       - --managed-record-types=A
       - --managed-record-types=AAAA
