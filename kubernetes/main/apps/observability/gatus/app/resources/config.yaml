@@ -7,7 +7,7 @@ connectivity:
 endpoints:
   - name: flux-webhook
     group: external
-    url: https://flux.lumu.au
+    url: https://flux-webhook.lumu.au
     interval: 1m
     client:
       dns-resolver: tcp://1.1.1.1:53
