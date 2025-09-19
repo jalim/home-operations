@@ -28,18 +28,10 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/onedr0p/postgres-init
-              tag: 16
-            envFrom: &envFrom
-              - secretRef:
-                  name: gatus-secret
           init-config:
-            dependsOn: init-db
             image:
-              repository: ghcr.io/kiwigrid/k8s-sidecar
-              tag: 1.30.10@sha256:835d79d8fbae62e42d8a86929d4e3c5eec2e869255dd37756b5a3166c2f22309
+              repository: ghcr.io/home-operations/k8s-sidecar
+              tag: 1.30.10@sha256:dd3b1f0c4e6b4512b2deb50c58acf65fd0f0927120a59a95eec854d32a6c9ce3
             env:
               FOLDER: /config
               LABEL: gatus.io/enabled
@@ -48,11 +40,11 @@ spec:
               UNIQUE_FILENAMES: true
               METHOD: WATCH
             restartPolicy: Always
-            resources: &resources
+            resources:
               requests:
                 cpu: 10m
               limits:
-                memory: 256Mi
+                memory: 128Mi
         containers:
           app:
             image:
@@ -119,8 +111,7 @@ spec:
               - name: *app
                 port: *port
     serviceAccount:
-      create: true
-      name: gatus
+      gatus: {}
     persistence:
       config:
         type: emptyDir
