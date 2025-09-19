@@ -18,9 +18,6 @@ resources:
   # - ./jellyfin/ks.yaml
   # - ./jellyplex-watched/ks.yaml
   - ./jellyseerr-plex/ks.yaml
-  # - ./jellyseerr/ks.yaml
-  # - ./jellystat/ks.yaml
-  # - ./lidarr/ks.yaml
   - ./mealie/ks.yaml
   - ./pinchflat/ks.yaml
   - ./plex/ks.yaml
@@ -28,7 +25,6 @@ resources:
   - ./qbittorrent/ks.yaml
   - ./radarr-kids/ks.yaml
   - ./radarr/ks.yaml
-  # - ./readarr/ks.yaml
   - ./sabnzbd/ks.yaml
   # - ./scrypted/ks.yaml
   - ./sonarr-kids/ks.yaml
