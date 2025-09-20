@@ -6,4 +6,6 @@ resources:
   - ./claim.yaml
   - ./nfs.yaml
   - ./minio.yaml
+  - ./kopia.yaml
+  - ./externalsecret.yaml
   # - ./r2.yaml
