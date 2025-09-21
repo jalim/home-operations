@@ -6,3 +6,4 @@ resources:
   - ./helmrelease.yaml
   - ../../../../templates/volsync
   - ../../../../templates/gatus/guarded
+  - ./kopia.yaml
