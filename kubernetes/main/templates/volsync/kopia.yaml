@@ -10,7 +10,6 @@ spec:
     schedule: "0 * * * *"
   kopia:
     copyMethod: "${VOLSYNC_COPYMETHOD:-Snapshot}"
-    pruneIntervalDays: 14
     repository: "${APP}-volsync-kopia-secret"
     volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-csi-ceph-blockpool}"
     cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:-10Gi}"
