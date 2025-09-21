@@ -7,7 +7,7 @@ metadata:
 spec:
   sourcePVC: "${APP}"
   trigger:
-    schedule: "35 * * * *"
+    schedule: "47 * * * *"
   kopia:
     copyMethod: "${VOLSYNC_COPYMETHOD:-Snapshot}"
     repository: "${APP}-volsync-kopia-secret"
@@ -18,9 +18,9 @@ spec:
     storageClassName: "${VOLSYNC_STORAGECLASS:-ceph-block}"
     accessModes: ["${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce}"]
     moverSecurityContext:
-      runAsUser: ${VOLSYNC_PUID:-568}
-      runAsGroup: ${VOLSYNC_PGID:-568}
-      fsGroup: ${VOLSYNC_PGID:-568}
+      runAsUser: ${VOLSYNC_PUID:-1000}
+      runAsGroup: ${VOLSYNC_PGID:-1000}
+      fsGroup: ${VOLSYNC_PGID:-1000}
     retain:
       hourly: 24
       daily: 7
