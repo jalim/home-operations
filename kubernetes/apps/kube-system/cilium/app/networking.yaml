@@ -5,9 +5,10 @@ kind: CiliumLoadBalancerIPPool
 metadata:
   name: pool
 spec:
-  allowFirstLastIPs: "No"
+  allowFirstLastIPs: "Yes"
   blocks:
-    - cidr: 192.168.42.0/24
+    - start: 10.88.0.20
+      stop: 10.88.0.60
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/cilium.io/ciliuml2announcementpolicy_v2alpha1.json
 apiVersion: cilium.io/v2alpha1
@@ -63,11 +64,11 @@ spec:
       kubernetes.io/os: linux
   bgpInstances:
     - name: cilium
-      localASN: 64514
+      localASN: 65001
       peers:
-        - name: unifi
-          peerASN: 64513
-          peerAddress: 192.168.1.1
+        - name: peer-65001-mikrotik-v4
+          peerASN: 65001
+          peerAddress: 10.88.0.1
           peerConfigRef:
             name: l3-bgp-peer-config
 ---
@@ -76,7 +77,7 @@ kind: Service
 metadata:
   name: kube-api
   annotations:
-    lbipam.cilium.io/ips: 192.168.42.120
+    lbipam.cilium.io/ips: 10.88.0.20
 spec:
   type: LoadBalancer
   selector:
