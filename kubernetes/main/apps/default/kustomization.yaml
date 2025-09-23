@@ -12,7 +12,7 @@ resources:
   - ./autobrr/ks.yaml
   - ./changedetection/ks.yaml
   # - ./cross-seed/ks.yaml  - Down until work it out
-  # - ./esphome/ks.yaml
+  - ./esphome/ks.yaml
   # - ./home-assistant/ks.yaml
   # - ./hugo/ks.yaml
   # - ./jellyfin/ks.yaml
