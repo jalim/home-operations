@@ -56,6 +56,6 @@ spec:
       fsGroup: ${VOLSYNC_PGID:=1000}
     repository: ${APP}-volsync-kopia-secret
     sourceIdentity:
-      sourceName: ${APP}
+      sourceName: ${APP}-kopia
     storageClassName: ${VOLSYNC_STORAGECLASS:=ceph-block}
     volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=csi-ceph-blockpool}
