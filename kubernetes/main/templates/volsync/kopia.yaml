@@ -23,6 +23,9 @@ spec:
       fsGroup: ${VOLSYNC_PGID:=1000}
     repository: ${APP}-volsync-kopia-secret
     retain:
+      yearly: 1
+      monthly: 6
+      weekly: 4
       hourly: 24
       daily: 7
     storageClassName: ${VOLSYNC_STORAGECLASS:=ceph-block}
