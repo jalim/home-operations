@@ -84,6 +84,9 @@ spec:
         ports:
           http:
             port: *port
+        ipFamilies:
+          - IPv4
+        ipFamilyPolicy: SingleStack
     route:
       app:
         hostnames: ["{{ .Release.Name }}.lumu.au"]
