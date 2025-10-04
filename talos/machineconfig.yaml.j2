@@ -8,7 +8,7 @@ machine:
     {% endif %}
   certSANs:
     - 127.0.0.1
-    - 192.168.42.120
+    - 10.88.0.20
   features:
     apidCheckExtKeyUsage: true
     diskQuotaSupport: true
@@ -67,14 +67,14 @@ machine:
     image: ghcr.io/siderolabs/kubelet:v1.34.1
     nodeIP:
       validSubnets:
-        - 192.168.42.0/24
+        - 10.88.0.0/24
   network:
     interfaces:
       - interface: bond0
         bond:
           deviceSelectors:
-            - hardwareAddr: 00:30:93:12:*
-              driver: atlantic
+            - hardwareAddr: 00:1b:21:bc:*
+              driver: ixgbe
           mode: active-backup
         dhcp: true
         mtu: 9000
