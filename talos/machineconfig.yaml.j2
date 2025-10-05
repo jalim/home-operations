@@ -48,19 +48,17 @@ machine:
         nconnect=16
         noatime=True
   install:
-    diskSelector:
-      model: Samsung SSD 870
-    image: factory.talos.dev/metal-installer/05b4a47a70bc97786ed83d200567dcc8a13f731b164537ba59d5397d668851fa:v1.11.1
+    disk: /dev/sda
+    image: factory.talos.dev/metal-installer/3c2869e2f4732584865dcb073144aabef78ed5cd64e241c81622738618025117:v1.11.1
     wipe: false
   kernel:
     modules:
       - name: nbd
-      - name: thunderbolt
-      - name: thunderbolt_net
   kubelet:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
     extraConfig:
+      maxPods: 250
       featureGates:
         ImageVolume: true
       serializeImagePulls: false
@@ -77,16 +75,12 @@ machine:
               driver: ixgbe
           mode: active-backup
         dhcp: true
-        mtu: 9000
+        mtu: 1500
         vlans:
           - # IOT
-            vlanId: 70
+            vlanId: 10
             dhcp: false
-            mtu: 9000
-          - # VPN
-            vlanId: 90
-            dhcp: false
-            mtu: 9000
+            mtu: 1500
   nodeLabels:
     intel.feature.node.kubernetes.io/gpu: "true"
     topology.kubernetes.io/region: main
@@ -118,7 +112,7 @@ cluster:
     {% endif %}
   clusterName: main
   controlPlane:
-    endpoint: https://192.168.42.120:6443
+    endpoint: https://10.88.0.20:6443
   id: op://kubernetes/talos/CLUSTER_ID
   network:
     cni:
@@ -143,7 +137,7 @@ cluster:
         - level: Metadata
     certSANs:
       - 127.0.0.1
-      - 192.168.42.120
+      - 10.88.0.20
     disablePodSecurityPolicy: true
     extraArgs:
       enable-aggregator-routing: "true"
@@ -158,7 +152,7 @@ cluster:
     disabled: true
   etcd:
     advertisedSubnets:
-      - 192.168.42.0/24
+      - 10.88.0.0/24
     ca:
       crt: op://kubernetes/talos/CLUSTER_ETCD_CA_CRT
       key: op://kubernetes/talos/CLUSTER_ETCD_CA_KEY
@@ -192,14 +186,6 @@ cluster:
   serviceAccount:
     key: op://kubernetes/talos/CLUSTER_SERVICEACCOUNT_KEY
   {% endif %}
----
-apiVersion: v1alpha1
-kind: UserVolumeConfig
-name: local-hostpath
-provisioning:
-  diskSelector:
-    match: disk.model == "Corsair MP600 MICRO" && !system_disk
-  minSize: 1TB
 ---
 apiVersion: v1alpha1
 kind: WatchdogTimerConfig
