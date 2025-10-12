@@ -40,7 +40,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nfs-backup-pvc-default
+  name: nfs-backup-pvc
   namespace: default
 spec:
   storageClassName: nfs-class
@@ -54,7 +54,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nfs-backup-pvc-ha
+  name: nfs-backup-pvc
   namespace: home-automation
 spec:
   storageClassName: nfs-class
