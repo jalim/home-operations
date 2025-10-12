@@ -62,6 +62,14 @@ machine:
       featureGates:
         ImageVolume: true
       serializeImagePulls: false
+    extraMounts:
+      - destination: /var/openebs/local
+        type: bind
+        source: /var/openebs/local
+        options:
+          - bind
+          - rshared
+          - rw
     image: ghcr.io/siderolabs/kubelet:v1.34.1
     nodeIP:
       validSubnets:
@@ -81,6 +89,11 @@ machine:
             vlanId: 10
             dhcp: false
             mtu: 1500
+  time:
+    disabled: false
+    servers:
+      - 10.1.2.40
+      - 10.1.2.10
   nodeLabels:
     intel.feature.node.kubernetes.io/gpu: "true"
     topology.kubernetes.io/region: main
@@ -191,3 +204,12 @@ apiVersion: v1alpha1
 kind: WatchdogTimerConfig
 device: /dev/watchdog0
 timeout: 5m
+---
+apiVersion: v1alpha1
+kind: ExtensionServiceConfig
+name: nut-client
+configFiles:
+  - content: |-
+        MONITOR cyberpower@10.88.0.81 1 upsmon slave slave
+        SHUTDOWNCMD "/sbin/poweroff"
+    mountPath: /usr/local/etc/nut/upsmon.conf
