@@ -22,7 +22,7 @@ spec:
       runAsGroup: ${VOLSYNC_PGID:=1000}
       fsGroup: ${VOLSYNC_PGID:=1000}
     repository: ${APP}-volsync-kopia-secret
-    repositoryPVC: nfs-backup-pvc
+    # repositoryPVC: nfs-backup-pvc
     retain:
       yearly: 1
       monthly: 6
@@ -59,7 +59,7 @@ spec:
       runAsGroup: ${VOLSYNC_PGID:=1000}
       fsGroup: ${VOLSYNC_PGID:=1000}
     repository: ${APP}-volsync-kopia-secret
-    repositoryPVC: nfs-backup-pvc
+    # repositoryPVC: nfs-backup-pvc
     sourceIdentity:
       sourceName: ${APP}
     storageClassName: ${VOLSYNC_STORAGECLASS:=ceph-block}
