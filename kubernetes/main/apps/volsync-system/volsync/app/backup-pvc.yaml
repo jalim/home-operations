@@ -27,7 +27,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: nfs-backup-pvc
-  namespace: production
+  namespace: volsync-system
 spec:
   storageClassName: nfs-class
   accessModes:
