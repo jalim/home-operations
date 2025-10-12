@@ -7,4 +7,4 @@ resources:
   - ./mutations
   - ./prometheusrule.yaml
   - ./ocirepository.yaml
-  - ./backup-pvc.yaml
+  # - ./backup-pvc.yaml
