@@ -8,3 +8,5 @@ resources:
   - ./prometheusrule.yaml
   - ./ocirepository.yaml
   - ./backup-pvc.yaml
+  - ./ha-pvc.yaml
+  - ./default-pvc.yaml
