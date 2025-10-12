@@ -36,3 +36,31 @@ spec:
     requests:
       storage: 500Gi
   volumeName: nfs-backup-pv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-backup-pvc
+  namespace: default
+spec:
+  storageClassName: nfs-class
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 500Gi
+  volumeName: nfs-backup-p
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-backup-pvc
+  namespace: home-automation
+spec:
+  storageClassName: nfs-class
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 500Gi
+  volumeName: nfs-backup-pv
