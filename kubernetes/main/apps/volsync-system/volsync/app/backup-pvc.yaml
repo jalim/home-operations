@@ -1,0 +1,28 @@
+# Create NFS-backed PVC
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-backup-pv
+spec:
+  capacity:
+    storage: 500Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 10.88.0.80
+    path: /mnt/dead/VolsyncKopia
+  persistentVolumeReclaimPolicy: Retain
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-backup-pvc
+  namespace: production
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 500Gi
+  volumeName: nfs-backup-pv
