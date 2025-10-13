@@ -101,7 +101,11 @@ spec:
           - path: /config/repository.config
             subPath: repository.config
       repository:
-        existingClaim: nfs-backup-pvc
+        type: nfs
+        server: 10.88.0.80
+        path: /mnt/dead/VolsyncKopia
+        globalMounts:
+          - path: /repository
       tmpfs:
         type: emptyDir
         advancedMounts:

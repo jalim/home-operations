@@ -28,5 +28,5 @@ spec:
     kind: GitRepository
     name: home-kubernetes
     namespace: flux-system
-  targetNamespace: volsync-system
+  targetNamespace: *namespace
   timeout: 5m
