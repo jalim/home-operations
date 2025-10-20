@@ -21,7 +21,7 @@ kind: ScrapeConfig
 metadata:
   name: &name dovecot
 spec:
-  scrapeInterval: 60s
+  scrapeInterval: 120s
   scrapeTimeout: 10s
   honorTimestamps: false
   staticConfigs:
