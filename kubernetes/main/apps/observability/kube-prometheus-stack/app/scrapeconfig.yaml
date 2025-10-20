@@ -21,6 +21,8 @@ kind: ScrapeConfig
 metadata:
   name: &name dovecot
 spec:
+  scrapeInterval: 60s
+  scrapeTimeout: 10s
   staticConfigs:
     - targets: ["imap.lumu.au:9900"]
   metricsPath: /metrics
