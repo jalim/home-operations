@@ -32,6 +32,10 @@ spec:
     crds:
       enabled: true
     cleanPrometheusOperatorObjectNames: true
+    prometheusOperator:
+      # Configure Prometheus Operator to use EndpointSlice instead of deprecated Endpoints API
+      prometheusSpec:
+        endpointSliceDiscovery: true
     alertmanager:
       route:
         main:
