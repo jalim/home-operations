@@ -21,7 +21,7 @@ kind: ScrapeConfig
 metadata:
   name: &name dovecot
 spec:
-  scrapeInterval: 120s
+  scrapeInterval: 60s # Changed from 120s to 60s
   scrapeTimeout: 10s
   honorTimestamps: false
   staticConfigs:
@@ -104,3 +104,4 @@ spec:
 #     - action: replace
 #       targetLabel: job
 #       replacement: *name
+
