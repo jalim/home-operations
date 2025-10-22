@@ -6,5 +6,5 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ./prometheusrule.yaml
-  - ./scrapeconfig.yaml
+#  - ./scrapeconfig.yaml
   - ../../../../templates/externaldns/internal
