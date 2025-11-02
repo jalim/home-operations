@@ -28,3 +28,9 @@ spec:
   dependsOn:
     - name: node-feature-discovery
       namespace: kube-system
+  values:
+    manager:
+      readinessProbe:
+        timeoutSeconds: 5
+      livenessProbe:
+        timeoutSeconds: 5
