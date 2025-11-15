@@ -28,14 +28,6 @@ spec:
       recordType: A
       targets:
         - 10.1.2.32
-    - dnsName: "rspamd.${SECRET_DOMAIN}"
-      recordType: A
-      targets:
-        - 10.1.2.30
-    - dnsName: "rspamd.${SECRET_DOMAIN}"
-      recordType: AAAA
-      targets:
-        - "2402:21a0:2043:beef::30"
     - dnsName: "pbs.${SECRET_DOMAIN}"
       recordType: A
       targets:
