@@ -72,6 +72,11 @@ spec:
       # Service account
       serviceAccountName: gitlab-runner
 
+    # Service account for the runner pod
+    rbac:
+      create: false
+      serviceAccountName: gitlab-runner
+
     # Pod resources
     resources:
       requests:
@@ -93,3 +98,12 @@ spec:
     podSecurityContext:
       runAsUser: 999
       fsGroup: 999
+
+    # Volume mounts for runner state
+    volumeMounts:
+      - name: gitlab-runner-state
+        mountPath: /.gitlab-runner
+
+    volumes:
+      - name: gitlab-runner-state
+        emptyDir: {}
