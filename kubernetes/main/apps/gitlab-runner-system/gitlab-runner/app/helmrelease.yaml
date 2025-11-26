@@ -48,7 +48,7 @@ spec:
 
             # Resource limits
             cpu_limit = "2"
-            memory_limit = "500m"
+            memory_limit = "2Gi"
             service_cpu_limit = "500m"
             service_memory_limit = "1Gi"
             helper_cpu_limit = "500m"
