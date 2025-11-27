@@ -54,7 +54,13 @@ spec:
             helper_cpu_limit = "500m"
             helper_memory_limit = "512Mi"
 
-            # Cleanup
+            # Cache volumes for package managers
+            [[runners.kubernetes.volumes.pvc]]
+              name = "cache"
+              mount_path = "/cache"
+              read_only = false
+
+            # Docker certs
             [[runners.kubernetes.volumes.empty_dir]]
               name = "docker-certs"
               mount_path = "/certs/client"
@@ -107,3 +113,6 @@ spec:
     volumes:
       - name: gitlab-runner-state
         emptyDir: {}
+      - name: cache
+        persistentVolumeClaim:
+          claimName: gitlab-runner-cache
