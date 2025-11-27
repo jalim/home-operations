@@ -113,6 +113,3 @@ spec:
     volumes:
       - name: gitlab-runner-state
         emptyDir: {}
-      - name: cache
-        persistentVolumeClaim:
-          claimName: cache
