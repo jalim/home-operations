@@ -27,7 +27,7 @@ spec:
               RESPONSE=$(curl -w "\n%{http_code}" -s \
                 -X DELETE \
                 "http://autobrr.default.svc.cluster.local/api/release?olderThan=168" \
-                -H "X-API-Token: ${AUTOBRR_API_KEY}")
+                -H "X-API-Token: $AUTOBRR_API_KEY")
 
               HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
               BODY=$(echo "$RESPONSE" | sed '$d')
