@@ -1,0 +1,50 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: autobrr-cleanup
+  namespace: default
+spec:
+  schedule: "0 2 * * 0"  # Every Sunday at 2 AM
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+          - name: cleanup
+            image: curlimages/curl:latest
+            command:
+            - sh
+            - -c
+            - |
+              echo "Starting autobrr release cleanup..."
+              echo "Deleting releases older than 168 hours (7 days)..."
+
+              RESPONSE=$(curl -w "\n%{http_code}" -s \
+                -X DELETE \
+                "http://autobrr.default.svc.cluster.local/api/release?olderThan=168" \
+                -H "X-API-Token: ${AUTOBRR_API_KEY}")
+
+              HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+              BODY=$(echo "$RESPONSE" | sed '$d')
+
+              echo "HTTP Status: $HTTP_CODE"
+              echo "Response: $BODY"
+
+              if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
+                echo "✓ Cleanup successful!"
+                exit 0
+              else
+                echo "✗ Cleanup failed with HTTP $HTTP_CODE"
+                exit 1
+              fi
+            env:
+            - name: AUTOBRR_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: autobrr-cleanup-secret
+                  key: AUTOBRR__API_KEY
