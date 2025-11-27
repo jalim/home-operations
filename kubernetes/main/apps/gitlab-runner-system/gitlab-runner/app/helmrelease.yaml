@@ -115,4 +115,4 @@ spec:
         emptyDir: {}
       - name: cache
         persistentVolumeClaim:
-          claimName: gitlab-runner-cache
+          claimName: cache
