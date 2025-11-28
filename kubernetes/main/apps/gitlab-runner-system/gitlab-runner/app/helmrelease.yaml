@@ -134,3 +134,14 @@ spec:
     volumes:
       - name: gitlab-runner-state
         emptyDir: {}
+
+    # Post-registration script to fix concurrent setting
+    # This addresses GitLab issue #271 where concurrent doesn't merge properly
+    configMaps:
+      pre-entrypoint-script: |
+        #!/bin/bash
+        # Update the concurrent setting in the final config after registration
+        if [ -f "/.gitlab-runner/config.toml" ]; then
+          sed -i 's/^concurrent = 1$/concurrent = 10/' /.gitlab-runner/config.toml
+          echo "Updated concurrent setting to 10 in /.gitlab-runner/config.toml"
+        fi
