@@ -81,6 +81,7 @@ build:
 ## Cache Directories
 
 All caches are stored under `/cache/` and persist between runs:
+
 - `/cache/apk` - Alpine packages
 - `/cache/apt` - Debian/Ubuntu packages
 - `/cache/npm` - npm packages
@@ -93,5 +94,7 @@ All caches are stored under `/cache/` and persist between runs:
 ## Storage
 
 - **Size**: 10Gi
-- **Storage Class**: ceph-filesystem (ReadWriteMany)
+- **Storage Class**: gitlab-runner-cache (NFS - ReadWriteMany)
+- **NFS Server**: 10.88.0.80
+- **NFS Path**: /mnt/dead/gitlab-runner-cache
 - **Shared**: All runner job pods share the same cache volume

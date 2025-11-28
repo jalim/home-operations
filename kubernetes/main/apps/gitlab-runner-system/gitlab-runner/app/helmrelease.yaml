@@ -46,12 +46,23 @@ spec:
             image = "ubuntu:22.04"
             privileged = true
 
-            # Resource limits
+            # Resource limits and requests
+            # Build container
+            cpu_request = "250m"
             cpu_limit = "2"
+            memory_request = "512Mi"
             memory_limit = "2Gi"
+
+            # Service container (for services like docker:dind)
+            service_cpu_request = "50m"
             service_cpu_limit = "500m"
+            service_memory_request = "256Mi"
             service_memory_limit = "1Gi"
+
+            # Helper container
+            helper_cpu_request = "50m"
             helper_cpu_limit = "500m"
+            helper_memory_request = "128Mi"
             helper_memory_limit = "512Mi"
 
             # Cache volumes for package managers

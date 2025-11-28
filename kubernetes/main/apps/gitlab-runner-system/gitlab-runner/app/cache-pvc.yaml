@@ -1,4 +1,27 @@
 ---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gitlab-runner-cache
+provisioner: nfs
+parameters:
+  archiveOnDelete: "false"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: gitlab-runner-cache
+spec:
+  storageClassName: gitlab-runner-cache
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: 10.88.0.80
+    path: /mnt/dead/gitlab-runner-cache
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -6,8 +29,9 @@ metadata:
   namespace: gitlab-runner-system
 spec:
   accessModes:
-    - ReadWriteOnce
-  storageClassName: ceph-block
+    - ReadWriteMany
+  storageClassName: gitlab-runner-cache
   resources:
     requests:
       storage: 10Gi
+  volumeName: gitlab-runner-cache
