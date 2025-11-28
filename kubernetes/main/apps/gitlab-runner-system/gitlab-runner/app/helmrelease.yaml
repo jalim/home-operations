@@ -41,6 +41,7 @@ spec:
     runners:
       config: |
         [[runners]]
+          limit = 3
           [runners.kubernetes]
             namespace = "{{.Release.Namespace}}"
             image = "ubuntu:22.04"
