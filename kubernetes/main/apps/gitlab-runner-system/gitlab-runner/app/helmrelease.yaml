@@ -31,7 +31,10 @@ spec:
     # GitLab Runner configuration
     gitlabUrl: https://gitlab.lumu.au/  # Change this to your GitLab instance URL
 
-    # Concurrent jobs
+    # Number of runner replicas (each can run 1 job concurrently)
+    replicas: 3
+
+    # Concurrent jobs per runner pod
     concurrent: 3
 
     # Check interval
