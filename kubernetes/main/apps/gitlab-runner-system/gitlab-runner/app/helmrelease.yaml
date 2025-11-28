@@ -31,11 +31,12 @@ spec:
     # GitLab Runner configuration
     gitlabUrl: https://gitlab.lumu.au/  # Change this to your GitLab instance URL
 
-    # Number of runner replicas (each can run 1 job concurrently)
-    replicas: 3
+    # Number of runner replicas
+    # Using 1 replica with higher concurrency is more resource-efficient than multiple replicas
+    replicas: 1
 
-    # Concurrent jobs per runner pod
-    concurrent: 3
+    # Concurrent jobs - maximum jobs that can run simultaneously across all runners
+    concurrent: 10
 
     # Check interval
     checkInterval: 30
@@ -43,9 +44,10 @@ spec:
     # Runner configuration
     runners:
       config: |
-        concurrent = 3
+        concurrent = 10
         [[runners]]
-          limit = 3
+          limit = 10
+          request_concurrency = 10
           [runners.kubernetes]
             namespace = "{{.Release.Namespace}}"
             image = "ubuntu:22.04"
@@ -99,14 +101,16 @@ spec:
       create: false
       serviceAccountName: gitlab-runner
 
-    # Pod resources
+    # Pod resources for runner manager
+    # Formula: CPU = 10m + (6m × concurrent), Memory = 50Mi + (2.5Mi × concurrent)
+    # For 10 concurrent jobs: ~70m CPU, ~75Mi memory (with some headroom)
     resources:
       requests:
         cpu: 100m
         memory: 128Mi
       limits:
-        cpu: 200m
-        memory: 256Mi
+        cpu: 300m
+        memory: 384Mi
 
     # Security context
     securityContext:
