@@ -45,6 +45,7 @@ spec:
     runners:
       config: |
         concurrent = 10
+        check_interval = 30
         [[runners]]
           limit = 10
           request_concurrency = 10
