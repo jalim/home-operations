@@ -34,6 +34,34 @@ spec:
       enableLiveness: true
       serviceMonitor:
         enabled: true
+      csiRBDProvisionerResource:
+        requests:
+          cpu: 50m
+          memory: 128Mi
+        limits:
+          cpu: 500m
+          memory: 512Mi
+      csiRBDPluginResource:
+        requests:
+          cpu: 50m
+          memory: 128Mi
+        limits:
+          cpu: 500m
+          memory: 512Mi
+      csiCephFSProvisionerResource:
+        requests:
+          cpu: 50m
+          memory: 128Mi
+        limits:
+          cpu: 500m
+          memory: 512Mi
+      csiCephFSPluginResource:
+        requests:
+          cpu: 50m
+          memory: 128Mi
+        limits:
+          cpu: 500m
+          memory: 512Mi
     enableDiscoveryDaemon: true
     monitoring:
       enabled: true
