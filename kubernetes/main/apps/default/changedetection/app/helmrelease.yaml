@@ -32,7 +32,7 @@ spec:
           changedetection:
             image:
               repository: ghcr.io/dgtlmoon/changedetection.io
-              tag: 0.51.1@sha256:3aa47c4ca4339a3331158e4aa75805267e1c07743615bdde89d2df08e984c11d
+              tag: 0.51.4@sha256:99cf11f04b5d1f1300b5b68f17dc22e76bdb5d6695d7e6590d2df92eca8fb339
             env:
               TZ: Australia/Perth
               BASE_URL: "https://{{ .Release.Name }}.lumu.au"
