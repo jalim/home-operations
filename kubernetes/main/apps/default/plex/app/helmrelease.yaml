@@ -84,6 +84,11 @@ spec:
             port: &port 32400
     route:
       app:
+        annotations:
+          gatus.home-operations.com/endpoint: |
+            url: https://plex.lumu.au/identity
+            conditions:
+              - "[STATUS] == 200"
         hostnames:
           - "{{ .Release.Name }}.lumu.au"
         parentRefs:
