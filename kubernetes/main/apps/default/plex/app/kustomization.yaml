@@ -8,4 +8,3 @@ resources:
   - ./helmrelease.yaml
   # - ./networkpolicy.yaml
   - ../../../../templates/volsync
-  - ../../../../templates/gatus/external

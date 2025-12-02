@@ -6,6 +6,5 @@ resources:
   - ./configmap.yaml
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ../../../../templates/gatus/external
   - ../../../../templates/volsync
   - ../../../../templates/externaldns/external
