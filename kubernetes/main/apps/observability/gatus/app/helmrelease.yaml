@@ -63,7 +63,6 @@ spec:
             args:
               - --auto-httproute
               - --gateway-name=external
-              - --auto-group
               - --output=/config/gatus-sidecar.yaml
             resources:
               requests:
