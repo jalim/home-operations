@@ -24,7 +24,8 @@ spec:
               echo "Starting autobrr release cleanup..."
               echo "Deleting releases older than 168 hours (7 days)..."
 
-              RESPONSE=$(curl -w "\n%{http_code}" -s \
+              RESPONSE=$(curl -4 -w "\n%{http_code}" -s \
+                --connect-timeout 10 \
                 -X DELETE \
                 "http://autobrr.default.svc.cluster.local/api/release?olderThan=168" \
                 -H "X-API-Token: $AUTOBRR_API_KEY")
