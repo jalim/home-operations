@@ -26,13 +26,13 @@ resources:
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
-  - ./radarr-kids/ks.yaml
-  - ./radarr/ks.yaml
+  # - ./radarr-kids/ks.yaml
+  # - ./radarr/ks.yaml
   # - ./readarr/ks.yaml
   - ./sabnzbd/ks.yaml
   # - ./scrypted/ks.yaml
   # - ./sonarr-kids/ks.yaml
-  - ./sonarr/ks.yaml
+  # - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
   - ./unpackerr/ks.yaml
   # - ./beer/ks.yaml

@@ -6,3 +6,6 @@ resources:
   - ./hugo/ks.yaml
   - ./sonarr-kids/ks.yaml
   - ./actual/ks.yaml
+  - ./sonarr/ks.yaml
+  - ./radarr/ks.yaml
+  - ./radarr-kids/ks.yaml
