@@ -8,8 +8,7 @@ spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: name:paperless
-      interval: 30m
+    name: paperless
 
   values:
     controllers:

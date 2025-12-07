@@ -8,7 +8,7 @@ spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: name:hugo
+    name: hugo
   install:
     remediation:
       retries: 3

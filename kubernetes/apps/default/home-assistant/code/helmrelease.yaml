@@ -8,7 +8,7 @@ spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: name:home-assistant-code
+    name: home-assistant-code
   install:
     remediation:
       retries: 3

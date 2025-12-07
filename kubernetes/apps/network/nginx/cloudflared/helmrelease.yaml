@@ -8,7 +8,7 @@ spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: name:cloudflared
+    name: cloudflared
   install:
     remediation:
       retries: 3
