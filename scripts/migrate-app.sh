@@ -52,7 +52,7 @@ if [[ ! -d "$NEW_NS_PATH" ]]; then
         echo "  Copied namespace.yaml"
     fi
 
-    # Create kustomization.yaml for the namespace
+    # Create kustomization.yaml for the namespace (no namespace override - let ks.yaml control it)
     cat > "$NEW_NS_KUSTOMIZATION" << 'EOF'
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
