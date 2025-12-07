@@ -78,6 +78,47 @@ if [[ -f "${NEW_APP_PATH}/ks.yaml" ]]; then
     sed -i '' 's|/app"$|/app|g' "${NEW_APP_PATH}/ks.yaml"
 fi
 
+# Step 3b: Convert templates to components (process all subdirectories)
+KS_YAML="${NEW_APP_PATH}/ks.yaml"
+VOLSYNC_CONVERTED=false
+
+for SUBDIR in "${NEW_APP_PATH}"/*/; do
+    [[ -d "$SUBDIR" ]] || continue
+    SUB_KUSTOMIZATION="${SUBDIR}kustomization.yaml"
+    [[ -f "$SUB_KUSTOMIZATION" ]] || continue
+
+    # Check if this subdir uses volsync template
+    if grep -q "templates/volsync" "$SUB_KUSTOMIZATION"; then
+        if [[ "$VOLSYNC_CONVERTED" == "false" ]]; then
+            echo "Converting volsync template to component..."
+            # Add components section to ks.yaml if not present
+            if ! grep -q "components:" "$KS_YAML"; then
+                awk '
+                /app.kubernetes.io\/name:/ {
+                    print
+                    print "  components:"
+                    print "    - ../../../../components/volsync"
+                    next
+                }
+                { print }
+                ' "$KS_YAML" > "${KS_YAML}.tmp" && mv "${KS_YAML}.tmp" "$KS_YAML"
+            fi
+            VOLSYNC_CONVERTED=true
+            echo "  Added volsync component to ks.yaml"
+        fi
+
+        # Remove template reference from kustomization
+        sed -i '' '/templates\/volsync/d' "$SUB_KUSTOMIZATION"
+        echo "  Removed template reference from $(basename "$SUBDIR")/kustomization.yaml"
+    fi
+
+    # Remove namespace override from kustomization (causes issues with Flux)
+    if grep -q "^namespace:" "$SUB_KUSTOMIZATION"; then
+        sed -i '' '/^namespace:/d' "$SUB_KUSTOMIZATION"
+        echo "  Removed namespace override from $(basename "$SUBDIR")/kustomization.yaml"
+    fi
+done
+
 # Step 4: Add to new namespace kustomization.yaml
 echo "Adding to new kustomization.yaml..."
 if ! grep -q "- ./${APP}/ks.yaml" "$NEW_NS_KUSTOMIZATION"; then

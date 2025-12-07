@@ -7,7 +7,7 @@ resources:
 #   - ./media-pvc-2.yaml
 
   # Apps:
-  - ./actual/ks.yaml
+  # - ./actual/ks.yaml
   - ./audiobookshelf/ks.yaml
   - ./autobrr/ks.yaml
   - ./changedetection/ks.yaml

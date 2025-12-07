@@ -5,3 +5,4 @@ resources:
   - ./namespace.yaml
   - ./hugo/ks.yaml
   - ./sonarr-kids/ks.yaml
+  - ./actual/ks.yaml

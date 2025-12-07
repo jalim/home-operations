@@ -1,0 +1,84 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app up-sync
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+    - name: actual
+      namespace: default
+  values:
+    controllers:
+      up-sync:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          securityContext: &securityContext
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: "OnRootMismatch"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/jalim/up_actual_sync
+              tag: v0.2.10@sha256:e2e958b8995095cb4e7dce92f368cd805b55dfb905e302351752ae54d7440340
+            env:
+              USE_NODE_CRON: "true"
+              configFile: "/config/config.json"
+              TZ: Australia/Perth
+              port: &port 80
+              webUI: "true"
+              cronEnabled: "true"
+              # cronShedule: "*/5 * * * *"
+
+    service:
+      app:
+        controller: up-sync
+        ipFamilyPolicy: PreferDualStack
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames: ["{{ .Release.Name }}.lumu.au"]
+        parentRefs:
+          - name: internal
+            namespace: flux-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
+    persistence:
+      secret-file:
+        type: secret
+        name: up-sync-secret
+        globalMounts:
+          - path: /home/node/app/config.json
+            subPath: config.json
+            readOnly: true
+      config:
+        existingClaim: up-sync
+        advancedMounts:
+          up-sync:
+            app:
+              - path: /config
