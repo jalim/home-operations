@@ -6,10 +6,14 @@ serviceAccount:
   create: true
 service:
   name: kube-dns
+  clusterIP: 10.12.0.10
+  clusterIPs:
+    - 10.12.0.10
+    - 2404:e80:942a:cafe:1::a
   ipFamilyPolicy: PreferDualStack
   ipFamilies:
-  - IPv6
-  - IPv4
+    - IPv4
+    - IPv6
 servers:
   - zones:
       - zone: .
