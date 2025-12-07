@@ -18,6 +18,7 @@ Changes applied:
 7. Move pod.securityContext to defaultPodOptions.securityContext
 8. Remove enabled: true from persistence
 9. Remove ipFamilies/ipFamilyPolicy from service (optional)
+10. Change UID/GID from 568 to 1000 (runAsUser, runAsGroup, fsGroup)
 """
 
 import argparse
@@ -156,7 +157,31 @@ def migrate_helmrelease(content: str, dry_run: bool = False) -> tuple[str, list[
         content = content.replace('\n    service:', '\n' + default_pod_options + '\n    service:')
         changes.append("Moved pod.securityContext to defaultPodOptions.securityContext")
 
-    # 10. Remove ipFamilies and ipFamilyPolicy from service
+    # 10. Change UID/GID from 568 to 1000
+    uid_changed = False
+    if 'runAsUser: 568' in content:
+        content = content.replace('runAsUser: 568', 'runAsUser: 1000')
+        uid_changed = True
+    if 'runAsGroup: 568' in content:
+        content = content.replace('runAsGroup: 568', 'runAsGroup: 1000')
+        uid_changed = True
+    if 'fsGroup: 568' in content:
+        content = content.replace('fsGroup: 568', 'fsGroup: 1000')
+        uid_changed = True
+    if uid_changed:
+        changes.append("Changed UID/GID from 568 to 1000")
+
+    # 11. Remove 568 from supplementalGroups if present (now redundant)
+    # Match supplementalGroups arrays and remove 568
+    if re.search(r'supplementalGroups:.*\b568\b', content):
+        # Handle inline array format: [568, 1000, 10000] -> [1000, 10000]
+        content = re.sub(r'\[568, ', '[', content)
+        content = re.sub(r', 568\]', ']', content)
+        content = re.sub(r', 568,', ',', content)
+        content = re.sub(r'\[568\]', '[1000]', content)  # If only 568
+        changes.append("Removed 568 from supplementalGroups")
+
+    # 12. Remove ipFamilies and ipFamilyPolicy from service
     if re.search(r'\n        ipFamilies:\n          - IPv4', content):
         content = re.sub(r'\n        ipFamilies:\n          - IPv4', '', content)
         changes.append("Removed ipFamilies from service")
