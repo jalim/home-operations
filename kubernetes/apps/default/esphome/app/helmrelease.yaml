@@ -1,0 +1,94 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app esphome
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.3
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      esphome:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/bjw-s-labs/esphome
+              tag: 2025.2.2@sha256:2864e888c7c4e9997ab6193da9a0616e0cd00e0215866675ffa6b1fc3167241e
+            env:
+              TZ: Australia/Perth
+              ESPHOME_DASHBOARD_USE_PING: "false"
+              # PLATFORMIO_CORE_DIR: .plattformio
+              # PLATFORMIO_GLOBALLIB_DIR: .plattformioLibs
+            resources:
+              requests:
+                cpu: 5m
+                memory: 1Gi
+              limits:
+                memory: 2Gi
+        pod:
+          # hostNetwork: true
+          # dnsPolicy: ClusterFirstWithHostNet
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"multus-iot",
+                "namespace": "network",
+                "ips": ["10.10.0.61/24"],
+                "mac": "92:cf:d7:05:70:84"
+              }]
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        controller: esphome
+        ipFamilyPolicy: SingleStack
+        ports:
+          http:
+            port: &port 6052
+    route:
+      app:
+        hostnames: ["{{ .Release.Name }}.lumu.au"]
+        parentRefs:
+          - name: internal
+            namespace: flux-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
+    persistence:
+      config:
+        existingClaim: esphome
+        advancedMounts:
+          esphome:
+            app:
+              - path: /config
+      cache:
+        type: emptyDir
+        advancedMounts:
+          esphome:
+            app:
+              - path: /cache

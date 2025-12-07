@@ -1,0 +1,104 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app changedetection
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.3
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      changedetection:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          changedetection:
+            image:
+              repository: ghcr.io/dgtlmoon/changedetection.io
+              tag: 0.51.4@sha256:99cf11f04b5d1f1300b5b68f17dc22e76bdb5d6695d7e6590d2df92eca8fb339
+            env:
+              TZ: Australia/Perth
+              BASE_URL: "https://{{ .Release.Name }}.lumu.au"
+              USE_X_SETTINGS: 1
+              PORT: &port 5000
+              PLAYWRIGHT_DRIVER_URL: ws://localhost:3000?token=TESTING6R0W53R135510
+            resources:
+              requests:
+                cpu: 5m
+                memory: 1Gi
+              limits:
+                memory: 2Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: { drop: ["ALL"] }
+              readOnlyRootFilesystem: true
+          browser:
+            image:
+              repository: ghcr.io/browserless/chromium
+              tag: v2.38.2@sha256:d5583d92f135c541667fca63bc7210cf51122c1317335374aa64b191fbaa0ef2
+              pullPolicy: IfNotPresent
+            env:
+              CONCURRENT: "10"
+              DATA_DIR: /profile
+              DOWNLOAD_DIR: /downloads
+              TOKEN: TESTING6R0W53R135510
+            securityContext:
+              allowPrivilegeEscalation: false
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 999
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      changedetection:
+        controller: *app
+        ports:
+          http:
+            port: *port
+    route:
+      changedetection:
+        hostnames: ["{{ .Release.Name }}.lumu.au"]
+        parentRefs:
+          - name: internal
+            namespace: flux-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
+    persistence:
+      config:
+        existingClaim: changedetection
+        advancedMounts:
+          changedetection:
+            changedetection:
+              - path: /datastore
+                subPath: datastore
+            browser:
+              - path: /downloads
+                subPath: downloads
+              - path: /profile
+                subPath: profile
+      tmp:
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 1Gi

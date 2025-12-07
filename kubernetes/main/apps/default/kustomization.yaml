@@ -8,33 +8,33 @@ resources:
 
   # Apps:
   # - ./actual/ks.yaml
-  - ./audiobookshelf/ks.yaml
-  - ./autobrr/ks.yaml
-  - ./changedetection/ks.yaml
+  # - ./audiobookshelf/ks.yaml
+  # - ./autobrr/ks.yaml
+  # - ./changedetection/ks.yaml
   # - ./cross-seed/ks.yaml  - Down until work it out
-  - ./esphome/ks.yaml
+  # - ./esphome/ks.yaml
   # - ./home-assistant/ks.yaml
   # - ./hugo/ks.yaml
   # - ./jellyfin/ks.yaml
   # - ./jellyplex-watched/ks.yaml
-  - ./jellyseerr-plex/ks.yaml
+  # - ./jellyseerr-plex/ks.yaml
   # - ./jellyseerr/ks.yaml
   # - ./jellystat/ks.yaml
   # - ./lidarr/ks.yaml
-  - ./mealie/ks.yaml
-  - ./pinchflat/ks.yaml
-  - ./plex/ks.yaml
-  - ./prowlarr/ks.yaml
-  - ./qbittorrent/ks.yaml
+  # - ./mealie/ks.yaml
+  # - ./pinchflat/ks.yaml
+  # - ./plex/ks.yaml
+  # - ./prowlarr/ks.yaml
+  # - ./qbittorrent/ks.yaml
   # - ./radarr-kids/ks.yaml
   # - ./radarr/ks.yaml
   # - ./readarr/ks.yaml
-  - ./sabnzbd/ks.yaml
+  # - ./sabnzbd/ks.yaml
   # - ./scrypted/ks.yaml
   # - ./sonarr-kids/ks.yaml
   # - ./sonarr/ks.yaml
-  - ./tautulli/ks.yaml
-  - ./unpackerr/ks.yaml
+  # - ./tautulli/ks.yaml
+  # - ./unpackerr/ks.yaml
   # - ./beer/ks.yaml
   # - ./file-browser/ks.yaml
   # - ./frigate/ks.yaml
