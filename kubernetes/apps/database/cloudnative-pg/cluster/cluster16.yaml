@@ -39,7 +39,7 @@ spec:
       destinationPath: s3://cloudnative-pg/
       # endpointURL: http://minio.storage.svc.cluster.local:9000
       endpointURL: https://d4ed7dcc684d60f141627357111977d1.r2.cloudflarestorage.com
-      serverName: &currentCluster postgres16-v1
+      serverName: &currentCluster postgres16-v2
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
@@ -51,7 +51,7 @@ spec:
   # cluster when recovering from an existing cnpg cluster
   bootstrap:
     recovery:
-      source: &previousCluster postgres16-v5
+      source: &previousCluster postgres16-v1
   # Note: externalClusters is needed when recovering from an existing cnpg cluster
   externalClusters:
     - name: *previousCluster
