@@ -42,8 +42,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    - ../../../../components/volsync
   path: ./kubernetes/apps/default/qbittorrent/tools
   prune: true
   sourceRef:

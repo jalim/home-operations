@@ -80,42 +80,42 @@ fi
 
 # Step 3b: Convert templates to components (process all subdirectories)
 KS_YAML="${NEW_APP_PATH}/ks.yaml"
-VOLSYNC_CONVERTED=false
 
 for SUBDIR in "${NEW_APP_PATH}"/*/; do
     [[ -d "$SUBDIR" ]] || continue
     SUB_KUSTOMIZATION="${SUBDIR}kustomization.yaml"
     [[ -f "$SUB_KUSTOMIZATION" ]] || continue
+    SUBDIR_NAME=$(basename "$SUBDIR")
 
     # Check if this subdir uses volsync template
     if grep -q "templates/volsync" "$SUB_KUSTOMIZATION"; then
-        if [[ "$VOLSYNC_CONVERTED" == "false" ]]; then
-            echo "Converting volsync template to component..."
-            # Add components section to ks.yaml if not present
-            if ! grep -q "components:" "$KS_YAML"; then
-                awk '
-                /app.kubernetes.io\/name:/ {
-                    print
-                    print "  components:"
-                    print "    - ../../../../components/volsync"
-                    next
-                }
-                { print }
-                ' "$KS_YAML" > "${KS_YAML}.tmp" && mv "${KS_YAML}.tmp" "$KS_YAML"
-            fi
-            VOLSYNC_CONVERTED=true
-            echo "  Added volsync component to ks.yaml"
-        fi
+        echo "Converting volsync template to component for ${SUBDIR_NAME}..."
+
+        # Find the matching Kustomization in ks.yaml and add components to it
+        # We match by finding the one with path containing this subdir name
+        awk -v subdir="$SUBDIR_NAME" '
+        BEGIN { in_matching_ks = 0; added = 0 }
+        /^---$/ { in_matching_ks = 0; added = 0 }
+        /path:.*\// subdir "($|[^a-z])" { in_matching_ks = 1 }
+        in_matching_ks && /app.kubernetes.io\/name:/ && !added {
+            print
+            print "  components:"
+            print "    - ../../../../components/volsync"
+            added = 1
+            next
+        }
+        { print }
+        ' "$KS_YAML" > "${KS_YAML}.tmp" && mv "${KS_YAML}.tmp" "$KS_YAML"
 
         # Remove template reference from kustomization
         sed -i '' '/templates\/volsync/d' "$SUB_KUSTOMIZATION"
-        echo "  Removed template reference from $(basename "$SUBDIR")/kustomization.yaml"
+        echo "  Added volsync component and removed template reference"
     fi
 
     # Remove namespace override from kustomization (causes issues with Flux)
     if grep -q "^namespace:" "$SUB_KUSTOMIZATION"; then
         sed -i '' '/^namespace:/d' "$SUB_KUSTOMIZATION"
-        echo "  Removed namespace override from $(basename "$SUBDIR")/kustomization.yaml"
+        echo "  Removed namespace override from ${SUBDIR_NAME}/kustomization.yaml"
     fi
 done
 
