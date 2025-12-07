@@ -1,0 +1,16 @@
+---
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "jellyfin-allow-ingress"
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: jellyfin
+  ingress:
+  - fromEntities:
+    - "world"
+    toPorts:
+    - ports:
+      - port: "8096"
+        protocol: TCP

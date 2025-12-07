@@ -22,3 +22,13 @@ resources:
   - ./sabnzbd/ks.yaml
   - ./tautulli/ks.yaml
   - ./unpackerr/ks.yaml
+  # - ./cross-seed/ks.yaml
+  # - ./home-assistant/ks.yaml
+  # - ./jellyfin/ks.yaml
+  # - ./jellyplex-watched/ks.yaml
+  # - ./jellyseerr/ks.yaml
+  # - ./jellystat/ks.yaml
+  # - ./lidarr/ks.yaml
+  # - ./readarr/ks.yaml
+  # - ./scrypted/ks.yaml
+  # - ./valheim/ks.yaml

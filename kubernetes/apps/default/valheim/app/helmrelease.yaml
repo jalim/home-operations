@@ -1,0 +1,95 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: valheim
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+  values:
+    controllers:
+      valheim:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: lloesche/valheim-server
+              tag: latest@sha256:8f1c5fc831c900312b4a47c1fe57bfc03b574c1433ea502f5d8f0ad301a22a83
+            envFrom:
+              - secretRef:
+                  name: valheim-secret
+              - configMapRef:
+                  name: valheim-config
+            resources:
+              requests:
+                cpu: 550m
+                memory: 2000Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: { drop: ["ALL"] } 
+    service:
+      app:
+        controller: valheim
+        type: LoadBalancer
+        externalTrafficPolicy: Cluster
+        annotations:
+          io.cilium/lb-ipam-ips: 10.88.0.33
+        ports:
+          http:
+            port: 80
+            protocol: TCP
+          steam1:
+            port: 2456
+            protocol: UDP
+          steam2:
+            port: 2457
+            protocol: UDP
+          steam3:
+            port: 2458
+            protocol: UDP
+          supervisor:
+            port: 9001
+            protocol: TCP
+    ingress:
+      app:
+        enabled: true
+        className: external
+        hosts:
+          - host: &host valheim.lumu.au
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts: [*host]
+    persistence:
+      config:
+        existingClaim: valheim
+        globalMounts:
+          - path: /config
+      opt:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /opt/valheim

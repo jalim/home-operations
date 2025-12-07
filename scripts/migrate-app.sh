@@ -1,16 +1,25 @@
 #!/bin/bash
 # Migration script to move apps from kubernetes/main/apps to kubernetes/apps
-# Usage: ./scripts/migrate-app.sh <namespace> <app-name>
+# Usage: ./scripts/migrate-app.sh [--disabled] <namespace> <app-name>
 # Example: ./scripts/migrate-app.sh default actual
+# Example: ./scripts/migrate-app.sh --disabled default jellyfin
 
 set -euo pipefail
+
+# Parse --disabled flag
+DISABLED=false
+if [[ "${1:-}" == "--disabled" ]]; then
+    DISABLED=true
+    shift
+fi
 
 NAMESPACE="${1:-}"
 APP="${2:-}"
 
 if [[ -z "$NAMESPACE" || -z "$APP" ]]; then
-    echo "Usage: $0 <namespace> <app-name>"
+    echo "Usage: $0 [--disabled] <namespace> <app-name>"
     echo "Example: $0 default actual"
+    echo "Example: $0 --disabled default jellyfin"
     exit 1
 fi
 
@@ -120,16 +129,23 @@ for SUBDIR in "${NEW_APP_PATH}"/*/; do
 done
 
 # Step 4: Add to new namespace kustomization.yaml
-echo "Adding to new kustomization.yaml..."
-if ! grep -q "- ./${APP}/ks.yaml" "$NEW_NS_KUSTOMIZATION"; then
-    # Add the app entry before the last line or at end of resources
+if [[ "$DISABLED" == "true" ]]; then
+    echo "Adding to new kustomization.yaml (commented out)..."
+    APP_ENTRY="  # - ./${APP}/ks.yaml"
+else
+    echo "Adding to new kustomization.yaml..."
+    APP_ENTRY="  - ./${APP}/ks.yaml"
+fi
+
+if ! grep -q "./${APP}/ks.yaml" "$NEW_NS_KUSTOMIZATION"; then
+    # Add the app entry
     if grep -q "^resources:" "$NEW_NS_KUSTOMIZATION"; then
         # Add under resources section
-        echo "  - ./${APP}/ks.yaml" >> "$NEW_NS_KUSTOMIZATION"
+        echo "$APP_ENTRY" >> "$NEW_NS_KUSTOMIZATION"
     else
         # Add resources section
         echo "resources:" >> "$NEW_NS_KUSTOMIZATION"
-        echo "  - ./${APP}/ks.yaml" >> "$NEW_NS_KUSTOMIZATION"
+        echo "$APP_ENTRY" >> "$NEW_NS_KUSTOMIZATION"
     fi
 fi
 
@@ -145,7 +161,11 @@ echo ""
 echo "Summary:"
 echo "  - Copied:     $OLD_APP_PATH -> $NEW_APP_PATH"
 echo "  - Updated:    $NEW_APP_PATH/ks.yaml (path reference)"
-echo "  - Modified:   $NEW_NS_KUSTOMIZATION (added app)"
+if [[ "$DISABLED" == "true" ]]; then
+    echo "  - Modified:   $NEW_NS_KUSTOMIZATION (added app - DISABLED)"
+else
+    echo "  - Modified:   $NEW_NS_KUSTOMIZATION (added app)"
+fi
 echo "  - Modified:   $OLD_NS_KUSTOMIZATION (commented out app)"
 echo ""
 echo "Next steps:"
