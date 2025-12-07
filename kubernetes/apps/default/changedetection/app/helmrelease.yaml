@@ -9,7 +9,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: changedetection
-      interval: 30m
   install:
     remediation:
       retries: 3

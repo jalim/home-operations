@@ -8,7 +8,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: piped
-      interval: 30m
   interval: 30m
   values:
     defaultPodOptions:

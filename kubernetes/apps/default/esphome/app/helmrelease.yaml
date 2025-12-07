@@ -9,7 +9,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: esphome
-      interval: 30m
   install:
     remediation:
       retries: 3
