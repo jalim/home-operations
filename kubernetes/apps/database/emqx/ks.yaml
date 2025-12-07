@@ -31,6 +31,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/externaldns/internal
   dependsOn:
     - name: emqx
   path: ./kubernetes/apps/database/emqx/cluster

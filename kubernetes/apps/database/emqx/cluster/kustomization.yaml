@@ -6,5 +6,4 @@ resources:
   - ./cluster.yaml
   - ./httproute.yaml
   # - ./networkpolicy.yaml
-  - ../../../../templates/externaldns/internal
   - ./dnsendpoint.yaml

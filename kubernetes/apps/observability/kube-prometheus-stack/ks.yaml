@@ -10,6 +10,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/externaldns/internal
   dependsOn:
     - name: external-secrets-stores
   path: ./kubernetes/apps/observability/kube-prometheus-stack/app
