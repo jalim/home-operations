@@ -6,6 +6,6 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  - ./snapshot-controller/ks.yaml
-  - ./volsync/ks.yaml
+  # - ./snapshot-controller/ks.yaml
+  # - ./volsync/ks.yaml
   # - ./kopia/ks.yaml
