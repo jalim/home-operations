@@ -19,10 +19,6 @@ spec:
   providerRef:
     name: github
   eventSeverity: info
-  #eventSources:
-  #  - kind: Kustomization
-  #    name: "*"
   eventSources:
-    - kind: GitRepository
-      name: '*'
-      namespace: flux-system
+    - kind: Kustomization
+      name: "*"
