@@ -1,0 +1,9 @@
+{
+  "id": "k8s-0",
+  "name": "k8s-0",
+  "profile": "k8s-0-talos-controller",
+  "selector": {
+    "mac": "00:1b:21:bc:9e:45",
+    "uuid": "ba828200-5a41-11e9-820f-fb7388631500"
+  }
+}
