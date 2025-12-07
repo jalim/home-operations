@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./hugo/ks.yaml
+  - ./sonarr-kids/ks.yaml
