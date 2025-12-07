@@ -19,6 +19,7 @@ Changes applied:
 8. Remove enabled: true from persistence
 9. Remove ipFamilies/ipFamilyPolicy from service (optional)
 10. Change UID/GID from 568 to 1000 (runAsUser, runAsGroup, fsGroup)
+11. Update OCIRepository tag from 3.7.x to 4.5.0
 """
 
 import argparse
@@ -26,6 +27,18 @@ import os
 import re
 import sys
 from pathlib import Path
+
+
+def migrate_ocirepository(content: str) -> tuple[str, list[str]]:
+    """Update OCIRepository to use app-template v4.x."""
+    changes = []
+
+    # Update tag from 3.x.x to 4.5.0
+    if re.search(r'tag: 3\.\d+\.\d+', content):
+        content = re.sub(r'tag: 3\.\d+\.\d+', 'tag: 4.5.0', content)
+        changes.append("Updated app-template tag to 4.5.0")
+
+    return content, changes
 
 
 def migrate_helmrelease(content: str, dry_run: bool = False) -> tuple[str, list[str]]:
@@ -278,16 +291,26 @@ def main():
     for hr_path in helmreleases:
         rel_path = hr_path.relative_to(repo_root)
 
+        # Process HelmRelease
         with open(hr_path, 'r') as f:
             content = f.read()
 
         new_content, changes = migrate_helmrelease(content, args.dry_run)
 
-        if not changes:
+        # Also process OCIRepository in the same directory
+        oci_path = hr_path.parent / "ocirepository.yaml"
+        oci_changes = []
+        oci_new_content = None
+        if oci_path.exists():
+            with open(oci_path, 'r') as f:
+                oci_content = f.read()
+            oci_new_content, oci_changes = migrate_ocirepository(oci_content)
+
+        if not changes and not oci_changes:
             print(f"✓ {rel_path} - already migrated or no changes needed")
             continue
 
-        total_changes += len(changes)
+        total_changes += len(changes) + len(oci_changes)
 
         if args.dry_run:
             print(f"\n{'='*60}")
@@ -295,20 +318,31 @@ def main():
             print(f"{'='*60}")
             for change in changes:
                 print(f"  • {change}")
+            for change in oci_changes:
+                print(f"  • {change}")
         else:
-            # Create backup
-            backup_path = str(hr_path) + ".bak"
-            with open(backup_path, 'w') as f:
-                f.write(content)
+            # Create backup and write HelmRelease
+            if changes:
+                backup_path = str(hr_path) + ".bak"
+                with open(backup_path, 'w') as f:
+                    f.write(content)
+                with open(hr_path, 'w') as f:
+                    f.write(new_content)
 
-            # Write migrated content
-            with open(hr_path, 'w') as f:
-                f.write(new_content)
+            # Create backup and write OCIRepository
+            if oci_changes and oci_new_content:
+                oci_backup_path = str(oci_path) + ".bak"
+                with open(oci_backup_path, 'w') as f:
+                    with open(oci_path, 'r') as orig:
+                        f.write(orig.read())
+                with open(oci_path, 'w') as f:
+                    f.write(oci_new_content)
 
             print(f"\n✓ Migrated: {rel_path}")
             for change in changes:
                 print(f"    • {change}")
-            print(f"    Backup: {backup_path}")
+            for change in oci_changes:
+                print(f"    • {change}")
 
     print(f"\n{'='*60}")
     if args.dry_run:
