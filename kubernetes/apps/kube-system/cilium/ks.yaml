@@ -14,7 +14,7 @@ spec:
   prune: false # never should be deleted
   sourceRef:
     kind: GitRepository
-    name: home-ops-kubernetes
+    name: home-kubernetes
   wait: false
   interval: 30m
   retryInterval: 1m
@@ -37,7 +37,7 @@ spec:
   prune: false # never should be deleted
   sourceRef:
     kind: GitRepository
-    name: home-ops-kubernetes
+    name: home-kubernetes
   wait: false
   interval: 30m
   retryInterval: 1m
@@ -61,7 +61,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: home-ops-kubernetes
+    name: home-kubernetes
   targetNamespace: *namespace
   timeout: 15m
   wait: true
