@@ -68,7 +68,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - identifier: app
+              - identifier: changedetection
                 port: *port
     persistence:
       config:
