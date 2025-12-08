@@ -53,14 +53,12 @@ spec:
         cronjob:
           <<: *cronJobSpec
           schedule: "0 0 * * 0"
-          suspend: true
         containers:
           app:
             <<: *container
             args:
               - orphan
               - qb
-              - --dry-run
         pod:
           restartPolicy: Never
     defaultPodOptions:
@@ -86,4 +84,3 @@ spec:
         globalMounts:
           - path: /media/downloads/qbit_complete
             subPath: downloads/qbit_complete
-            readOnly: true
