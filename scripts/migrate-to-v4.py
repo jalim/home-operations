@@ -75,8 +75,8 @@ def migrate_helmrelease(content: str, dry_run: bool = False) -> tuple[str, list[
         content = content.replace('interval: 30m', 'interval: 1h')
         changes.append("Changed interval: 30m -> 1h")
 
-    # 6. Remove controller: <name> from service
-    controller_pattern = r'\n        controller: \w+'
+    # 6. Remove controller: <name> from service (handles hyphenated names)
+    controller_pattern = r'\n        controller: [\w-]+'
     if re.search(controller_pattern, content):
         content = re.sub(controller_pattern, '', content)
         changes.append("Removed controller field from service")
