@@ -79,7 +79,7 @@ spec:
                 port: *port
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: audiobookshelf
       media:
         existingClaim: media
         globalMounts:
