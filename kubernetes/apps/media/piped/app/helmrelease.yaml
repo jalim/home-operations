@@ -132,8 +132,8 @@ spec:
       backend:
         hostnames: ["piped-api.lumu.au"]
         parentRefs:
-          - name: internal
-            namespace: flux-system
+          - name: envoy-internal
+            namespace: network
             sectionName: https
         rules:
           - backendRefs:
@@ -142,8 +142,8 @@ spec:
       frontend:
         hostnames: ["piped.lumu.au"]
         parentRefs:
-          - name: internal
-            namespace: flux-system
+          - name: envoy-internal
+            namespace: network
             sectionName: https
         rules:
           - backendRefs:
@@ -152,8 +152,8 @@ spec:
       ytproxy:
         hostnames: ["piped-proxy.lumu.au"]
         parentRefs:
-          - name: internal
-            namespace: flux-system
+          - name: envoy-internal
+            namespace: network
             sectionName: https
         rules:
           - backendRefs:

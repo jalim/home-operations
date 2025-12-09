@@ -42,8 +42,8 @@ spec:
           enabled: true
           hostnames: ["alertmanager.lumu.au"]
           parentRefs:
-            - name: internal
-              namespace: flux-system
+            - name: envoy-internal
+              namespace: network
               sectionName: https
       alertmanagerSpec:
         replicas: 1
@@ -90,8 +90,8 @@ spec:
           enabled: true
           hostnames: ["prometheus.lumu.au"]
           parentRefs:
-            - name: internal
-              namespace: flux-system
+            - name: envoy-internal
+              namespace: network
               sectionName: https
       prometheusSpec:
         replicas: 1

@@ -24,11 +24,9 @@ enableRuntimeDeviceDetection: true
 endpointRoutes:
   enabled: true
 envoy:
-  rollOutPods: true
+  enabled: false
 gatewayAPI:
-  enabled: true
-  enableAlpn: true
-  xffNumTrustedHops: 1
+  enabled: false
 hubble:
   enabled: false
 ipam:

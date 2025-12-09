@@ -70,8 +70,8 @@ spec:
       app:
         hostnames: ["books.lumu.au"]
         parentRefs:
-          - name: external
-            namespace: flux-system
+          - name: envoy-external
+            namespace: network
             sectionName: https
         rules:
           - backendRefs:

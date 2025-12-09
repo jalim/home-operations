@@ -327,8 +327,8 @@ spec:
         enabled: true
         hostnames: ["{{ .Release.Name }}.lumu.au"]
         parentRefs:
-          - name: internal
-            namespace: flux-system
+          - name: envoy-internal
+            namespace: network
             sectionName: https
     persistence:
       enabled: false

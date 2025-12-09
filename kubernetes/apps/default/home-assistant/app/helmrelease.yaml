@@ -76,8 +76,8 @@ spec:
       app:
         hostnames: ["hass.lumu.au"]
         parentRefs:
-          - name: internal
-            namespace: flux-system
+          - name: envoy-internal
+            namespace: network
             sectionName: https
         rules:
           - backendRefs:

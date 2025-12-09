@@ -71,11 +71,11 @@ spec:
       app:
         hostnames: ["{{ .Release.Name }}.lumu.au"]
         parentRefs:
-          - name: external
-            namespace: flux-system
+          - name: envoy-external
+            namespace: network
             sectionName: https
-          - name: internal
-            namespace: flux-system
+          - name: envoy-internal
+            namespace: network
             sectionName: https
         rules:
           - backendRefs:
