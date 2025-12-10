@@ -17,15 +17,6 @@ spec:
       mealie:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/onedr0p/postgres-init
-              tag: 16
-              pullPolicy: IfNotPresent
-            envFrom: &envFrom
-              - secretRef:
-                  name: mealie-secret
         containers:
           app:
             image:
@@ -34,7 +25,6 @@ spec:
             env:
               BASE_URL: https://mealie.lumu.au
               API_DOCS: false
-              DB_ENGINE: postgres
               PUID: 568
               PGID: 568
               TZ: Australia/Perth
@@ -51,7 +41,9 @@ spec:
               # OIDC_GROUPS_CLAIM: groups
               # OIDC_ADMIN_GROUP: admins
               # OIDC_USER_GROUP: family
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: mealie-secret
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
