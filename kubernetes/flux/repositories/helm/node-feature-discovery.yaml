@@ -6,5 +6,6 @@ metadata:
   name: node-feature-discovery
   namespace: flux-system
 spec:
-  interval: 2h
-  url: https://kubernetes-sigs.github.io/node-feature-discovery/charts
+  type: oci
+  interval: 5m
+  url: oci://registry.k8s.io/nfd/charts

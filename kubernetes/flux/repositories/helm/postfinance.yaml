@@ -6,5 +6,6 @@ metadata:
   name: postfinance
   namespace: flux-system
 spec:
-  interval: 2h
-  url: https://postfinance.github.io/kubelet-csr-approver
+  type: oci
+  interval: 5m
+  url: oci://ghcr.io/postfinance/charts
