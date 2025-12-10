@@ -3,35 +3,35 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./actions-runner-controller.yaml
-  - ./angelnu.yaml
-  - ./backube.yaml
+  # - ./actions-runner-controller.yaml # Migrated to OCI
+  # - ./angelnu.yaml # Unused
+  # - ./backube.yaml # Migrated to OCI (volsync)
   - ./bjw-s.yaml
-  - ./cilium.yaml
+  # - ./cilium.yaml # Migrated to OCI
   - ./cloudnative-pg.yaml
-  - ./coredns.yaml
+  # - ./coredns.yaml # Migrated to OCI
   # - ./crossplane.yaml
   - ./crunchydata.yaml
   # - ./csi-driver-nfs.yaml
-  - ./descheduler.yaml
+  # - ./descheduler.yaml # Migrated to OCI
   - ./emqx.yaml
-  - ./external-dns.yaml
-  - ./external-secrets.yaml
+  # - ./external-dns.yaml # Migrated to OCI
+  # - ./external-secrets.yaml # Migrated to OCI
   - ./gitlab.yaml
-  - ./grafana.yaml
+  # - ./grafana.yaml # Migrated to OCI
   - ./ingress-nginx.yaml
   - ./intel.yaml
-  - ./jetstack.yaml
+  # - ./jetstack.yaml # Migrated to OCI
   - ./k8s-gateway.yaml
   - ./kyverno.yaml
-  - ./metrics-server.yaml
+  # - ./metrics-server.yaml # Migrated to OCI
   - ./node-feature-discovery.yaml
-  - ./openebs.yaml
-  - ./piraeus.yaml
+  # - ./openebs.yaml # Migrated to OCI
+  # - ./piraeus.yaml # Migrated to OCI
   - ./postfinance.yaml
-  - ./prometheus-community.yaml
-  - ./rook-ceph.yaml
-  - ./spegel.yaml
+  # - ./prometheus-community.yaml # Migrated to OCI
+  # - ./rook-ceph.yaml # Migrated to OCI
+  # - ./spegel.yaml # Migrated to OCI
   - ./stakater.yaml
   - ./stevehipwell.yaml
   - ./xenitab.yaml
