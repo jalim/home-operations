@@ -29,8 +29,5 @@ resources:
   # - ./jellyfin/ks.yaml
   # - ./jellyplex-watched/ks.yaml
   # - ./jellyseerr/ks.yaml
-  # - ./jellystat/ks.yaml
-  # - ./lidarr/ks.yaml
-  # - ./readarr/ks.yaml
   # - ./scrypted/ks.yaml
   # - ./valheim/ks.yaml
