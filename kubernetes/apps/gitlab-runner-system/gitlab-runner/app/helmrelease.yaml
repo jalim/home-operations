@@ -12,7 +12,7 @@ spec:
       version: 0.83.3
       sourceRef:
         kind: HelmRepository
-        name: gitlab
+        name: gitlab-lumu-oci
         namespace: flux-system
   install:
     remediation:
