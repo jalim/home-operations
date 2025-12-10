@@ -11,6 +11,10 @@ spec:
     name: scrypted
 
   values:
+    defaultPodOptions:
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: scrypted
     controllers:
       scrypted:
         annotations:
@@ -28,7 +32,6 @@ spec:
                   topologyKey: kubernetes.io/hostname
           nodeSelector:
             google.feature.node.kubernetes.io/coral: "true"
-            intel.feature.node.kubernetes.io/gpu: "true"
           annotations:
             k8s.v1.cni.cncf.io/networks: |
               [{
@@ -58,11 +61,12 @@ spec:
               readiness:
                 enabled: true
             resources:
+              claims:
+                - name: gpu
               requests:
                 cpu: 136m
                 memory: 1024Mi
               limits:
-                gpu.intel.com/i915: 1
                 # squat.ai/coral: 1
                 memory: 8192Mi
             securityContext:

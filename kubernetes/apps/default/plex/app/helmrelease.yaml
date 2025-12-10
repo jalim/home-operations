@@ -13,7 +13,7 @@ spec:
     remediation:
       retries: 3
   dependsOn:
-    - name: intel-device-plugin-gpu
+    - name: intel-gpu-resource-driver
       namespace: kube-system
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -47,14 +47,17 @@ spec:
               startup:
                 enabled: false
             resources:
+              claims:
+                - name: gpu
               requests:
-                gpu.intel.com/i915: 1
                 cpu: 100m
                 memory: 2Gi
               limits:
-                gpu.intel.com/i915: 1
                 memory: 4Gi
     defaultPodOptions:
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: plex
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
