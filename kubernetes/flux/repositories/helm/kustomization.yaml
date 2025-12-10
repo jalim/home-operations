@@ -18,7 +18,6 @@ resources:
   # - ./external-dns.yaml # Migrated to OCI
   # - ./external-secrets.yaml # Migrated to OCI
   # - ./gitlab.yaml # Migrated to OCI
-  - ./gitlab-lumu-oci.yaml
   # - ./grafana.yaml # Migrated to OCI
   - ./ingress-nginx.yaml
   - ./intel.yaml
