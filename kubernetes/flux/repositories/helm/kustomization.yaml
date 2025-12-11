@@ -11,7 +11,7 @@ resources:
   - ./cloudnative-pg.yaml
   # - ./coredns.yaml # Migrated to OCI
   # - ./crossplane.yaml
-  - ./crunchydata.yaml
+  # - ./crunchydata.yaml # Unused
   # - ./csi-driver-nfs.yaml
   # - ./descheduler.yaml # Migrated to OCI
   - ./emqx.yaml
