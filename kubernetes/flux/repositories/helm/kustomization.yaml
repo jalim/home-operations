@@ -6,7 +6,7 @@ resources:
   # - ./actions-runner-controller.yaml # Migrated to OCI
   # - ./angelnu.yaml # Unused
   # - ./backube.yaml # Migrated to OCI (volsync)
-  - ./bjw-s.yaml
+  # - ./bjw-s.yaml # Unused
   # - ./cilium.yaml # Migrated to OCI
   - ./cloudnative-pg.yaml
   # - ./coredns.yaml # Migrated to OCI
@@ -23,7 +23,7 @@ resources:
   - ./intel.yaml
   # - ./jetstack.yaml # Migrated to OCI
   - ./k8s-gateway.yaml
-  - ./kyverno.yaml
+  # - ./kyverno.yaml # Unused
   # - ./metrics-server.yaml # Migrated to OCI
   # - ./node-feature-discovery.yaml # Migrated to OCI
   # - ./openebs.yaml # Migrated to OCI
@@ -34,4 +34,4 @@ resources:
   # - ./spegel.yaml # Migrated to OCI
   # - ./stakater.yaml # Migrated to OCI
   - ./stevehipwell.yaml
-  - ./xenitab.yaml
+  # - ./xenitab.yaml # Unused
