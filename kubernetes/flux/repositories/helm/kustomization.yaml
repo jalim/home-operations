@@ -8,21 +8,21 @@ resources:
   # - ./backube.yaml # Migrated to OCI (volsync)
   # - ./bjw-s.yaml # Unused
   # - ./cilium.yaml # Migrated to OCI
-  - ./cloudnative-pg.yaml
+  # - ./cloudnative-pg.yaml # Unused
   # - ./coredns.yaml # Migrated to OCI
   # - ./crossplane.yaml
   # - ./crunchydata.yaml # Unused
   # - ./csi-driver-nfs.yaml
   # - ./descheduler.yaml # Migrated to OCI
-  - ./emqx.yaml
+  # - ./emqx.yaml # Unused
   # - ./external-dns.yaml # Migrated to OCI
   # - ./external-secrets.yaml # Migrated to OCI
   # - ./gitlab.yaml # Migrated to OCI
   # - ./grafana.yaml # Migrated to OCI
-  - ./ingress-nginx.yaml
-  - ./intel.yaml
+  # - ./ingress-nginx.yaml # Unused
+  # - ./intel.yaml # Unused
   # - ./jetstack.yaml # Migrated to OCI
-  - ./k8s-gateway.yaml
+  # - ./k8s-gateway.yaml # Unused
   # - ./kyverno.yaml # Unused
   # - ./metrics-server.yaml # Migrated to OCI
   # - ./node-feature-discovery.yaml # Migrated to OCI
@@ -33,5 +33,5 @@ resources:
   # - ./rook-ceph.yaml # Migrated to OCI
   # - ./spegel.yaml # Migrated to OCI
   # - ./stakater.yaml # Migrated to OCI
-  - ./stevehipwell.yaml
+  # - ./stevehipwell.yaml # Unused
   # - ./xenitab.yaml # Unused
