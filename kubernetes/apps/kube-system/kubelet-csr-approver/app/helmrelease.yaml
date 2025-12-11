@@ -5,15 +5,10 @@ kind: HelmRelease
 metadata:
   name: kubelet-csr-approver
 spec:
-  interval: 30m
-  chart:
-    spec:
-      chart: kubelet-csr-approver
-      version: 1.2.12
-      sourceRef:
-        kind: HelmRepository
-        name: postfinance
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: kubelet-csr-approver
+  interval: 1h
   install:
     remediation:
       retries: 3
@@ -21,8 +16,6 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
-  uninstall:
-    keepHistory: false
   valuesFrom:
     - kind: ConfigMap
       name: kubelet-csr-approver-helm-values
