@@ -62,7 +62,7 @@ spec:
               tag: 0.0.12@sha256:311d48580a385ecbb61d80859817188c77062eb68ff76004a0727b792a055a06
             args:
               - --auto-httproute
-              - --gateway-name=external
+              - --gateway-name=envoy-external
               - --output=/config/gatus-sidecar.yaml
             resources:
               requests:
