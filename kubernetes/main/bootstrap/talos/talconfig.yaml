@@ -54,6 +54,8 @@ nodes:
             dhcp: false
             # dhcpOptions:
             #   routeMetric: 4096
+      - interface: eno2
+        dhcp: false
     patches:
       - &kubelet_extra_mounts |-
         machine:
@@ -93,6 +95,8 @@ nodes:
           ip: ${clusterEndpointIP}
         vlans:
           - *vlan10
+      - interface: enp0s31f6
+        dhcp: false
     patches:
       - *kubelet_extra_mounts
 
@@ -120,6 +124,8 @@ nodes:
           ip: ${clusterEndpointIP}
         vlans:
           - *vlan10
+      - interface: enp0s31f6
+        dhcp: false
     patches:
       - *kubelet_extra_mounts
   - hostname: k8s-3
@@ -144,6 +150,8 @@ nodes:
             gateway: fe80::f61e:57ff:fe3d:5f2a
         vlans:
           - *vlan10
+      - interface: enp0s31f6
+        dhcp: false
     patches:
       - *kubelet_extra_mounts
 
@@ -156,7 +164,6 @@ worker:
         officialExtensions:
           - siderolabs/intel-ucode
           - siderolabs/i915
-          - siderolabs/nut-client
           - siderolabs/util-linux-tools
   patches:
     # Disable search domain everywhere
@@ -214,7 +221,6 @@ controlPlane:
         officialExtensions:
           - siderolabs/intel-ucode
           - siderolabs/i915
-          - siderolabs/nut-client
           - siderolabs/util-linux-tools
 
   patches:
