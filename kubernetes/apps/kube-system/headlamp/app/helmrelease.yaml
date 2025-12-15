@@ -29,7 +29,7 @@ spec:
           - /bin/sh
           - -c
           - |
-            cat <<EOF > /headlamp/kubeconfig
+            cat <<EOF > /config/kubeconfig
             apiVersion: v1
             kind: Config
             clusters:
@@ -50,7 +50,7 @@ spec:
                 tokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
             EOF
         volumeMounts:
-          - mountPath: /headlamp
+          - mountPath: /config
             name: kubeconfig
       - name: headlamp-plugins
         image: ghcr.io/headlamp-k8s/headlamp-plugin-flux:latest
@@ -64,13 +64,13 @@ spec:
             name: plugins
     env:
       - name: KUBECONFIG
-        value: /headlamp/kubeconfig
+        value: /config/kubeconfig
     extraArgs:
       - -plugins-dir=/headlamp/plugins
     volumeMounts:
       - mountPath: /headlamp/plugins
         name: plugins
-      - mountPath: /headlamp
+      - mountPath: /config
         name: kubeconfig
       - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
         name: headlamp-admin-token
