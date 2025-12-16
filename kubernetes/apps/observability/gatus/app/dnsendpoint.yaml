@@ -15,7 +15,7 @@ spec:
     - dnsName: "status.${SECRET_DOMAIN}"
       recordType: AAAA
       targets:
-        - ${EXTERNAL_IP_AAAA}
+        - 2402:21a0:2043:88::21
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
@@ -33,4 +33,4 @@ spec:
     - dnsName: "status.${SECRET_DOMAIN}"
       recordType: AAAA
       targets:
-        - ${EXTERNAL_IP_AAAA}
+        - 2402:21a0:2043:88::21

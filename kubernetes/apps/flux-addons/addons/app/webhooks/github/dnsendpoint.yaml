@@ -16,4 +16,4 @@ spec:
       recordTTL: 300
       recordType: AAAA
       targets:
-        - ${EXTERNAL_IP_AAAA}
+        - 2402:21a0:2043:88::21

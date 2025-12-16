@@ -15,7 +15,7 @@ spec:
     - dnsName: "minio.${SECRET_DOMAIN}"
       recordType: AAAA
       targets:
-        - ${INTERNAL_IP_AAAA}
+        - 2402:21a0:2043:88::22
     - dnsName: "s3.${SECRET_DOMAIN}"
       recordType: A
       targets:
@@ -23,4 +23,4 @@ spec:
     - dnsName: "s3.${SECRET_DOMAIN}"
       recordType: AAAA
       targets:
-        - ${INTERNAL_IP_AAAA}
+        - 2402:21a0:2043:88::22
