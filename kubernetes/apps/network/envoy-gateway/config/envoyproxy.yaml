@@ -5,6 +5,7 @@ kind: EnvoyProxy
 metadata:
   name: envoy-proxy-config
 spec:
+  ipFamily: DualStack
   logging:
     level:
       default: info
@@ -22,14 +23,6 @@ spec:
               memory: 1Gi
       envoyService:
         externalTrafficPolicy: Local
-        patch:
-          type: StrategicMerge
-          value:
-            spec:
-              ipFamilyPolicy: PreferDualStack
-              ipFamilies:
-                - IPv4
-                - IPv6
   shutdown:
     drainTimeout: 60s
   telemetry:
