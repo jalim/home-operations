@@ -22,7 +22,14 @@ spec:
               memory: 1Gi
       envoyService:
         externalTrafficPolicy: Local
-        ipFamily: DualStack
+        patch:
+          type: StrategicMerge
+          value:
+            spec:
+              ipFamilyPolicy: PreferDualStack
+              ipFamilies:
+                - IPv4
+                - IPv6
   shutdown:
     drainTimeout: 60s
   telemetry:
