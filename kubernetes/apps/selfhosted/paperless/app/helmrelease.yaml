@@ -73,7 +73,6 @@ spec:
                 memory: 6Gi
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
 
       redis:
