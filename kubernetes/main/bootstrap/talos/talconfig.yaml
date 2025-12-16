@@ -178,7 +178,7 @@ worker:
         network:
           nameservers:
             - 10.88.0.1
-            - 2402:21a0:2043:88::
+            - "2402:21a0:2043:88::"
 
 
     # Configure NTP
@@ -250,7 +250,7 @@ controlPlane:
         network:
           nameservers:
             - 10.88.0.1
-            - 2402:21a0:2043:88::
+            - "2402:21a0:2043:88::"
 
 
     # Configure NTP
