@@ -12,7 +12,7 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
-  interval: 10m
+  interval: 1h
   path: ./kubernetes/apps/selfhosted/paperless/app
   prune: true
   sourceRef:
@@ -20,7 +20,6 @@ spec:
     name: home-kubernetes
   wait: false
   dependsOn:
-    - name: dragonfly-cluster
     - name: rook-ceph-cluster
     - name: volsync
     - name: external-secrets-stores
@@ -28,6 +27,6 @@ spec:
     substitute:
       APP: *app
       APP_UID: "1000"
-      APP_GID: "65542"
-      VOLSYNC_CLAIM: paperless-data
+      APP_GID: "1000"
+      VOLSYNC_CLAIM: *app
       VOLSYNC_CAPACITY: 15Gi
