@@ -9,7 +9,7 @@ service:
   clusterIP: 10.12.0.10
   clusterIPs:
     - 10.12.0.10
-    - 2404:e80:942a:cafe:1::a
+    - 2402:21a0:2043:cafe:1::a
   ipFamilyPolicy: PreferDualStack
   ipFamilies:
     - IPv4

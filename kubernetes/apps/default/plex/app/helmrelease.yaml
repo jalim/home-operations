@@ -70,7 +70,7 @@ spec:
         type: LoadBalancer
         ipFamilyPolicy: PreferDualStack
         annotations:
-          io.cilium/lb-ipam-ips: "10.88.0.32,2404:e80:942a:88::32"
+          io.cilium/lb-ipam-ips: "10.88.0.32,2402:21a0:2043:88::32"
         ports:
           http:
             port: &port 32400

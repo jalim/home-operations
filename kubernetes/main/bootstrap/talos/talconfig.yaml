@@ -13,10 +13,10 @@ cniConfig:
 
 clusterPodNets:
   - "10.11.0.0/16"
-  - "2404:e80:942a:cafe:0::/96"
+  - "2402:21a0:2043:cafe:0::/96"
 clusterSvcNets:
   - "10.12.0.0/16"
-  - "2404:e80:942a:cafe:1::/112"
+  - "2402:21a0:2043:cafe:1::/112"
 
 additionalApiServerCertSans: &san
   - ${clusterName}.${clusterDNSSuffix}
@@ -33,7 +33,7 @@ nodes:
       - interface: bond0
         addresses:
           - 10.88.0.10/24
-          - 2404:e80:942a:88::10/64
+          - 2402:21a0:2043:88::10/64
         bond:
           mode: active-backup
           deviceSelectors:
@@ -79,7 +79,7 @@ nodes:
       - interface: bond0
         addresses:
           - 10.88.0.11/24
-          - 2404:e80:942a:88::11/64
+          - 2402:21a0:2043:88::11/64
         bond:
           mode: active-backup
           deviceSelectors:
@@ -108,7 +108,7 @@ nodes:
       - interface: bond0
         addresses:
           - 10.88.0.12/24
-          - 2404:e80:942a:88::12/64
+          - 2402:21a0:2043:88::12/64
         bond:
           mode: active-backup
           deviceSelectors:
@@ -136,7 +136,7 @@ nodes:
       - interface: bond0
         addresses:
           - 10.88.0.13/24
-          - 2404:e80:942a:88::13/64
+          - 2402:21a0:2043:88::13/64
         bond:
           mode: active-backup
           deviceSelectors:
@@ -178,7 +178,7 @@ worker:
         network:
           nameservers:
             - 10.88.0.1
-            - 2404:e80:942a:88:f61e:57ff:fe3d:5f2a
+            - 2402:21a0:2043:88::
 
 
     # Configure NTP
@@ -250,7 +250,7 @@ controlPlane:
         network:
           nameservers:
             - 10.88.0.1
-            - 2404:e80:942a:88:f61e:57ff:fe3d:5f2a
+            - 2402:21a0:2043:88::
 
 
     # Configure NTP
@@ -365,7 +365,7 @@ controlPlane:
           nodeIP:
             validSubnets:
                 - 10.88.0.0/24
-                - 2404:e80:942a:88::/64
+                - 2402:21a0:2043:88::/64
 
     # Custom sysctls
     - |-
