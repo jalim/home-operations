@@ -17,6 +17,6 @@ spec:
             name: cilium-peer-v4
         - name: peer-65001-mikrotik-v6
           peerASN: 65001
-          peerAddress: "2402:21a0:2043:88::"
+          peerAddress: "2402:21a0:2043:88::1"
           peerConfigRef:
             name: cilium-peer-v6
