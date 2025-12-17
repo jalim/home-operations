@@ -12,7 +12,6 @@ resources:
   - ./radarr-kids/ks.yaml
   - ./audiobookshelf/ks.yaml
   - ./autobrr/ks.yaml
-  - ./autopulse/ks.yaml
   - ./changedetection/ks.yaml
   - ./esphome/ks.yaml
   - ./jellyseerr-plex/ks.yaml
