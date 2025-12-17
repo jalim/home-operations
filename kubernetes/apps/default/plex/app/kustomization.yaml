@@ -7,4 +7,5 @@ resources:
   - ./pvc.yaml
   - ./resourceclaimtemplate.yaml
   - ./helmrelease.yaml
+  - ./backend.yaml
   # - ./networkpolicy.yaml

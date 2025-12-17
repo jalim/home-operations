@@ -89,8 +89,9 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - identifier: app
-                port: *port
+              - group: gateway.envoyproxy.io
+                kind: Backend
+                name: plex-ipv4
             filters:
               - type: RequestHeaderModifier
                 requestHeaderModifier:
@@ -100,8 +101,9 @@ spec:
                   type: PathPrefix
                   value: /library/streams
           - backendRefs:
-              - identifier: app
-                port: *port
+              - group: gateway.envoyproxy.io
+                kind: Backend
+                name: plex-ipv4
     persistence:
       config:
         existingClaim: plex
