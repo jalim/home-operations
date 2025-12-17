@@ -21,6 +21,8 @@ spec:
               tag: v1.4.0@sha256:b752f765a42f3a54d4e5c5697ecf03b46d6536f7021321b84e60fde86c43a155
             env:
               TZ: ${TIMEZONE}
+              # Database
+              AUTOPULSE__APP__DATABASE_URL: sqlite:///config/autopulse.db
               # Plex target
               AUTOPULSE__TARGETS__PLEX__TYPE: plex
               AUTOPULSE__TARGETS__PLEX__URL: http://plex.default.svc.cluster.local:32400
@@ -66,4 +68,4 @@ spec:
       config:
         type: emptyDir
         globalMounts:
-          - path: /app/data
+          - path: /config
