@@ -127,6 +127,8 @@ spec:
       enabled: true
     prometheus-node-exporter:
       fullnameOverride: node-exporter
+      extraArgs:
+        - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+|etc/nfsmount\.conf)($|/)
       prometheus:
         monitor:
           enabled: true
