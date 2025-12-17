@@ -30,18 +30,16 @@ spec:
               - secretRef:
                   name: autopulse-secret
             probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /health
-                    port: &port 2875
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            ports:
+              - name: http
+                containerPort: &port 2875
+                protocol: TCP
             resources:
               requests:
                 cpu: 10m
