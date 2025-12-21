@@ -86,10 +86,10 @@ spec:
         globalMounts:
           - path: /downloads
             subPath: youtube
-      #cookies:
-        #type: secret
-        #name: pinchflat-secret
-        #globalMounts:
-          #- path: /config/extras/cookies.txt
-            #subPath: cookies.txt
-            #readOnly: true
+      cookies:
+        type: secret
+        name: pinchflat-secret
+        globalMounts:
+          - path: /config/extras/cookies.txt
+            subPath: cookies.txt
+            readOnly: true
