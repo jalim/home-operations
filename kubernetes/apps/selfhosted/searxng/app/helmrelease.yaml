@@ -21,7 +21,7 @@ spec:
           main:
             image:
               repository: docker.io/searxng/searxng
-              tag: latest
+              tag: 2025.12.19-8bf600cc6@sha256:13de9d465bd2d9da6a6718f2a57d96e6e5fa3b8aba3c0bec077a5b7e5f24e4e9
             env:
               SEARXNG_BASE_URL: https://search.lumu.au
               SEARXNG_URL: https://search.lumu.au
@@ -71,7 +71,7 @@ spec:
           redis:
             image:
               repository: docker.io/valkey/valkey
-              tag: 9.0.1
+              tag: 9.0.1@sha256:fb8d272e529ea567b9bf1302245796f21a2672b8368ca3fcb938ac334e613c8f
             args:
               - --save
               - ""
