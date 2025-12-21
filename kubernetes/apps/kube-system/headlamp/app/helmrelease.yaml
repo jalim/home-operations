@@ -24,7 +24,7 @@ spec:
       pluginsDir: /headlamp/plugins
     initContainers:
       - name: create-kubeconfig
-        image: rancher/shell:v0.6.1
+        image: rancher/shell:v0.6.1@sha256:a255ad8992cf97a544b55e7f6a113179f05f831359ab6088e3658525fb58ea1b
         command:
           - /bin/sh
           - -c
@@ -53,7 +53,7 @@ spec:
           - mountPath: /config
             name: kubeconfig
       - name: headlamp-plugins
-        image: ghcr.io/headlamp-k8s/headlamp-plugin-flux:latest
+        image: ghcr.io/headlamp-k8s/headlamp-plugin-flux:v0.5.0@sha256:05c3df203b2ff82e09e944e31cd16ab66429f37df7566ba0d47285add7c78c5a
         command:
           - /bin/sh
           - -c
