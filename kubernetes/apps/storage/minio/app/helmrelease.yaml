@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: quay.io/minio/minio
-              tag: RELEASE.2025-09-07T16-13-09Z
+              tag: RELEASE.2025-09-07T16-13-09Z@sha256:a1a8bd4ac40ad7881a245bab97323e18f971e4d4cba2c2007ec1bedd21cbaba2
             env:
               MINIO_API_CORS_ALLOW_ORIGIN: https://minio.lumu.au,https://s3.lumu.au,http://minio.storage.svc.cluster.local
               MINIO_BROWSER_REDIRECT_URL: https://minio.lumu.au

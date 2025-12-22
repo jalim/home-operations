@@ -92,7 +92,7 @@ spec:
           redis:
             image:
               repository: docker.io/valkey/valkey
-              tag: 9.0.1
+              tag: 9.0.1@sha256:92e1212df4cd9d5d34be34c74db9a0b6d0730ca1a2cd5534fc042111e43dc7ae
             args:
               - --save
               - ""
