@@ -2,6 +2,12 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "packageRules": [
     {
+      "description": ["Ignore private GitLab registry packages"],
+      "matchDatasources": ["docker"],
+      "matchPackagePatterns": ["registry.gitlab.lumu.au"],
+      "enabled": false
+    },
+    {
       "description": ["Loose versioning for non-semver packages"],
       "matchDatasources": ["docker"],
       "versioning": "loose",
