@@ -98,14 +98,11 @@ spec:
       serviceAccountName: gitlab-runner
 
     # Pod resources for runner manager
-    # Formula: CPU = 10m + (6m × concurrent), Memory = 50Mi + (2.5Mi × concurrent)
-    # For 10 concurrent jobs: ~70m CPU, ~75Mi memory (with some headroom)
     resources:
       requests:
         cpu: 100m
         memory: 128Mi
       limits:
-        cpu: 300m
         memory: 384Mi
 
     # Security context
