@@ -95,6 +95,14 @@ spec:
             enabled: true
           - name: rook
             enabled: true
+      mon:
+        count: 3
+        volumeClaimTemplate:
+          spec:
+            storageClassName: openebs-hostpath
+            resources:
+              requests:
+                storage: 10Gi
       network:
         provider: host
         connections:
