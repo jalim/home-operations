@@ -19,6 +19,21 @@ spec:
       dispatcharr:
         annotations:
           reloader.stakater.com/auto: "true"
+        pod:
+          hostUsers: false
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/alpine
+              tag: 3.21.3@sha256:6b796ab22bdc96a4f0b7a9fc185e1330d5e2e22d22f98cffc92adcf01d0b14e1
+            command:
+              - /bin/sh
+              - -c
+            args:
+              - |
+                chmod 0750 /data/db
+            securityContext:
+              runAsUser: 0
         containers:
           app:
             image:
@@ -28,6 +43,7 @@ spec:
               TZ: Australia/Perth
               DISPATCHARR_ENV: aio
               DISPATCHARR_LOG_LEVEL: info
+              DISPATCHARR_PORT: &port 9191
             probes:
               liveness: &probes
                 enabled: true
@@ -35,7 +51,7 @@ spec:
                 spec:
                   httpGet:
                     path: /
-                    port: &port 9191
+                    port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -58,13 +74,6 @@ spec:
                 memory: 256M
               limits:
                 memory: 2Gi
-    defaultPodOptions:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        runAsNonRoot: true
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ipFamilyPolicy: PreferDualStack
@@ -83,13 +92,17 @@ spec:
               - identifier: app
                 port: *port
     persistence:
-      config:
+      data:
         existingClaim: dispatcharr
-        globalMounts:
-          - path: /data
-      postgres-run:
+        advancedMounts:
+          dispatcharr:
+            app:
+              - path: /data
+            init-db:
+              - path: /data
+      tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /var/run/postgresql
-      tmp:
-        type: emptyDir
+        advancedMounts:
+          dispatcharr:
+            app:
+              - path: /tmp
