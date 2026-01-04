@@ -19,8 +19,6 @@ spec:
       dispatcharr:
         annotations:
           reloader.stakater.com/auto: "true"
-        pod:
-          hostUsers: false
         initContainers:
           init-db:
             image:
