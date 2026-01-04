@@ -24,8 +24,8 @@ spec:
         initContainers:
           init-db:
             image:
-              repository: ghcr.io/onedr0p/alpine
-              tag: 3.21.3@sha256:6b796ab22bdc96a4f0b7a9fc185e1330d5e2e22d22f98cffc92adcf01d0b14e1
+              repository: docker.io/library/alpine
+              tag: "3.21"
             command:
               - /bin/sh
               - -c
