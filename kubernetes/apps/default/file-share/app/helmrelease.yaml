@@ -73,7 +73,8 @@ spec:
     service:
       app:
         controller: file-share
-        ipFamilyPolicy: PreferDualStack
+        ipFamilyPolicy: SingleStack
+        ipFamilies: [IPv4]
         ports:
           http:
             port: &port 80
