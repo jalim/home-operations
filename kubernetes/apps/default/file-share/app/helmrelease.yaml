@@ -20,7 +20,7 @@ spec:
               repository: docker.io/library/nginx
               tag: 1.27-alpine
             probes:
-              liveness: &probes
+              liveness:
                 enabled: true
                 custom: true
                 spec:
@@ -28,12 +28,31 @@ spec:
                     path: /
                     port: 80
                   initialDelaySeconds: 10
-                  periodSeconds: 10
-                  timeoutSeconds: 1
+                  periodSeconds: 30
+                  timeoutSeconds: 5
                   failureThreshold: 3
-              readiness: *probes
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 80
+                  initialDelaySeconds: 5
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 2
               startup:
-                enabled: false
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 80
+                  initialDelaySeconds: 0
+                  periodSeconds: 5
+                  timeoutSeconds: 5
+                  failureThreshold: 30
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
