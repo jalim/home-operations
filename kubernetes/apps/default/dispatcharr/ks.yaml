@@ -23,6 +23,20 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
+  patches:
+    - patch: |-
+        apiVersion: volsync.backube/v1alpha1
+        kind: ReplicationSource
+        metadata:
+          name: dispatcharr
+        spec:
+          kopia:
+            moverSecurityContext:
+              supplementalGroups:
+                - 104
+      target:
+        kind: ReplicationSource
+        name: dispatcharr
   postBuild:
     substitute:
       APP: *app
