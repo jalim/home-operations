@@ -7,3 +7,8 @@ resources:
   # - ./externalsecret.yaml
   - ./resourceclaimtemplate.yaml
   - ./helmrelease.yaml
+patches:
+  - path: volsync-patch.yaml
+    target:
+      kind: ReplicationSource
+      name: dispatcharr
