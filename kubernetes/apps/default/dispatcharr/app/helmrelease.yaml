@@ -35,6 +35,7 @@ spec:
             args:
               - |
                 mkdir -p /data/db
+                chown 1000:1000 /data/db
                 chmod 0750 /data/db
             securityContext:
               runAsUser: 0
@@ -84,6 +85,12 @@ spec:
       resourceClaims:
         - name: gpu
           resourceClaimTemplateName: dispatcharr
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ipFamilyPolicy: PreferDualStack
