@@ -14,6 +14,9 @@ spec:
     remediation:
       strategy: uninstall
       retries: 3
+  dependsOn:
+    - name: intel-gpu-resource-driver
+      namespace: kube-system
   values:
     controllers:
       dispatcharr:
@@ -70,11 +73,17 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 30
             resources:
+              claims:
+                - name: gpu
               requests:
                 cpu: 10m
                 memory: 256M
               limits:
                 memory: 8Gi
+    defaultPodOptions:
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: dispatcharr
     service:
       app:
         ipFamilyPolicy: PreferDualStack
