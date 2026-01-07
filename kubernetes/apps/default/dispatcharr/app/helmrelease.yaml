@@ -35,8 +35,8 @@ spec:
             args:
               - |
                 mkdir -p /data/db
-                chown 1000:1000 /data/db
-                chmod 0750 /data/db
+                chown -R :1000 /data/db
+                chmod -R g+rX /data/db
             securityContext:
               runAsUser: 0
         containers:
