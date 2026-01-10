@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: docker.io/library/nginx
-              tag: 1.27-alpine
+              tag: 1.29-alpine
             probes:
               liveness:
                 enabled: true
