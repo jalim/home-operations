@@ -24,7 +24,7 @@ spec:
           cni-plugins:
             image:
               repository: ghcr.io/home-operations/cni-plugins
-              tag: 1.9.0@sha256:1064d96d403e537778a00f2f46be18c8a0303112a8bed9feb15f34b6a8f982f7
+              tag: 1.9.0@sha256:45f775be3b225280a13e9ac3bf856816bcb7223e1dfbcef1fbcf700f418e7b9d
         containers:
           multus:
             image:
