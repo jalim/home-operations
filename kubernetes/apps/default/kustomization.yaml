@@ -15,7 +15,7 @@ resources:
   - ./changedetection/ks.yaml
   # - ./dispatcharr/ks.yaml # Not ready for production yet
   - ./esphome/ks.yaml
-  - ./jellyseerr-plex/ks.yaml
+  - ./seerr/ks.yaml
   - ./mealie/ks.yaml
   - ./pinchflat/ks.yaml
   - ./plex/ks.yaml
