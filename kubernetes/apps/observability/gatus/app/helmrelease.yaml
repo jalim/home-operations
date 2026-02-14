@@ -62,8 +62,8 @@ spec:
               tag: 0.0.13@sha256:de5d073566349fecd150aa93bbccfa91c15aca327c9a5e67fc0c1c4c39ab9ac1
             args:
               - --auto-httproute
-              - --gateway-name=envoy-external
-              - --output=/config/gatus-sidecar.yaml
+              - --enable-httproute
+              - --enable-service
             resources:
               requests:
                 cpu: 10m
@@ -100,14 +100,6 @@ spec:
                 - ""
               resources:
                 - services
-              verbs:
-                - get
-                - watch
-                - list
-            - apiGroups:
-                - networking.k8s.io
-              resources:
-                - ingresses
               verbs:
                 - get
                 - watch
