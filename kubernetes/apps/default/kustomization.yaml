@@ -13,7 +13,7 @@ resources:
   - ./audiobookshelf/ks.yaml
   - ./autobrr/ks.yaml
   - ./changedetection/ks.yaml
-  - ./dispatcharr/ks.yaml
+  # - ./dispatcharr/ks.yaml # Not ready for production yet
   - ./esphome/ks.yaml
   - ./jellyseerr-plex/ks.yaml
   - ./mealie/ks.yaml
