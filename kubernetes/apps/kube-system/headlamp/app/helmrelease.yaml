@@ -24,7 +24,7 @@ spec:
       pluginsDir: /headlamp/plugins
     initContainers:
       - name: create-kubeconfig
-        image: rancher/shell:v0.6.1@sha256:a255ad8992cf97a544b55e7f6a113179f05f831359ab6088e3658525fb58ea1b
+        image: rancher/shell:v0.6.2@sha256:c10d63f1b4158cf1a0fd64b166b9bf1ab166a64eec44f7fb097846cb04c323bd
         command:
           - /bin/sh
           - -c
