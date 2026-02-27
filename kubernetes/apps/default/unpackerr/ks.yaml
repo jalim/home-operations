@@ -10,8 +10,11 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/nfs-scaler
   dependsOn:
     - name: external-secrets-stores
+    - name: keda
   path: ./kubernetes/apps/default/unpackerr/app
   prune: true
   sourceRef:

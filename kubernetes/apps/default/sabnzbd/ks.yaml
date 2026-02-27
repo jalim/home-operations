@@ -12,8 +12,10 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
+    - ../../../../components/nfs-scaler
   dependsOn:
     - name: external-secrets-stores
+    - name: keda
   path: ./kubernetes/apps/default/sabnzbd/app
   prune: true
   sourceRef:

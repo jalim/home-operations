@@ -11,10 +11,12 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
+    - ../../../../components/nfs-scaler
   path: ./kubernetes/apps/default/audiobookshelf/app
   prune: true
   dependsOn:
     - name: volsync
+    - name: keda
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

@@ -12,6 +12,9 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
+    - ../../../../components/nfs-scaler
+  dependsOn:
+    - name: keda
   path: ./kubernetes/apps/default/pinchflat/app
   prune: true
   sourceRef:
