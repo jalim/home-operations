@@ -12,6 +12,7 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
+    - ../../../../components/nfs-scaler
   interval: 30m
   timeout: 5m
   path: ./kubernetes/apps/default/scrypted/app
@@ -24,6 +25,7 @@ spec:
     - name: multus-config
     - name: rook-ceph-cluster
     - name: volsync
+    - name: keda
   postBuild:
     substitute:
       APP: *app
