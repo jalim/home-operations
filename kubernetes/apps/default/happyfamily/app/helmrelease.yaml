@@ -1,0 +1,142 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: happyfamily
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: happyfamily
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: uninstall
+      retries: 3
+  values:
+    controllers:
+      happyfamily:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          server:
+            image:
+              repository: registry.gitlab.lumu.au/jalim/happyfamily/server
+              tag: latest
+            env:
+              PORT: "3001"
+              DATABASE_PATH: /data/happyfamily.db
+              CLIENT_ORIGIN: https://happyfamily.lumu.au
+            envFrom:
+              - secretRef:
+                  name: happyfamily-secret
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: 3001
+                  initialDelaySeconds: 15
+                  periodSeconds: 30
+                  timeoutSeconds: 3
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: 3001
+                  initialDelaySeconds: 15
+                  periodSeconds: 10
+                  timeoutSeconds: 3
+                  failureThreshold: 3
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: 3001
+                  initialDelaySeconds: 0
+                  periodSeconds: 5
+                  timeoutSeconds: 1
+                  failureThreshold: 30
+            resources:
+              requests:
+                cpu: 50m
+                memory: 128Mi
+              limits:
+                memory: 256Mi
+          client:
+            image:
+              repository: registry.gitlab.lumu.au/jalim/happyfamily/client
+              tag: latest
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health-client
+                    port: 80
+                  initialDelaySeconds: 10
+                  periodSeconds: 30
+                  timeoutSeconds: 3
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health-client
+                    port: 80
+                  initialDelaySeconds: 5
+                  periodSeconds: 10
+                  timeoutSeconds: 3
+                  failureThreshold: 3
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health-client
+                    port: 80
+                  initialDelaySeconds: 0
+                  periodSeconds: 5
+                  timeoutSeconds: 1
+                  failureThreshold: 30
+            resources:
+              requests:
+                cpu: 10m
+                memory: 32Mi
+              limits:
+                memory: 64Mi
+    service:
+      app:
+        controller: happyfamily
+        ipFamilyPolicy: PreferDualStack
+        ports:
+          http:
+            port: &port 80
+    route:
+      app:
+        hostnames: ["happyfamily.lumu.au"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+    persistence:
+      data:
+        existingClaim: happyfamily
+        advancedMounts:
+          happyfamily:
+            server:
+              - path: /data

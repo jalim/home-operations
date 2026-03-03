@@ -26,6 +26,7 @@ resources:
   - ./tautulli/ks.yaml
   - ./unpackerr/ks.yaml
   - ./file-share/ks.yaml
+  - ./happyfamily/ks.yaml
   # - ./cross-seed/ks.yaml
   # - ./home-assistant/ks.yaml
   # - ./jellyfin/ks.yaml
