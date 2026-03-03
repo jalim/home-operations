@@ -25,7 +25,10 @@ spec:
               repository: registry.gitlab.lumu.au/jalim/happyfamily/server
               tag: latest
             env:
+              TZ: Australia/Perth
               PORT: "3001"
+              NTFY_BASE_URL: https://notify.lumu.au
+              NTFY_TOPIC: happyfamily
               DATABASE_PATH: /data/happyfamily.db
               CLIENT_ORIGIN: https://happyfamily.lumu.au
             envFrom:
@@ -75,6 +78,8 @@ spec:
             image:
               repository: registry.gitlab.lumu.au/jalim/happyfamily/client
               tag: latest
+            env:
+              TZ: Australia/Perth
             lifecycle:
               preStop:
                 exec:
