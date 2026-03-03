@@ -3,6 +3,8 @@ spegel:
   appendMirrors: true
   containerdSock: /run/containerd/containerd.sock
   containerdRegistryConfigPath: /etc/cri/conf.d/hosts
+  # TODO: Re-enable once happyfamily uses pinned image tags instead of `latest`
+  resolveLatestTag: false
 service:
   registry:
     hostPort: 29999
