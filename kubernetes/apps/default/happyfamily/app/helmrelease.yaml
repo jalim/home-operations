@@ -92,9 +92,9 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /health-client
-                    port: 80
-                  initialDelaySeconds: 5
+                    path: /health
+                    port: 3001
+                  initialDelaySeconds: 15
                   periodSeconds: 10
                   timeoutSeconds: 3
                   failureThreshold: 3
@@ -103,8 +103,8 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /health-client
-                    port: 80
+                    path: /health
+                    port: 3001
                   initialDelaySeconds: 0
                   periodSeconds: 5
                   timeoutSeconds: 1
