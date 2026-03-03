@@ -75,6 +75,10 @@ spec:
             image:
               repository: registry.gitlab.lumu.au/jalim/happyfamily/client
               tag: latest
+            lifecycle:
+              preStop:
+                exec:
+                  command: ["/bin/sh", "-c", "sleep 5"]
             probes:
               liveness:
                 enabled: true
