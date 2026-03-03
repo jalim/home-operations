@@ -115,6 +115,10 @@ spec:
                 memory: 32Mi
               limits:
                 memory: 64Mi
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         controller: happyfamily
