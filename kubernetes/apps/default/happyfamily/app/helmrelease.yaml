@@ -29,6 +29,7 @@ spec:
               PORT: "3001"
               NTFY_BASE_URL: https://notify.lumu.au
               NTFY_TOPIC: happyfamily
+              OWNTRACKS_USER: dad
               DATABASE_PATH: /data/happyfamily.db
               CLIENT_ORIGIN: https://happyfamily.lumu.au
             envFrom:
