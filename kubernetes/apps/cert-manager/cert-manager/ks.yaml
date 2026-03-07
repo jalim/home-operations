@@ -35,6 +35,11 @@ spec:
     - name: cert-manager
     - name: external-secrets-stores
   path: ./kubernetes/apps/cert-manager/cert-manager/issuers
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: zerossl-secret
+        optional: false
   prune: true
   sourceRef:
     kind: GitRepository

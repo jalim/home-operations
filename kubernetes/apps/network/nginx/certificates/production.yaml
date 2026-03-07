@@ -7,7 +7,7 @@ metadata:
 spec:
   secretName: lumu-production-tls
   issuerRef:
-    name: letsencrypt-production
+    name: zerossl-production
     kind: ClusterIssuer
   commonName: lumu.au
   dnsNames:
