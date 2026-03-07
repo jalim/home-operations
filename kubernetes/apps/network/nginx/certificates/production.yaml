@@ -13,3 +13,6 @@ spec:
   dnsNames:
     - lumu.au
     - "*.lumu.au"
+  renewBefore: 720h
+  privateKey:
+    rotationPolicy: Never
