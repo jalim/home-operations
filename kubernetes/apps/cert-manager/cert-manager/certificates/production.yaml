@@ -16,3 +16,5 @@ spec:
   renewBefore: 720h
   privateKey:
     rotationPolicy: Never
+    algorithm: RSA
+    size: 4096
