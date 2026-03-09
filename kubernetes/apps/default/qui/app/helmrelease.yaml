@@ -85,3 +85,5 @@ spec:
         existingClaim: qui
       tmp:
         type: emptyDir
+      media:
+        existingClaim: media
