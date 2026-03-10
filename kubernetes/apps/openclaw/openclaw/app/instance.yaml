@@ -52,10 +52,8 @@ spec:
       channels:
         telegram:
           enabled: true
-          token: "${TELEGRAM_BOT_TOKEN}"
-          dmPolicy: allowlist
-          allowFrom:
-            - "+61422533080"
+          botToken: "${TELEGRAM_BOT_TOKEN}"
+          dmPolicy: pairing
   storage:
     persistence:
       enabled: true
