@@ -22,6 +22,9 @@ spec:
       - "https://openclaw.lumu.au"
   config:
     raw:
+      gateway:
+        controlUi:
+          dangerouslyDisableDeviceAuth: true
       agents:
         defaults:
           model:
