@@ -24,6 +24,7 @@ spec:
       name: openclaw-api-keys
       key: OPENCLAW_AUTH_TOKEN
   config:
+    mergeMode: replace
     raw:
       agents:
         defaults:
