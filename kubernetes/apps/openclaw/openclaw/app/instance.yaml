@@ -20,9 +20,7 @@ spec:
   gateway:
     controlUiOrigins:
       - "https://openclaw.lumu.au"
-    tokenSecretRef:
-      name: openclaw-api-keys
-      key: OPENCLAW_AUTH_TOKEN
+    existingSecret: openclaw-gateway-token
   config:
     mergeMode: replace
     raw:
