@@ -18,3 +18,24 @@ spec:
       ports:
         - protocol: TCP
           port: 18790
+---
+# Cross-node Envoy traffic gets SNATed to the node IP, which Cilium identifies
+# as kube-apiserver (control plane nodes). This CiliumNetworkPolicy allows
+# remote-node masqueraded traffic to reach the gateway-proxy port.
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: openclaw-allow-remote-node
+  namespace: openclaw
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: openclaw
+      app.kubernetes.io/name: openclaw
+  ingress:
+    - fromEntities:
+        - remote-node
+      toPorts:
+        - ports:
+            - port: "18790"
+              protocol: TCP
