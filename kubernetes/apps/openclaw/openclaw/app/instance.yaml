@@ -33,6 +33,9 @@ spec:
             fi
             sleep 3
           done
+      env:
+        - name: HOME
+          value: /home/openclaw
       volumeMounts:
         - name: data
           mountPath: /home/openclaw/.openclaw
