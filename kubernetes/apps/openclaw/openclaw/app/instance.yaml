@@ -20,25 +20,9 @@ spec:
   gateway:
     controlUiOrigins:
       - "https://openclaw.lumu.au"
-  sidecars:
-    - name: device-auto-approver
-      image: ghcr.io/openclaw/openclaw:latest
-      command: ["/bin/sh", "-c"]
-      args:
-        - |
-          while true; do
-            COUNT=$(openclaw devices list --json 2>/dev/null | python3 -c "import sys,json; d=json.load(sys.stdin); print(len(d.get('pending',[])))" 2>/dev/null || echo 0)
-            if [ "$COUNT" -gt 0 ] 2>/dev/null; then
-              openclaw devices approve --latest 2>&1 && echo "Auto-approved a device at $(date)"
-            fi
-            sleep 3
-          done
-      env:
-        - name: HOME
-          value: /home/openclaw
-      volumeMounts:
-        - name: data
-          mountPath: /home/openclaw/.openclaw
+    tokenSecretRef:
+      name: openclaw-api-keys
+      key: OPENCLAW_AUTH_TOKEN
   config:
     raw:
       agents:
