@@ -4,4 +4,5 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./instance.yaml
+  - ./networkpolicy.yaml
   - ./route.yaml
