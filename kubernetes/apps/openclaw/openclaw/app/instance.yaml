@@ -22,7 +22,7 @@ spec:
       - "https://openclaw.lumu.au"
     existingSecret: openclaw-gateway-token
   config:
-    mergeMode: replace
+    mergeMode: overwrite
     raw:
       agents:
         defaults:
