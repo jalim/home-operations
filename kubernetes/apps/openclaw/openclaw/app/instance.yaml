@@ -37,6 +37,9 @@ spec:
       volumeMounts:
         - name: data
           mountPath: /home/openclaw/.openclaw
+  chromium:
+    enabled: true
+
   config:
     raw:
       agents:
@@ -47,6 +50,12 @@ spec:
         load:
           extraDirs:
             - "/home/openclaw/.openclaw/skills"
+      channels:
+        whatsapp:
+          enabled: true
+          dmPolicy: allowlist
+          allowFrom:
+            - "+61422533080"
   storage:
     persistence:
       enabled: true
