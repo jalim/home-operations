@@ -8,6 +8,15 @@ spec:
   envFrom:
     - secretRef:
         name: openclaw-api-keys
+    - secretRef:
+        name: openclaw-media-secrets
+  env:
+    - name: RADARR_URL
+      value: "https://radarr.lumu.au"
+    - name: SONARR_URL
+      value: "https://sonarr.lumu.au"
+  runtimeDeps:
+    python: true
   gateway:
     controlUiOrigins:
       - "https://openclaw.lumu.au"
@@ -17,6 +26,10 @@ spec:
         defaults:
           model:
             primary: "anthropic/claude-sonnet-4-20250514"
+      skills:
+        load:
+          extraDirs:
+            - "/home/openclaw/.openclaw/skills"
   storage:
     persistence:
       enabled: true
