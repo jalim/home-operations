@@ -7,8 +7,6 @@ metadata:
 spec:
   envFrom:
     - secretRef:
-        name: openclaw-api-keys
-    - secretRef:
         name: openclaw-media-secrets
   env:
     - name: RADARR_URL
