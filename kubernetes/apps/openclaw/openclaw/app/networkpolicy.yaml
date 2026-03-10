@@ -39,3 +39,26 @@ spec:
         - ports:
             - port: "18790"
               protocol: TCP
+---
+# Allow egress to Envoy gateways in the network namespace so skills can call
+# internal cluster services (e.g. radarr.lumu.au, sonarr.lumu.au) via HTTPS.
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: openclaw-allow-egress-envoy
+  namespace: openclaw
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: openclaw
+      app.kubernetes.io/name: openclaw
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: network
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+            - port: "10443"
+              protocol: TCP
