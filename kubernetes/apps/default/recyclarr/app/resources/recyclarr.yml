@@ -57,8 +57,6 @@ radarr:
     custom_format_groups:
       add:
         - trash_id: f8bf8eab4617f12dfdbd16303d8da245 # [Required] Golden Rule HD
-          select:
-            - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
         - trash_id: 9337080378236ce4c0b183e35790d2a7 # [Optional] Miscellaneous
           select:
             - b6832f586342ef70d9c128d40c07b872 # Bad Dual Groups
