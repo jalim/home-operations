@@ -56,11 +56,11 @@ spec:
                 memory: 512Mi
     defaultPodOptions:
       securityContext:
-        runAsUser: 568
-        runAsGroup: 568
+        runAsUser: 1000
+        runAsGroup: 1000
         runAsNonRoot: true
-        fsGroup: 568
-        fsGroupChangePolicy: Always
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:
