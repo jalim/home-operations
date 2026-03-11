@@ -27,7 +27,8 @@ spec:
       agents:
         defaults:
           model:
-            primary: "anthropic/claude-sonnet-4-20250514"
+            primary: "anthropic/claude-haiku-3-5-20241022"
+            fallback: "anthropic/claude-sonnet-4-20250514"
       skills:
         load:
           extraDirs:
@@ -36,6 +37,8 @@ spec:
         telegram:
           enabled: true
           dmPolicy: pairing
+          groups:
+            "-5222795601": {}
   storage:
     persistence:
       enabled: true
