@@ -85,10 +85,10 @@ spec:
       config:
         existingClaim: music-assistant
         globalMounts:
-          - path: /config
+          - path: /data
       music:
         existingClaim: media
         globalMounts:
-          - path: /data
+          - path: /music
             subPath: music
             readOnly: true
