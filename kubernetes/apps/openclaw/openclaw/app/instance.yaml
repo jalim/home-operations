@@ -28,7 +28,6 @@ spec:
         defaults:
           model:
             primary: "anthropic/claude-haiku-3-5-20241022"
-            fallback: "anthropic/claude-sonnet-4-20250514"
       skills:
         load:
           extraDirs:
