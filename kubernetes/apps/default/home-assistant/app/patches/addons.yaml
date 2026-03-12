@@ -12,7 +12,7 @@ spec:
         enabled: true
         image:
           repository: ghcr.io/coder/code-server
-          tag: 4.110.1@sha256:aa0831f3fbf62176a5374dffc6173c84c18fc8fb18074fb51be71801005cdc97
+          tag: 4.111.0@sha256:fec816dcf198441cfa0986ccfc925e0187893e82907748b1d4a66ee43d69b3d0
         env:
           TZ: Australia/Perth
         workingDir: /config
