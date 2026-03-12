@@ -28,7 +28,7 @@ spec:
     controller:
       strategy: node
       externalProvisioner:
-        image: registry.k8s.io/sig-storage/csi-provisioner:v6.2.0
+        image: registry.k8s.io/sig-storage/csi-provisioner:v6.2.0@sha256:da2f5c41881009b963c121d3605c68ad9127490f2c209a849b4eb26074b0038b
         extraArgs:
           - --leader-election=false
           - --node-deployment=true
