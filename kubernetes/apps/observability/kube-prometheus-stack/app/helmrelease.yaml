@@ -110,7 +110,7 @@ spec:
           registry: quay.io
           repository: prometheus/prometheus
           tag: v2.54.0-dedupelabels
-          sha: sha256:57010aa58dc72f41023212f8e599ef78ac3dc253158857ea9f21e45114f68a66
+          sha: 57010aa58dc72f41023212f8e599ef78ac3dc253158857ea9f21e45114f68a66
         retention: 2d
         retentionSize: 15GB
         externalLabels:
