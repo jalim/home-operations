@@ -5,8 +5,4 @@ kind: Kustomization
 resources:
   - ./ocirepository.yaml
   - ./externalsecret.yaml
-  - ./configmap-webhook.yaml
-  - ./rbac.yaml
-  - ./httproute.yaml
-  - ./dnsendpoint.yaml
   - ./helmrelease.yaml
