@@ -102,7 +102,7 @@ spec:
             image:
               repository: docker.io/bitnami/kubectl
               # renovate: depName=docker.io/bitnami/kubectl
-              tag: "1.33.0"
+              tag: "1.32"
             command:
               - /bin/sh
               - -c
