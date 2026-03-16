@@ -90,6 +90,74 @@ spec:
               capabilities:
                 drop: ["ALL"]
 
+      webhook:
+        type: deployment
+        pod:
+          serviceAccountName: renovate-webhook
+          securityContext:
+            runAsUser: 65534
+            runAsGroup: 65534
+            runAsNonRoot: true
+        initContainers:
+          copy-kubectl:
+            image:
+              repository: docker.io/bitnami/kubectl
+              # renovate: depName=docker.io/bitnami/kubectl
+              tag: "1.33.0"
+            command:
+              - /bin/sh
+              - -c
+              - cp $(which kubectl) /kubectl/kubectl && chmod +x /kubectl/kubectl
+        containers:
+          app:
+            image:
+              repository: docker.io/almir/webhook
+              # renovate: depName=docker.io/almir/webhook
+              tag: "2.8.2"
+            args:
+              - --hooks=/hooks/hooks.json
+              - --port=9000
+              - --template
+              - --verbose
+            env:
+              WEBHOOK_SECRET_GITHUB:
+                valueFrom:
+                  secretKeyRef:
+                    name: renovate-secret
+                    key: WEBHOOK_SECRET_GITHUB
+              WEBHOOK_SECRET_GITLAB:
+                valueFrom:
+                  secretKeyRef:
+                    name: renovate-secret
+                    key: WEBHOOK_SECRET_GITLAB
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: 9000
+                  initialDelaySeconds: 5
+                  periodSeconds: 30
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: 9000
+                  initialDelaySeconds: 5
+                  periodSeconds: 10
+            resources:
+              requests:
+                memory: 64Mi
+              limits:
+                memory: 256Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop: ["ALL"]
+
     defaultPodOptions:
       securityContext:
         runAsUser: 1000
@@ -97,4 +165,38 @@ spec:
         runAsNonRoot: true
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
+
+    service:
+      webhook:
+        controller: webhook
+        ports:
+          http:
+            port: 9000
+
+    persistence:
+      kubectl:
+        type: emptyDir
+        advancedMounts:
+          webhook:
+            copy-kubectl:
+              - path: /kubectl
+            app:
+              - path: /kubectl
+      webhook-hooks:
+        type: configMap
+        name: renovate-webhook-hooks
+        advancedMounts:
+          webhook:
+            app:
+              - path: /hooks/hooks.json
+                subPath: hooks.json
+      webhook-scripts:
+        type: configMap
+        name: renovate-webhook-scripts
+        defaultMode: 0755
+        advancedMounts:
+          webhook:
+            app:
+              - path: /scripts/trigger.sh
+                subPath: trigger.sh
 

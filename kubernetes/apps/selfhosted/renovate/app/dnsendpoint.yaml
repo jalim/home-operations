@@ -1,0 +1,19 @@
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: renovate-webhook-external
+  annotations:
+    external-dns/public: "true"
+spec:
+  endpoints:
+    - dnsName: renovate-webhook.lumu.au
+      recordTTL: 300
+      recordType: A
+      targets:
+        - ${EXTERNAL_IP}
+    - dnsName: renovate-webhook.lumu.au
+      recordTTL: 300
+      recordType: AAAA
+      targets:
+        - 2402:21a0:2043:88::21

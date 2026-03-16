@@ -1,0 +1,78 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/core/configmap_v1.json
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: renovate-webhook-hooks
+data:
+  hooks.json: |
+    [
+      {
+        "id": "renovate-github",
+        "execute-command": "/scripts/trigger.sh",
+        "command-working-directory": "/tmp",
+        "pass-arguments-to-command": [
+          {"source": "string", "name": "github"}
+        ],
+        "trigger-rule": {
+          "match": {
+            "type": "payload-hmac-sha256",
+            "secret": "{{ .Env.WEBHOOK_SECRET_GITHUB }}",
+            "parameter": {
+              "source": "header",
+              "name": "X-Hub-Signature-256"
+            }
+          }
+        }
+      },
+      {
+        "id": "renovate-gitlab",
+        "execute-command": "/scripts/trigger.sh",
+        "command-working-directory": "/tmp",
+        "pass-arguments-to-command": [
+          {"source": "string", "name": "gitlab"}
+        ],
+        "trigger-rule": {
+          "match": {
+            "type": "value",
+            "value": "{{ .Env.WEBHOOK_SECRET_GITLAB }}",
+            "parameter": {
+              "source": "header",
+              "name": "X-Gitlab-Token"
+            }
+          }
+        }
+      }
+    ]
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/core/configmap_v1.json
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: renovate-webhook-scripts
+data:
+  trigger.sh: |
+    #!/bin/sh
+    set -e
+
+    PLATFORM="${1:-github}"
+    NAMESPACE=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
+    TIMESTAMP=$(date +%s)
+    JOB_NAME="renovate-${PLATFORM}-wh-${TIMESTAMP}"
+
+    echo "Webhook triggered for platform: ${PLATFORM}"
+
+    # Skip if a job from this cronjob is already active to avoid duplicate runs
+    RUNNING=$(kubectl get jobs -n "${NAMESPACE}" --no-headers 2>/dev/null | \
+      awk -v p="renovate-${PLATFORM}" 'index($0, p) == 1 && $2 ~ /^[1-9]/ {count++} END {print count+0}')
+
+    if [ "${RUNNING}" -gt 0 ]; then
+      echo "A renovate-${PLATFORM} job is already running, skipping trigger"
+      exit 0
+    fi
+
+    echo "Creating job: ${JOB_NAME}"
+    kubectl create job "${JOB_NAME}" \
+      --from="cronjob/renovate-${PLATFORM}" \
+      --namespace="${NAMESPACE}"
+    echo "Job created successfully: ${JOB_NAME}"
