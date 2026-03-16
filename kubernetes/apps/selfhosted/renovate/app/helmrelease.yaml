@@ -32,11 +32,16 @@ spec:
               RENOVATE_AUTODISCOVER_FILTER: "jalim/*"
               RENOVATE_PLATFORM_COMMIT: "true"
               NODE_OPTIONS: --max-old-space-size=4096
-              RENOVATE_TOKEN:
+              RENOVATE_GITHUB_APP_ID:
                 valueFrom:
                   secretKeyRef:
                     name: renovate-secret
-                    key: RENOVATE_GITHUB_TOKEN
+                    key: RENOVATE_GITHUB_APP_ID
+              RENOVATE_GITHUB_APP_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: renovate-secret
+                    key: RENOVATE_GITHUB_APP_KEY
             resources:
               requests:
                 memory: 256Mi
