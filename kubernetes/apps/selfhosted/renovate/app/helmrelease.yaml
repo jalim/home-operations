@@ -93,7 +93,6 @@ spec:
       webhook:
         type: deployment
         pod:
-          serviceAccountName: renovate-webhook
           securityContext:
             runAsUser: 65534
             runAsGroup: 65534
@@ -165,6 +164,9 @@ spec:
         runAsNonRoot: true
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
+
+    serviceAccount:
+      renovate-webhook: {}
 
     service:
       webhook:
