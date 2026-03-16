@@ -1,0 +1,97 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: renovate
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: renovate
+
+  values:
+    controllers:
+      github:
+        type: cronjob
+        cronjob:
+          schedule: "0 * * * *"
+          concurrencyPolicy: Forbid
+          successfulJobsHistory: 1
+          failedJobsHistory: 2
+        containers:
+          app:
+            image:
+              repository: ghcr.io/renovatebot/renovate
+              # renovate: depName=ghcr.io/renovatebot/renovate
+              tag: latest  # pin to a specific tag+SHA; check https://github.com/renovatebot/renovate/releases
+            env:
+              LOG_LEVEL: info
+              RENOVATE_PLATFORM: github
+              RENOVATE_AUTODISCOVER: "true"
+              RENOVATE_AUTODISCOVER_FILTER: "jalim/*"
+              RENOVATE_PLATFORM_COMMIT: "true"
+              RENOVATE_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: renovate-secret
+                    key: RENOVATE_GITHUB_TOKEN
+            resources:
+              requests:
+                memory: 256Mi
+              limits:
+                memory: 2Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop: ["ALL"]
+
+      gitlab:
+        type: cronjob
+        cronjob:
+          schedule: "30 * * * *"
+          concurrencyPolicy: Forbid
+          successfulJobsHistory: 1
+          failedJobsHistory: 2
+        containers:
+          app:
+            image:
+              repository: ghcr.io/renovatebot/renovate
+              # renovate: depName=ghcr.io/renovatebot/renovate
+              tag: latest  # pin to a specific tag+SHA; check https://github.com/renovatebot/renovate/releases
+            env:
+              LOG_LEVEL: info
+              RENOVATE_PLATFORM: gitlab
+              RENOVATE_ENDPOINT: https://gitlab.lumu.au/api/v4
+              RENOVATE_AUTODISCOVER: "true"
+              RENOVATE_AUTODISCOVER_FILTER: "jalim/*"
+              RENOVATE_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: renovate-secret
+                    key: RENOVATE_GITLAB_TOKEN
+              # Needed to fetch github.com presets referenced in per-repo renovate.json configs
+              GITHUB_COM_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: renovate-secret
+                    key: RENOVATE_GITHUB_TOKEN
+            resources:
+              requests:
+                memory: 256Mi
+              limits:
+                memory: 2Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop: ["ALL"]
+
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
