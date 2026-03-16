@@ -100,13 +100,13 @@ spec:
         initContainers:
           copy-kubectl:
             image:
-              repository: docker.io/bitnami/kubectl
-              # renovate: depName=docker.io/bitnami/kubectl
-              tag: "1.32"
+              repository: docker.io/lachlanevenson/k8s-kubectl
+              # renovate: depName=docker.io/lachlanevenson/k8s-kubectl
+              tag: "v1.32.3"
             command:
               - /bin/sh
               - -c
-              - cp $(which kubectl) /kubectl/kubectl && chmod +x /kubectl/kubectl
+              - cp /usr/local/bin/kubectl /kubectl/kubectl && chmod +x /kubectl/kubectl
         containers:
           app:
             image:
