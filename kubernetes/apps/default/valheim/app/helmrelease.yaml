@@ -29,7 +29,7 @@ spec:
           app:
             image:
               repository: lloesche/valheim-server
-              tag: latest@sha256:8f1c5fc831c900312b4a47c1fe57bfc03b574c1433ea502f5d8f0ad301a22a83
+              tag: latest@sha256:536843fca823bc8896067dda49987184063d1b6a24a9ff3eddfdc27440099f43
             envFrom:
               - secretRef:
                   name: valheim-secret
