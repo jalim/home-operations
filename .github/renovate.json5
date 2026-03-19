@@ -10,7 +10,7 @@
     ':dependencyDashboard',
     ':semanticCommits',
     ':skipStatusChecks',
-    'local>.github/renovate/autoMerge.json5',
+    'github>jalim/home-operations//.github/renovate/autoMerge.json5',
     'github>jalim/home-operations//.github/renovate/allowedVersions.json5',
     'github>jalim/home-operations//.github/renovate/commitMessage.json5',
     'github>jalim/home-operations//.github/renovate/groups.json5',
