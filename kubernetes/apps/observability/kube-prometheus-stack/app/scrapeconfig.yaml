@@ -19,7 +19,7 @@
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: &name nixnas
+  name: nixnas
 spec:
   staticConfigs:
     - targets: ["10.88.0.80:9100"]
@@ -27,7 +27,7 @@ spec:
   relabelings:
     - action: replace
       targetLabel: job
-      replacement: *name
+      replacement: node-exporter
     - action: replace
       targetLabel: instance
       replacement: nixnas
