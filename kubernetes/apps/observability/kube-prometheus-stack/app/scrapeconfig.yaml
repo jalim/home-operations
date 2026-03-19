@@ -30,7 +30,7 @@ spec:
       replacement: node-exporter
     - action: replace
       targetLabel: instance
-      replacement: nixnas
+      replacement: nixnas:9100
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/scrapeconfig_v1alpha1.json
 apiVersion: monitoring.coreos.com/v1alpha1
