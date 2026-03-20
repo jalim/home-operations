@@ -94,6 +94,20 @@ patches:
         servers:
           - time.cloudflare.com
 
+  # NFS global mount defaults
+  - |-
+    machine:
+      files:
+        - content: |-
+            [ NFSMount_Global_Options ]
+            nfsvers=4.2
+            hard=True
+            noatime=True
+            nodiratime=True
+          permissions: 0o644
+          path: /etc/nfsmount.conf
+          op: overwrite
+
   # Custom sysctl settings
   - |-
     machine:

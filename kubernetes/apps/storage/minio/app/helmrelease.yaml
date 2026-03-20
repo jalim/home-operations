@@ -130,5 +130,12 @@ spec:
         type: nfs
         server: 10.88.0.80
         path: /mnt/dead/minio
+        mountOptions:
+          - rsize=1048576
+          - wsize=1048576
+          - nconnect=4
+          - nfsvers=4.2
+          - noatime
+          - hard
         globalMounts:
           - path: /data
