@@ -2,17 +2,17 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: booklore-mariadb
+  name: grimmory-mariadb
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: booklore-mariadb
+    name: grimmory-mariadb
   values:
     auth:
-      database: booklore
-      username: booklore
-      existingSecret: booklore-secret
+      database: grimmory
+      username: grimmory
+      existingSecret: grimmory-secret
       existingSecretPasswordKey: mariadb_password
       existingSecretRootPasswordKey: mariadb-root-password
     primary:

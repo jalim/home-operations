@@ -12,7 +12,7 @@ resources:
   - ./radarr/ks.yaml
   - ./radarr-kids/ks.yaml
   - ./audiobookshelf/ks.yaml
-  - ./booklore/ks.yaml
+  - ./grimmory/ks.yaml
   - ./autobrr/ks.yaml
   - ./changedetection/ks.yaml
   # - ./dispatcharr/ks.yaml # Not ready for production yet

@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: booklore-mariadb-backup
+  name: grimmory-mariadb-backup
 spec:
   schedule: "0 3 * * *"
   concurrencyPolicy: Forbid
@@ -35,20 +35,20 @@ spec:
                     --single-transaction \
                     --routines \
                     --triggers \
-                    booklore > /app/data/db-backups/booklore-$(date +%Y%m%d-%H%M%S).sql
+                    grimmory > /app/data/db-backups/grimmory-$(date +%Y%m%d-%H%M%S).sql
                   # Keep last 7 backups
-                  ls -t /app/data/db-backups/booklore-*.sql | tail -n +8 | xargs -r rm --
+                  ls -t /app/data/db-backups/grimmory-*.sql | tail -n +8 | xargs -r rm --
               env:
                 - name: MYSQL_HOST
-                  value: booklore-mariadb
+                  value: grimmory-mariadb
                 - name: MYSQL_PORT
                   value: "3306"
                 - name: MYSQL_USER
-                  value: booklore
+                  value: grimmory
                 - name: MYSQL_PASSWORD
                   valueFrom:
                     secretKeyRef:
-                      name: booklore-secret
+                      name: grimmory-secret
                       key: mariadb_password
               volumeMounts:
                 - name: data
@@ -67,4 +67,4 @@ spec:
           volumes:
             - name: data
               persistentVolumeClaim:
-                claimName: booklore
+                claimName: grimmory
