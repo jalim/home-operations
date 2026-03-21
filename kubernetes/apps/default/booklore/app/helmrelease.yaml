@@ -1,0 +1,129 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: booklore
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: booklore
+  dependsOn:
+    - name: booklore-mariadb
+  values:
+    controllers:
+      booklore:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          wait-for-mariadb:
+            image:
+              repository: ghcr.io/wait4x/wait4x
+              tag: 3.6.0
+            args:
+              - mysql
+              - "booklore:$(DB_PASSWORD)@tcp(booklore-mariadb:3306)/booklore"
+            env:
+              DB_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: booklore-secret
+                    key: mariadb_password
+        containers:
+          app:
+            image:
+              repository: ghcr.io/booklore-app/booklore
+              tag: v2.2.1@sha256:252586c469ff6d07a06469fd1d49f19af932f4d323713d253c5d29e33b6ec97a
+            command: ["java"]
+            args: ["-jar", "/app/app.jar"]
+            env:
+              DATABASE_URL: jdbc:mariadb://booklore-mariadb:3306/booklore
+              DATABASE_USERNAME: booklore
+              DATABASE_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: booklore-secret
+                    key: mariadb_password
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v1/healthcheck
+                    port: &port 6060
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v1/healthcheck
+                    port: *port
+                  failureThreshold: 30
+                  periodSeconds: 10
+            resources:
+              requests:
+                cpu: 100m
+                memory: 1Gi
+              limits:
+                memory: 2Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames: ["booklore.lumu.au"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+    persistence:
+      data:
+        existingClaim: booklore
+        advancedMounts:
+          booklore:
+            app:
+              - path: /app/data
+      books:
+        existingClaim: media
+        advancedMounts:
+          booklore:
+            app:
+              - path: /books
+                subPath: books
+      bookdrop:
+        type: emptyDir
+        advancedMounts:
+          booklore:
+            app:
+              - path: /bookdrop
+      tmp:
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 100Mi
+        advancedMounts:
+          booklore:
+            app:
+              - path: /tmp

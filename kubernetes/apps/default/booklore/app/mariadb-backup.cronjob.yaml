@@ -1,0 +1,70 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: booklore-mariadb-backup
+spec:
+  schedule: "0 3 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+          containers:
+            - name: backup
+              image: mariadb:11
+              command: ["/bin/bash", "-c"]
+              args:
+                - |
+                  set -euo pipefail
+                  mkdir -p /app/data/db-backups
+                  mysqldump \
+                    --host="$MYSQL_HOST" \
+                    --port="$MYSQL_PORT" \
+                    --user="$MYSQL_USER" \
+                    --password="$MYSQL_PASSWORD" \
+                    --single-transaction \
+                    --routines \
+                    --triggers \
+                    booklore > /app/data/db-backups/booklore-$(date +%Y%m%d-%H%M%S).sql
+                  # Keep last 7 backups
+                  ls -t /app/data/db-backups/booklore-*.sql | tail -n +8 | xargs -r rm --
+              env:
+                - name: MYSQL_HOST
+                  value: booklore-mariadb
+                - name: MYSQL_PORT
+                  value: "3306"
+                - name: MYSQL_USER
+                  value: booklore
+                - name: MYSQL_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: booklore-secret
+                      key: mariadb_password
+              volumeMounts:
+                - name: data
+                  mountPath: /app/data
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop: ["ALL"]
+                readOnlyRootFilesystem: false
+              resources:
+                requests:
+                  cpu: 50m
+                  memory: 128Mi
+                limits:
+                  memory: 256Mi
+          volumes:
+            - name: data
+              persistentVolumeClaim:
+                claimName: booklore
