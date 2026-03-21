@@ -21,7 +21,7 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
           containers:
             - name: backup
-              image: mariadb:11
+              image: mariadb:12
               command: ["/bin/bash", "-c"]
               args:
                 - |
