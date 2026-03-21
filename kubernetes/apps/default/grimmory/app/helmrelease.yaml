@@ -33,7 +33,7 @@ spec:
           app:
             image:
               repository: ghcr.io/grimmory-tools/grimmory
-              tag: v2.2.7
+              tag: v2.2.7@sha256:2bb4b0743e082029d40779ac1fe369677167cb16259832bb37c0a483a0b5d6f8
             env:
               DATABASE_URL: jdbc:mariadb://grimmory-mariadb:3306/grimmory
               DATABASE_USERNAME: grimmory
