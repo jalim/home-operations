@@ -1,0 +1,39 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: netbox-postgres
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: netbox-postgres
+  values:
+    auth:
+      database: netbox
+      username: netbox
+      existingSecret: netbox-secret
+      secretKeys:
+        userPasswordKey: db_password
+        adminPasswordKey: db_root_password
+    primary:
+      podSecurityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+      containerSecurityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: ["ALL"]
+        readOnlyRootFilesystem: false
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+        limits:
+          memory: 512Mi
+      persistence:
+        enabled: true
+        size: 8Gi

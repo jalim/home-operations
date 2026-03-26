@@ -6,3 +6,4 @@ resources:
   - ./paperless/ks.yaml
   - ./renovate/ks.yaml
   - ./searxng/ks.yaml
+  - ./netbox/ks.yaml

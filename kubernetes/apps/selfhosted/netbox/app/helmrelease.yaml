@@ -1,0 +1,184 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: netbox
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: netbox
+  dependsOn:
+    - name: netbox-postgres
+  values:
+    controllers:
+      netbox:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          securityContext:
+            runAsUser: 999
+            runAsGroup: 999
+            runAsNonRoot: true
+            fsGroup: 999
+            fsGroupChangePolicy: OnRootMismatch
+        initContainers:
+          wait-for-postgres:
+            image:
+              repository: ghcr.io/wait4x/wait4x
+              tag: 3.6.0
+            args:
+              - postgresql
+              - "postgres://netbox:$(DB_PASSWORD)@netbox-postgres-postgresql.selfhosted.svc.cluster.local:5432/netbox"
+            env:
+              DB_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: netbox-secret
+                    key: db_password
+        containers:
+          app:
+            image:
+              repository: ghcr.io/netbox-community/netbox
+              tag: v4.5.5@sha256:bddd3f0e1fa7b70c0f2969b10486a0f4600dab7aaaff616c5bb01d919b8fae51
+            env:
+              # Django
+              ALLOWED_HOSTS: "*"
+              SECRET_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: netbox-secret
+                    key: secret_key
+              # Database
+              DB_HOST: netbox-postgres-postgresql.selfhosted.svc.cluster.local
+              DB_PORT: "5432"
+              DB_NAME: netbox
+              DB_USER: netbox
+              DB_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: netbox-secret
+                    key: db_password
+              # Redis
+              REDIS_HOST: netbox-redis.selfhosted.svc.cluster.local
+              REDIS_PORT: "6379"
+              REDIS_DATABASE: "0"
+              REDIS_CACHE_HOST: netbox-redis.selfhosted.svc.cluster.local
+              REDIS_CACHE_PORT: "6379"
+              REDIS_CACHE_DATABASE: "1"
+              # Admin superuser (created on first run)
+              SUPERUSER_NAME: admin
+              SUPERUSER_EMAIL: admin@lumu.au
+              SUPERUSER_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: netbox-secret
+                    key: superuser_password
+              SUPERUSER_API_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: netbox-secret
+                    key: superuser_api_token
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /login/
+                    port: &port 8080
+                  initialDelaySeconds: 60
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /login/
+                    port: *port
+                  failureThreshold: 30
+                  periodSeconds: 10
+            resources:
+              requests:
+                cpu: 100m
+                memory: 512Mi
+              limits:
+                memory: 2Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop: ["ALL"]
+
+      redis:
+        pod:
+          securityContext:
+            runAsUser: 65534
+            runAsGroup: 65534
+        containers:
+          redis:
+            image:
+              repository: docker.io/valkey/valkey
+              tag: 9.0.3@sha256:3eeb09785cd61ec8e3be35f8804c8892080f3ca21934d628abc24ee4ed1698f6
+            args:
+              - --save
+              - ""
+              - --appendonly
+              - "no"
+            resources:
+              requests:
+                cpu: 5m
+                memory: 32Mi
+              limits:
+                memory: 128Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop: ["ALL"]
+
+    service:
+      app:
+        controller: netbox
+        ports:
+          http:
+            port: *port
+      redis:
+        controller: redis
+        ports:
+          http:
+            port: 6379
+
+    route:
+      app:
+        hostnames: ["netbox.lumu.au"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+
+    persistence:
+      data:
+        existingClaim: netbox
+        advancedMounts:
+          netbox:
+            app:
+              - path: /opt/netbox/netbox/media
+                subPath: media
+              - path: /opt/netbox/netbox/reports
+                subPath: reports
+              - path: /opt/netbox/netbox/scripts
+                subPath: scripts
+      tmp:
+        type: emptyDir
+        advancedMounts:
+          netbox:
+            app:
+              - path: /tmp
