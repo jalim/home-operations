@@ -30,7 +30,7 @@ spec:
               tag: 3.6.0
             args:
               - postgresql
-              - "postgres://netbox:$(DB_PASSWORD)@netbox-postgres-postgresql.selfhosted.svc.cluster.local:5432/netbox"
+              - "postgres://netbox:$(DB_PASSWORD)@netbox-postgres-postgresql.selfhosted.svc.cluster.local:5432/netbox?sslmode=disable"
             env:
               DB_PASSWORD:
                 valueFrom:
@@ -56,10 +56,6 @@ spec:
               DB_NAME: netbox
               DB_USER: netbox
               DB_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: netbox-secret
-                    key: db_password
               # Redis
               REDIS_HOST: netbox-redis.selfhosted.svc.cluster.local
               REDIS_PORT: "6379"
