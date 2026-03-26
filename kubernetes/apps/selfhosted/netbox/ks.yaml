@@ -11,6 +11,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
+    - ../../../../components/externaldns/internal
     - ../../../../components/volsync
   interval: 1h
   path: ./kubernetes/apps/selfhosted/netbox/app
