@@ -17,7 +17,6 @@ spec:
     - name: external-secrets-stores
     - name: keda
     - name: rook-ceph-cluster
-      namespace: rook-ceph
   path: ./kubernetes/apps/default/stash/app
   prune: true
   sourceRef:
