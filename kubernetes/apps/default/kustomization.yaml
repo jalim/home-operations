@@ -26,6 +26,7 @@ resources:
   - ./qbittorrent/ks.yaml
   - ./qui/ks.yaml
   - ./sabnzbd/ks.yaml
+  - ./stash/ks.yaml
   - ./shelfmark/ks.yaml
   - ./tqm/ks.yaml
   - ./tautulli/ks.yaml

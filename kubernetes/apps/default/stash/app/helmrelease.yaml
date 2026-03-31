@@ -1,0 +1,113 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: stash
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: stash
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+  values:
+    controllers:
+      stash:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: stashapp/stash
+              tag: v0.31.0@sha256:422b4d2a580e9f52c361264c3003f46a6ae9b7de76e6d08df091f104e90d8fa4
+            env:
+              TZ: Australia/Perth
+              STASH_STASH: /media/
+              STASH_BLOBS_PATH: /data/blobs
+              STASH_BLOBS_STORAGE: FILESYSTEM
+              STASH_GENERATED: /data/generated
+              STASH_METADATA: /data/metadata
+              STASH_CACHE: /cache
+              STASH_PLUGINS_PATH: /data/plugins
+              STASH_SCRAPERS_PATH: /data/scrapers
+              STASH_CONFIG_FILE: /config/config.yml
+              STASH_PORT: &port 9999
+              STASH_NO_BROWSER: "true"
+              HOME: /config
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 20m
+                memory: 512Mi
+              limits:
+                memory: 2Gi
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames: ["stash.lumu.au"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+    persistence:
+      config:
+        existingClaim: stash
+        globalMounts:
+          - path: /config
+            subPath: config
+          - path: /data/blobs
+            subPath: blobs
+          - path: /data/generated
+            subPath: generated
+          - path: /data/metadata
+            subPath: metadata
+          - path: /data/plugins
+            subPath: plugins
+          - path: /data/scrapers
+            subPath: scrapers
+      media:
+        existingClaim: media
+        globalMounts:
+          - path: /media
+      tmp:
+        type: emptyDir
+        advancedMounts:
+          stash:
+            app:
+              - path: /cache
+                subPath: cache
+              - path: /tmp
+                subPath: tmp
