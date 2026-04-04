@@ -1,0 +1,8 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mumble-config
+data:
+  MUMBLE_CONFIG_users: "50"
+  MUMBLE_CONFIG_welcometext: "Welcome to the Mumble server!"

@@ -1,0 +1,63 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: mumble
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: mumble
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+  values:
+    controllers:
+      mumble:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: mumblevoip/mumble-server
+              tag: latest@sha256:aaaed4d5ed2ad599f213a46a32c7476c8c2623f3a9c51b692ccd6bba9df76a44
+            env:
+              TZ: Australia/Perth
+            envFrom:
+              - secretRef:
+                  name: mumble-secret
+              - configMapRef:
+                  name: mumble-config
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
+    service:
+      app:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 10.88.0.37
+        ports:
+          voice-tcp:
+            port: 64738
+            protocol: TCP
+          voice-udp:
+            port: 64738
+            protocol: UDP
+
+    persistence:
+      data:
+        existingClaim: mumble
+        globalMounts:
+          - path: /data
