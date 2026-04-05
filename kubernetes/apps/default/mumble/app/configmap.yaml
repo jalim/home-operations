@@ -8,3 +8,4 @@ data:
   MUMBLE_CONFIG_welcometext: "Welcome to the Mumble server!"
   MUMBLE_CONFIG_sslCert: /certs/tls.crt
   MUMBLE_CONFIG_sslKey: /certs/tls.key
+  MUMBLE_CONFIG_opusthreshold: "0"
