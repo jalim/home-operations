@@ -1,0 +1,19 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: mumble
+spec:
+  secretName: mumble-tls
+  issuerRef:
+    name: zerossl-production
+    kind: ClusterIssuer
+  commonName: voice.lumu.au
+  dnsNames:
+    - voice.lumu.au
+  renewBefore: 720h
+  privateKey:
+    rotationPolicy: Always
+    algorithm: RSA
+    size: 4096

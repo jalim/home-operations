@@ -61,3 +61,9 @@ spec:
         existingClaim: mumble
         globalMounts:
           - path: /data
+      tls:
+        type: secret
+        name: mumble-tls
+        globalMounts:
+          - path: /certs
+            readOnly: true
