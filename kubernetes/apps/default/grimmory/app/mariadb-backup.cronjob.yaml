@@ -27,7 +27,7 @@ spec:
                 - |
                   set -euo pipefail
                   mkdir -p /app/data/db-backups
-                  mysqldump \
+                  mariadb-dump \
                     --host="$MYSQL_HOST" \
                     --port="$MYSQL_PORT" \
                     --user="$MYSQL_USER" \
