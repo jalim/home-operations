@@ -17,11 +17,11 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/mi3lix9/teleseerr
-              tag: latest@sha256:fce6d795403856a5ddd3f9be3720e30318fc2aa6a7ad7e4d68001986c6a8859d
+              repository: docker.io/chimpanzeesweetrolls/overseerrrequestviatelegrambot
+              tag: v4.0.0@sha256:58a93f90a1debe3fafbc8055d0f1a59ec9902ed5129cf6082d80765bbaf6e911
             env:
               TZ: Australia/Perth
-              JELLYSEERR_URL: http://seerr.default.svc.cluster.local
+              OVERSEERR_API_URL: http://seerr.default.svc.cluster.local/api/v1
             envFrom:
               - secretRef:
                   name: teleseerr-secret
@@ -32,7 +32,7 @@ spec:
               limits:
                 memory: 256Mi
     persistence:
-      config:
+      data:
         existingClaim: teleseerr
         globalMounts:
-          - path: /config
+          - path: /app/data
