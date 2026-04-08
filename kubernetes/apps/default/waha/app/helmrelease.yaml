@@ -30,6 +30,8 @@ spec:
               WHATSAPP_SWAGGER_ENABLED: "True"
               WAHA_MEDIA_STORAGE: LOCAL
               WHATSAPP_FILES_FOLDER: /app/.media
+              # Always start the default session on startup
+              WHATSAPP_START_SESSION: default
               # Persist session config (including webhook) to PVC
               WAHA_SESSIONS_STORE: FILE
               # Restart all sessions on startup so webhook config is re-applied
