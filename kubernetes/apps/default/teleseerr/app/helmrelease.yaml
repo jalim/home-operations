@@ -21,7 +21,7 @@ spec:
               tag: latest@sha256:fce6d795403856a5ddd3f9be3720e30318fc2aa6a7ad7e4d68001986c6a8859d
             env:
               TZ: Australia/Perth
-              JELLYSEERR_URL: http://seerr.default.svc.cluster.local:5055
+              JELLYSEERR_URL: http://seerr.default.svc.cluster.local
             envFrom:
               - secretRef:
                   name: teleseerr-secret
