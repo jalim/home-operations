@@ -18,6 +18,8 @@ resources:
   # - ./dispatcharr/ks.yaml # Not ready for production yet
   - ./esphome/ks.yaml
   - ./seerr/ks.yaml
+  - ./waha/ks.yaml
+  - ./whatseerr/ks.yaml
   - ./mealie/ks.yaml
   - ./pinchflat/ks.yaml
   - ./plex/ks.yaml

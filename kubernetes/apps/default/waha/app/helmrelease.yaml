@@ -1,0 +1,93 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: waha
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: waha
+  values:
+    controllers:
+      waha:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/devlikeapro/waha
+              tag: noweb-2026.3.4@sha256:5b1d26233c8bee479cac5961505fb6b19afaef8c3cf42da1411a89a9534573e0
+            env:
+              TZ: Australia/Perth
+              WHATSAPP_DEFAULT_ENGINE: NOWEB
+              WAHA_BASE_URL: https://waha.lumu.au
+              WAHA_LOG_FORMAT: JSON
+              WAHA_LOG_LEVEL: info
+              WAHA_PRINT_QR: "True"
+              WAHA_DASHBOARD_ENABLED: "True"
+              WHATSAPP_SWAGGER_ENABLED: "True"
+              WAHA_MEDIA_STORAGE: LOCAL
+              WHATSAPP_FILES_FOLDER: /app/.media
+              # Webhook to whatseerr (internal cluster service)
+              WHATSAPP_HOOK_URL: http://whatseerr.default.svc.cluster.local:3006/requests
+              WHATSAPP_HOOK_EVENTS: session.status,message,message.reaction
+            envFrom:
+              - secretRef:
+                  name: waha-secret
+            probes:
+              liveness:
+                enabled: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: &port 3000
+                  periodSeconds: 30
+                  timeoutSeconds: 10
+                  failureThreshold: 5
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: {drop: ["ALL"]}
+            resources:
+              requests:
+                cpu: 50m
+              limits:
+                memory: 1Gi
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames:
+          - waha.lumu.au
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+    persistence:
+      sessions:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /app/.sessions
+      media:
+        type: emptyDir
+        globalMounts:
+          - path: /app/.media
