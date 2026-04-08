@@ -30,10 +30,13 @@ spec:
               WHATSAPP_SWAGGER_ENABLED: "True"
               WAHA_MEDIA_STORAGE: LOCAL
               WHATSAPP_FILES_FOLDER: /app/.media
-              # Webhook to whatseerr (internal cluster service)
+              # Persist session config (including webhook) to PVC
+              WAHA_SESSIONS_STORE: FILE
+              # Restart all sessions on startup so webhook config is re-applied
+              WHATSAPP_RESTART_ALL_SESSIONS: "True"
+              # Global webhook fallback
               WHATSAPP_HOOK_URL: http://whatseerr.default.svc.cluster.local:3006/requests
               WHATSAPP_HOOK_EVENTS: session.status,message,message.reaction
-              WHATSAPP_RESTART_ALL_SESSIONS: "True"
             envFrom:
               - secretRef:
                   name: waha-secret
