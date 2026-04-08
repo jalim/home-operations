@@ -1,9 +1,8 @@
----
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app waha
+  name: &app teleseerr
   namespace: flux-system
 spec:
   targetNamespace: default
@@ -12,11 +11,7 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
-  dependsOn:
-    - name: external-secrets-stores
-    - name: rook-ceph-cluster
-    - name: volsync
-  path: ./kubernetes/apps/default/waha/app
+  path: ./kubernetes/apps/default/teleseerr/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -25,7 +20,9 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
+  dependsOn:
+    - name: external-secrets-stores
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 2Gi
+      VOLSYNC_CAPACITY: 1Gi

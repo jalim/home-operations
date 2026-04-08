@@ -1,0 +1,38 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: teleseerr
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: teleseerr
+  values:
+    controllers:
+      teleseerr:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/mi3lix9/teleseerr
+              tag: latest@sha256:fce6d795403856a5ddd3f9be3720e30318fc2aa6a7ad7e4d68001986c6a8859d
+            env:
+              TZ: Australia/Perth
+              JELLYSEERR_URL: http://seerr.default.svc.cluster.local:5055
+            envFrom:
+              - secretRef:
+                  name: teleseerr-secret
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 256Mi
+    persistence:
+      config:
+        existingClaim: teleseerr
+        globalMounts:
+          - path: /config
