@@ -17,6 +17,10 @@ spec:
       value: "https://sonarr.lumu.au"
     - name: SEERR_URL
       value: "https://requests.lumu.au"
+    - name: SEERR_USERS
+      value: "me:1,rosemary:10"
+    - name: SEERR_SERVERS
+      value: "movies:0,kids-movies:1,tv:0,kids-tv:1"
   skills:
     - pack:jalim/openclaw-skill-seerr/.@main
   runtimeDeps:
