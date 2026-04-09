@@ -36,6 +36,7 @@ spec:
         load:
           extraDirs:
             - "/home/openclaw/.openclaw/skills"
+            - "/home/openclaw/.openclaw/workspace/skills"
       channels:
         telegram:
           enabled: true
