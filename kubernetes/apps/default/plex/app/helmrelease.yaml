@@ -117,16 +117,7 @@ spec:
       tmp:
         type: emptyDir
       media:
-        type: nfs
-        server: 10.88.0.80
-        path: /mnt/dead/media
-        mountOptions:
-          - rsize=1048576
-          - wsize=1048576
-          - nconnect=4
-          - nfsvers=4.2
-          - noatime
-          - hard
+        existingClaim: media
         globalMounts:
           - path: /media
             readOnly: false
