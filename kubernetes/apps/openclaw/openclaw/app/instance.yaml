@@ -16,7 +16,7 @@ spec:
     - name: SONARR_URL
       value: "https://sonarr.lumu.au"
     - name: SEERR_URL
-      value: "http://seerr.default.svc.cluster.local:80"
+      value: "https://requests.lumu.au"
   skills:
     - pack:jalim/openclaw-skill-seerr/.@main
   runtimeDeps:
