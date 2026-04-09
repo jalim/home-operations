@@ -18,7 +18,7 @@ spec:
     - name: SEERR_URL
       value: "http://seerr.default.svc.cluster.local:80"
   skills:
-    - pack:jalim/openclaw-skill-seerr
+    - pack:jalim/openclaw-skill-seerr/.@main
   runtimeDeps:
     python: true
   gateway:
