@@ -149,16 +149,7 @@ spec:
             app:
               - path: /data/local
       nas:
-        type: nfs
-        server: 10.88.0.80
-        path: /mnt/dead/paperless
-        mountOptions:
-          - rsize=1048576
-          - wsize=1048576
-          - nconnect=4
-          - nfsvers=4.2
-          - noatime
-          - hard
+        existingClaim: paperless-nas
         globalMounts:
           - path: /data/nas
       tmp:

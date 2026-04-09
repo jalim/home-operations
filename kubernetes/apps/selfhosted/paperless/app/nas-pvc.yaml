@@ -1,0 +1,44 @@
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: paperless-nas
+provisioner: nfs
+parameters:
+  archiveOnDelete: "false"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: paperless-nas
+spec:
+  storageClassName: paperless-nas
+  capacity:
+    storage: 1Mi
+  accessModes:
+    - ReadWriteMany
+  mountOptions:
+    - rsize=1048576
+    - wsize=1048576
+    - nconnect=4
+    - nfsvers=4.2
+    - noatime
+    - hard
+  nfs:
+    server: 10.88.0.80
+    path: /mnt/dead/paperless
+  persistentVolumeReclaimPolicy: Retain
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paperless-nas
+  namespace: selfhosted
+spec:
+  storageClassName: paperless-nas
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Mi
+  volumeName: paperless-nas
