@@ -5,3 +5,19 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./ocirepository.yaml
+
+configMapGenerator:
+  - name: agregarr-maintainerr-patch
+    namespace: default
+    # Patched JS files for agregarr v2.4.2 bug fixes:
+    # 1. Maintainerr /api/collections only returns 2 items in media[]; patch fetches full lists
+    #    via /api/collections/media?collectionId=X for accurate "Deleting in X Days" overlays.
+    # 2. Bug affects both the library overlay job and the overlay test route.
+    # Remove this configMapGenerator (and the maintainerr-patch persistence mount in
+    # helmrelease.yaml) once agregarr fixes these upstream.
+    files:
+      - maintainerr-patch/maintainerr.js
+      - maintainerr-patch/OverlayLibraryService.js
+      - maintainerr-patch/overlayTest.js
+    options:
+      disableNameSuffixHash: true

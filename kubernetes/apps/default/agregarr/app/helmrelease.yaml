@@ -24,7 +24,7 @@ spec:
               tag: v2.4.2@sha256:5f1390bc43fefbbfb67f38a7a8dd65b4086c1f187a37c8df5c6020a498e5d1b5
             env:
               PORT: &port 80
-              TZ: ${TIMEZONE}
+              TZ: Australia/Perth
             probes:
               liveness:
                 enabled: true
@@ -91,3 +91,16 @@ spec:
         globalMounts:
           - path: /media
             readOnly: false
+      maintainerr-patch:
+        type: configMap
+        name: agregarr-maintainerr-patch
+        globalMounts:
+          - path: /app/dist/api/maintainerr.js
+            subPath: maintainerr.js
+            readOnly: true
+          - path: /app/dist/lib/overlays/OverlayLibraryService.js
+            subPath: OverlayLibraryService.js
+            readOnly: true
+          - path: /app/dist/routes/overlayTest.js
+            subPath: overlayTest.js
+            readOnly: true
