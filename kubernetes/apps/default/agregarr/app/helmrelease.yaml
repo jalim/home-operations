@@ -86,3 +86,8 @@ spec:
           - path: /app/config
       tmp:
         type: emptyDir
+      media:
+        existingClaim: media
+        globalMounts:
+          - path: /media
+            readOnly: false
