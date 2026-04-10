@@ -91,16 +91,11 @@ spec:
         globalMounts:
           - path: /media
             readOnly: false
+      # TEMPORARY — remove when agregarr/agregarr#569 is merged and released
       maintainerr-patch:
         type: configMap
         name: agregarr-maintainerr-patch
         globalMounts:
           - path: /app/dist/api/maintainerr.js
             subPath: maintainerr.js
-            readOnly: true
-          - path: /app/dist/lib/overlays/OverlayLibraryService.js
-            subPath: OverlayLibraryService.js
-            readOnly: true
-          - path: /app/dist/routes/overlayTest.js
-            subPath: overlayTest.js
             readOnly: true

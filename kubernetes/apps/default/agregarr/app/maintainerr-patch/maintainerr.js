@@ -1,3 +1,6 @@
+// TEMPORARY PATCH — delete this file when agregarr/agregarr#569 is merged and released.
+// Compiled from the fix proposed in that PR. Mounted over /app/dist/api/maintainerr.js
+// via the agregarr-maintainerr-patch ConfigMap.
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -18,29 +21,31 @@ class MaintainerrAPI {
     }
     async getCollections() {
         try {
-            const response = await this.axios.get('/api/collections');
+            const response = await this.axios.get('/api/collections/overlay-data');
             return response.data;
         }
         catch (e) {
+            if (e.response?.status === 404) {
+                logger_1.default.warn('Maintainerr /api/collections/overlay-data not found, falling back to /api/collections. Upgrade Maintainerr to >= 3.4.0 for full overlay support.', {
+                    label: 'Maintainerr API',
+                });
+                try {
+                    const fallback = await this.axios.get('/api/collections');
+                    return fallback.data;
+                }
+                catch (fallbackError) {
+                    logger_1.default.error('Something went wrong fetching Maintainerr collections (fallback)', {
+                        label: 'Maintainerr API',
+                        errorMessage: fallbackError.message,
+                    });
+                    throw fallbackError;
+                }
+            }
             logger_1.default.error('Something went wrong fetching Maintainerr collections', {
                 label: 'Maintainerr API',
                 errorMessage: e.message,
             });
             throw e;
-        }
-    }
-    async getAllCollectionMedia(collectionId) {
-        try {
-            const response = await this.axios.get(`/api/collections/media?collectionId=${collectionId}`);
-            return response.data;
-        }
-        catch (e) {
-            logger_1.default.error('Something went wrong fetching Maintainerr collection media', {
-                label: 'Maintainerr API',
-                collectionId,
-                errorMessage: e.message,
-            });
-            return [];
         }
     }
 }
