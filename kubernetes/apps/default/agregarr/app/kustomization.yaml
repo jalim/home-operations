@@ -37,3 +37,7 @@ configMapGenerator:
     # directory, and the overlay-context-patch persistence mount in helmrelease.yaml.
     options:
       disableNameSuffixHash: true
+
+generatorOptions:
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
