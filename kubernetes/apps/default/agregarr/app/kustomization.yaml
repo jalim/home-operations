@@ -22,3 +22,18 @@ configMapGenerator:
       - maintainerr-patch/maintainerr.js
     options:
       disableNameSuffixHash: true
+  - name: agregarr-overlay-context-patch
+    namespace: default
+    # TEMPORARY PATCH — remove once the upstream Maintainerr overlay matching logic
+    # normalizes Plex and Maintainerr IDs consistently.
+    #
+    # agregarr v2.4.2 compares Maintainerr mediaServerId directly to Plex ratingKey
+    # with strict equality. Maintainerr can return numeric mediaServerId values while
+    # Plex ratingKeys are strings, which breaks TV collection matching and leaves
+    # daysUntilAction unset for template 31.
+    files:
+      - overlay-context-patch/OverlayContextBuilder.js
+    # Cleanup: remove this configMapGenerator block, the overlay-context-patch/
+    # directory, and the overlay-context-patch persistence mount in helmrelease.yaml.
+    options:
+      disableNameSuffixHash: true

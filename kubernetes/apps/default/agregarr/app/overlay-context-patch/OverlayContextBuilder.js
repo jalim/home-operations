@@ -1,0 +1,919 @@
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.checkMonitoringStatus = exports.fetchReleaseDateInfo = exports.buildRenderContext = exports.getTvdbIdFromTmdb = void 0;
+const imdb_1 = __importDefault(require("../../api/imdb"));
+const imdbRatings_1 = __importDefault(require("../../api/imdbRatings"));
+const rottentomatoes_1 = __importDefault(require("../../api/rottentomatoes"));
+const themoviedb_1 = __importDefault(require("../../api/themoviedb"));
+const tvdb_1 = __importDefault(require("../../api/tvdb"));
+const settings_1 = require("../../lib/settings");
+const logger_1 = __importDefault(require("../../logger"));
+const _langDisplayNames = new Intl.DisplayNames(['en'], { type: 'language' });
+/**
+ * Convert an ISO 639-2 language code to its English display name.
+ */
+function resolveLanguageName(code, fallback) {
+    try {
+        return _langDisplayNames.of(code) ?? fallback;
+    }
+    catch {
+        return fallback;
+    }
+}
+/**
+ * Shared IMDb client for reuse across overlay operations
+ */
+let sharedImdbClient;
+/**
+ * Get or create shared IMDb client
+ */
+function getImdbClient() {
+    if (!sharedImdbClient) {
+        sharedImdbClient = new imdb_1.default();
+    }
+    return sharedImdbClient;
+}
+/**
+ * Shared TVDB client for reuse across overlay operations
+ */
+let sharedTvdbClient;
+/**
+ * Get or create shared TVDB client
+ */
+function getTvdbClient() {
+    if (!sharedTvdbClient) {
+        sharedTvdbClient = new tvdb_1.default();
+    }
+    return sharedTvdbClient;
+}
+/**
+ * Get all movies from a Radarr instance (with optional caching)
+ */
+async function getRadarrMovies(radarrSettings, cache) {
+    const RadarrAPI = (await Promise.resolve().then(() => __importStar(require('../../api/servarr/radarr')))).default;
+    // Build URL manually (same pattern as buildUrl)
+    const protocol = radarrSettings.useSsl ? 'https' : 'http';
+    const url = `${protocol}://${radarrSettings.hostname}:${radarrSettings.port}${radarrSettings.baseUrl || ''}/api/v3`;
+    const cacheKey = url;
+    // Check cache if provided
+    if (cache) {
+        const cached = cache.get(cacheKey);
+        if (cached) {
+            return cached;
+        }
+    }
+    const radarr = new RadarrAPI({
+        url,
+        apiKey: radarrSettings.apiKey,
+    });
+    const movies = await radarr.getMovies();
+    // Store in cache if provided
+    if (cache) {
+        cache.set(cacheKey, movies);
+        logger_1.default.debug('Cached Radarr movies', {
+            label: 'OverlayContextBuilder',
+            url,
+            movieCount: movies.length,
+        });
+    }
+    return movies;
+}
+/**
+ * Get all series from a Sonarr instance (with optional caching)
+ */
+async function getSonarrSeries(sonarrSettings, cache) {
+    const SonarrAPI = (await Promise.resolve().then(() => __importStar(require('../../api/servarr/sonarr')))).default;
+    // Build URL manually (same pattern as buildUrl)
+    const protocol = sonarrSettings.useSsl ? 'https' : 'http';
+    const url = `${protocol}://${sonarrSettings.hostname}:${sonarrSettings.port}${sonarrSettings.baseUrl || ''}/api/v3`;
+    const cacheKey = url;
+    // Check cache if provided
+    if (cache) {
+        const cached = cache.get(cacheKey);
+        if (cached) {
+            return cached;
+        }
+    }
+    const sonarr = new SonarrAPI({
+        url,
+        apiKey: sonarrSettings.apiKey,
+    });
+    const series = await sonarr.getSeries();
+    // Store in cache if provided
+    if (cache) {
+        cache.set(cacheKey, series);
+        logger_1.default.debug('Cached Sonarr series', {
+            label: 'OverlayContextBuilder',
+            url,
+            seriesCount: series.length,
+        });
+    }
+    return series;
+}
+/**
+ * Get TVDB ID from TMDB ID for TV shows
+ * Required for Sonarr lookups since Sonarr uses TVDB IDs
+ */
+async function getTvdbIdFromTmdb(tmdbId) {
+    try {
+        const tmdbClient = new themoviedb_1.default();
+        const showDetails = await tmdbClient.getTvShow({ tvId: tmdbId });
+        return showDetails.external_ids?.tvdb_id;
+    }
+    catch (error) {
+        logger_1.default.debug('Failed to get TVDB ID from TMDB', {
+            label: 'OverlayContextBuilder',
+            tmdbId,
+            error: error instanceof Error ? error.message : String(error),
+        });
+        return undefined;
+    }
+}
+exports.getTvdbIdFromTmdb = getTvdbIdFromTmdb;
+/**
+ * Build context for dynamic field replacement
+ */
+async function buildRenderContext(item, mediaType, isPlaceholder = false, maintainerrCollections) {
+    const context = {
+        title: item.title,
+        year: item.year,
+        isPlaceholder,
+        mediaType,
+        downloaded: !isPlaceholder, // Real items in Plex are downloaded, placeholders are not
+    };
+    // Extract Plex user rating if available
+    if (item.userRating !== undefined) {
+        context.plexUserRating = item.userRating;
+    }
+    // Extract TMDb ID from GUID
+    let tmdbId;
+    if (item.Guid && Array.isArray(item.Guid)) {
+        const tmdbGuid = item.Guid.find((g) => g.id?.includes('tmdb://'));
+        if (tmdbGuid) {
+            const match = tmdbGuid.id.match(/tmdb:\/\/(\d+)/);
+            if (match) {
+                tmdbId = parseInt(match[1]);
+            }
+        }
+    }
+    if (tmdbId) {
+        try {
+            // Fetch TMDb data
+            const tmdbClient = new themoviedb_1.default();
+            const tmdbData = mediaType === 'movie'
+                ? await tmdbClient.getMovie({ movieId: tmdbId })
+                : await tmdbClient.getTvShow({ tvId: tmdbId });
+            // Get IMDb ID
+            const imdbId = tmdbData.external_ids?.imdb_id;
+            // Fetch ratings
+            if (imdbId) {
+                // IMDb rating
+                try {
+                    const imdbApi = new imdbRatings_1.default();
+                    const imdbRatings = await imdbApi.getRatings(imdbId);
+                    if (imdbRatings.length > 0 && imdbRatings[0].rating !== null) {
+                        context.imdbRating = imdbRatings[0].rating;
+                    }
+                }
+                catch (error) {
+                    logger_1.default.debug('Failed to fetch IMDb rating', {
+                        label: 'OverlayContextBuilder',
+                        imdbId,
+                    });
+                }
+                // IMDb Top 250 check
+                try {
+                    const imdbClient = getImdbClient();
+                    const imdbMediaType = mediaType === 'show' ? 'tv' : 'movie';
+                    const top250Result = await imdbClient.checkTop250(imdbId, imdbMediaType);
+                    if (top250Result.isTop250) {
+                        context.isImdbTop250 = true;
+                        context.imdbTop250Rank = top250Result.rank;
+                    }
+                }
+                catch (error) {
+                    logger_1.default.debug('Failed to check IMDb Top 250', {
+                        label: 'OverlayContextBuilder',
+                        imdbId,
+                        error: error instanceof Error ? error.message : String(error),
+                    });
+                }
+                // Rotten Tomatoes ratings
+                try {
+                    const rtClient = new rottentomatoes_1.default();
+                    const rtRating = mediaType === 'movie'
+                        ? await rtClient.getMovieRatings(context.title || '', context.year || 0)
+                        : await rtClient.getTVRatings(context.title || '', context.year);
+                    if (rtRating) {
+                        context.rtCriticsScore = rtRating.criticsScore;
+                        context.rtAudienceScore = rtRating.audienceScore;
+                        context.rtCertifiedFresh =
+                            rtRating.criticsRating === 'Certified Fresh';
+                        context.rtVerifiedHot = rtRating.verifiedHot ?? false;
+                        logger_1.default.debug('Fetched RT ratings', {
+                            label: 'OverlayContextBuilder',
+                            title: context.title,
+                            criticsScore: rtRating.criticsScore,
+                            audienceScore: rtRating.audienceScore,
+                            certifiedFresh: context.rtCertifiedFresh,
+                            verifiedHot: context.rtVerifiedHot,
+                        });
+                    }
+                    else {
+                        logger_1.default.debug('RT rating not found', {
+                            label: 'OverlayContextBuilder',
+                            title: context.title,
+                            year: context.year,
+                        });
+                    }
+                }
+                catch (error) {
+                    logger_1.default.debug('Failed to fetch RT rating', {
+                        label: 'OverlayContextBuilder',
+                        title: context.title,
+                        error: error instanceof Error ? error.message : String(error),
+                    });
+                }
+            }
+            // Movie-specific metadata
+            if (mediaType === 'movie' && 'credits' in tmdbData) {
+                const director = tmdbData.credits?.crew?.find((c) => c.job === 'Director');
+                if (director) {
+                    context.director = director.name;
+                }
+            }
+            // Studio/Network
+            if ('production_companies' in tmdbData &&
+                tmdbData.production_companies?.[0]) {
+                context.studio = tmdbData.production_companies[0].name;
+            }
+            // Network (TV shows)
+            if ('networks' in tmdbData && tmdbData.networks?.[0]) {
+                context.network = tmdbData.networks[0].name;
+            }
+            // Country of Origin (ISO codes like "US", "GB", "DE")
+            // Both movies and TV shows have origin_country and production_countries
+            if ('origin_country' in tmdbData && tmdbData.origin_country?.length > 0) {
+                context.originCountry = tmdbData.origin_country[0];
+                context.originCountries = tmdbData.origin_country;
+            }
+            if ('production_countries' in tmdbData &&
+                tmdbData.production_countries?.length > 0) {
+                context.productionCountry = tmdbData.production_countries[0].iso_3166_1;
+                context.productionCountries = tmdbData.production_countries.map((c) => c.iso_3166_1);
+            }
+            // Genre (concatenate all genres for matching)
+            if ('genres' in tmdbData &&
+                tmdbData.genres &&
+                tmdbData.genres.length > 0) {
+                context.genre = tmdbData.genres
+                    .map((g) => g.name)
+                    .join(', ');
+            }
+            // Runtime
+            if (mediaType === 'movie' && 'runtime' in tmdbData) {
+                context.runtime = tmdbData.runtime;
+                // Format runtime as "2h 16m" or "47m"
+                if (tmdbData.runtime) {
+                    const hours = Math.floor(tmdbData.runtime / 60);
+                    const minutes = tmdbData.runtime % 60;
+                    if (hours > 0) {
+                        context.runtimeHHMM =
+                            minutes > 0 ? `${hours}h ${minutes}m` : `${hours}h`;
+                    }
+                    else {
+                        context.runtimeHHMM = `${minutes}m`;
+                    }
+                }
+            }
+            else if (mediaType === 'show' &&
+                'episode_run_time' in tmdbData &&
+                tmdbData.episode_run_time?.[0]) {
+                context.runtime = tmdbData.episode_run_time[0];
+                // Format runtime as "2h 16m" or "47m"
+                const runtimeValue = tmdbData.episode_run_time[0];
+                if (runtimeValue) {
+                    const hours = Math.floor(runtimeValue / 60);
+                    const minutes = runtimeValue % 60;
+                    if (hours > 0) {
+                        context.runtimeHHMM =
+                            minutes > 0 ? `${hours}h ${minutes}m` : `${hours}h`;
+                    }
+                    else {
+                        context.runtimeHHMM = `${minutes}m`;
+                    }
+                }
+            }
+            // TMDB Status (TV shows only) - using Kometa's user-friendly mapping
+            if (mediaType === 'show' && 'status' in tmdbData) {
+                const rawStatus = tmdbData.status;
+                // Map TMDB status to user-friendly names (based on Kometa)
+                let mappedStatus;
+                switch (rawStatus) {
+                    case 'Returning Series':
+                        mappedStatus = 'RETURNING';
+                        break;
+                    case 'Ended':
+                        mappedStatus = 'ENDED';
+                        break;
+                    case 'Canceled':
+                        mappedStatus = 'CANCELLED';
+                        break;
+                    case 'Planned':
+                        mappedStatus = 'PLANNED';
+                        break;
+                    case 'In Production':
+                        mappedStatus = 'IN PRODUCTION';
+                        break;
+                    case 'Pilot':
+                        mappedStatus = 'PILOT';
+                        break;
+                    default:
+                        mappedStatus = rawStatus.toUpperCase();
+                }
+                // Check if an episode aired in last 15 days to determine "AIRING" status
+                // Only override to AIRING if status is "Returning Series"
+                // Use last_episode_to_air.air_date for accuracy (more reliable than last_air_date)
+                if (rawStatus === 'Returning Series' &&
+                    'last_episode_to_air' in tmdbData &&
+                    tmdbData.last_episode_to_air?.air_date) {
+                    const lastAired = new Date(tmdbData.last_episode_to_air.air_date);
+                    const daysSinceAired = Math.floor((Date.now() - lastAired.getTime()) / (1000 * 60 * 60 * 24));
+                    logger_1.default.debug('Checking AIRING status', {
+                        label: 'OverlayContextBuilder',
+                        title: context.title,
+                        lastEpisodeAirDate: tmdbData.last_episode_to_air.air_date,
+                        daysSinceAired,
+                        threshold: 15,
+                    });
+                    if (daysSinceAired <= 15) {
+                        mappedStatus = 'AIRING';
+                    }
+                }
+                context.tmdbStatus = mappedStatus;
+            }
+            // TVDB Status (TV shows only)
+            if (mediaType === 'show') {
+                try {
+                    // Extract TVDB ID: prefer Plex GUID, fallback to TMDB external_ids
+                    let tvdbId;
+                    if (item.Guid && Array.isArray(item.Guid)) {
+                        const tvdbGuid = item.Guid.find((g) => g.id?.includes('tvdb://'));
+                        if (tvdbGuid) {
+                            const match = tvdbGuid.id.match(/tvdb:\/\/(\d+)/);
+                            if (match) {
+                                tvdbId = parseInt(match[1]);
+                            }
+                        }
+                    }
+                    if (!tvdbId && 'external_ids' in tmdbData) {
+                        tvdbId = tmdbData.external_ids?.tvdb_id;
+                    }
+                    if (tvdbId) {
+                        const tvdbClient = getTvdbClient();
+                        const tvdbSeries = await tvdbClient.getSeriesById(tvdbId);
+                        const rawTvdbStatus = tvdbSeries.status?.name ?? '';
+                        let mappedTvdbStatus;
+                        switch (rawTvdbStatus) {
+                            case 'Continuing':
+                                mappedTvdbStatus = 'RETURNING';
+                                break;
+                            case 'Ended':
+                                mappedTvdbStatus = 'ENDED';
+                                break;
+                            case 'Upcoming':
+                                mappedTvdbStatus = 'PLANNED';
+                                break;
+                            default:
+                                mappedTvdbStatus = rawTvdbStatus.toUpperCase();
+                        }
+                        // Override to AIRING if an episode aired within the last 15 days
+                        if (rawTvdbStatus === 'Continuing' && tvdbSeries.lastAired) {
+                            const lastAired = new Date(tvdbSeries.lastAired);
+                            const daysSinceAired = Math.floor((Date.now() - lastAired.getTime()) / (1000 * 60 * 60 * 24));
+                            if (daysSinceAired <= 15) {
+                                mappedTvdbStatus = 'AIRING';
+                            }
+                        }
+                        context.tvdbStatus = mappedTvdbStatus;
+                    }
+                }
+                catch (error) {
+                    logger_1.default.debug('Failed to fetch TVDB status', {
+                        label: 'OverlayContextBuilder',
+                        title: context.title,
+                        error: error instanceof Error ? error.message : String(error),
+                    });
+                }
+            }
+            // Content ratings / certifications (per-country)
+            // Stored as contentRating:{countryCode} for per-element country selection
+            if (mediaType === 'movie' && 'release_dates' in tmdbData) {
+                const releaseResults = tmdbData.release_dates?.results;
+                if (releaseResults && Array.isArray(releaseResults)) {
+                    for (const countryEntry of releaseResults) {
+                        const countryCode = countryEntry.iso_3166_1;
+                        // Find the first non-empty certification for this country
+                        const certification = countryEntry.release_dates
+                            ?.map((rd) => rd.certification)
+                            .find((cert) => cert && cert.trim() !== '');
+                        if (certification) {
+                            context[`contentRating:${countryCode}`] = certification;
+                        }
+                    }
+                }
+            }
+            else if (mediaType === 'show' && 'content_ratings' in tmdbData) {
+                const ratingResults = tmdbData.content_ratings?.results;
+                if (ratingResults && Array.isArray(ratingResults)) {
+                    for (const ratingEntry of ratingResults) {
+                        if (ratingEntry.rating && ratingEntry.rating.trim() !== '') {
+                            context[`contentRating:${ratingEntry.iso_3166_1}`] =
+                                ratingEntry.rating;
+                        }
+                    }
+                }
+            }
+        }
+        catch (error) {
+            logger_1.default.debug('Failed to fetch external metadata', {
+                label: 'OverlayContextBuilder',
+                tmdbId,
+                error: error instanceof Error ? error.message : String(error),
+            });
+        }
+    }
+    // Plex-specific metadata from Media (extract if available, even for placeholders)
+    if (item.Media?.[0]) {
+        const media = item.Media[0];
+        // Resolution - use raw value from Plex (e.g., "720", "1080", "4k")
+        if (media.videoResolution) {
+            context.resolution = media.videoResolution;
+        }
+        // Dimensions
+        context.width = media.width;
+        context.height = media.height;
+        context.aspectRatio = media.aspectRatio;
+        // Video specs (from Media level)
+        context.videoCodec = media.videoCodec;
+        context.videoProfile = media.videoProfile;
+        context.videoFrameRate = media.videoFrameRate;
+        // Audio specs (from Media level)
+        context.audioCodec = media.audioCodec;
+        context.audioChannels = media.audioChannels;
+        // File info
+        context.container = media.container;
+        context.bitrate = media.bitrate;
+        // Extract file path and size from Part (independent of Stream data)
+        if (media.Part?.[0]) {
+            if (media.Part[0].file) {
+                context.filePath = media.Part[0].file;
+            }
+            if (media.Part[0].size) {
+                context.fileSize = media.Part[0].size;
+            }
+        }
+        // Extract detailed info from Streams
+        if (media.Part?.[0]?.Stream) {
+            const streams = media.Part[0].Stream;
+            // Find video stream (streamType 1)
+            const videoStream = streams.find((s) => s.streamType === 1);
+            if (videoStream) {
+                // HDR/Dolby Vision detection
+                context.dolbyVision = videoStream.DOVIPresent || false;
+                // Dolby Vision Profile (5, 7, 8, etc.)
+                if (videoStream.DOVIProfile !== undefined) {
+                    context.dolbyVisionProfile = videoStream.DOVIProfile;
+                }
+                // Check for HDR in color transfer characteristic
+                context.hdr =
+                    videoStream.colorTrc?.toLowerCase().includes('smpte2084') ||
+                        videoStream.colorTrc?.toLowerCase().includes('arib') ||
+                        false;
+                // Color transfer characteristic (for distinguishing HDR10 vs HLG, etc.)
+                if (videoStream.colorTrc) {
+                    context.colorTrc = videoStream.colorTrc;
+                }
+                // Parse bitDepth as number (Plex returns it as string)
+                if (videoStream.bitDepth) {
+                    context.bitDepth = parseInt(String(videoStream.bitDepth), 10);
+                }
+            }
+            // Find all audio streams (streamType 2)
+            const audioStreams = streams.filter((s) => s.streamType === 2);
+            if (audioStreams.length > 0) {
+                // Primary audio stream (first one)
+                const primaryAudio = audioStreams[0];
+                // Detailed audio format from displayTitle
+                if (primaryAudio.displayTitle) {
+                    context.audioFormat = primaryAudio.displayTitle;
+                }
+                // Audio channel layout
+                if (primaryAudio.audioChannelLayout) {
+                    context.audioChannelLayout = primaryAudio.audioChannelLayout;
+                }
+                if (primaryAudio.channels) {
+                    context.audioChannels = primaryAudio.channels;
+                }
+                // Primary audio language
+                if (primaryAudio.languageCode) {
+                    context.audioLanguageCode = primaryAudio.languageCode;
+                    context.audioLanguage = resolveLanguageName(primaryAudio.languageCode, primaryAudio.language ?? primaryAudio.languageCode);
+                }
+                else if (primaryAudio.language) {
+                    context.audioLanguage = primaryAudio.language;
+                }
+                // Collect all audio track languages (unique values only)
+                const allAudioLanguageCodes = audioStreams
+                    .map((s) => s.languageCode)
+                    .filter((code) => !!code);
+                const allAudioLanguages = allAudioLanguageCodes.length > 0
+                    ? allAudioLanguageCodes.map((code) => resolveLanguageName(code, code))
+                    : audioStreams
+                        .map((s) => s.language)
+                        .filter((lang) => !!lang);
+                if (allAudioLanguages.length > 0) {
+                    context.audioLanguages = [...new Set(allAudioLanguages)];
+                }
+                if (allAudioLanguageCodes.length > 0) {
+                    context.audioLanguageCodes = [...new Set(allAudioLanguageCodes)];
+                }
+            }
+            // Find all subtitle streams (streamType 3)
+            const subtitleStreams = streams.filter((s) => s.streamType === 3);
+            context.hasSubtitles = subtitleStreams.length > 0;
+            if (subtitleStreams.length > 0) {
+                // Collect all subtitle languages (unique values only)
+                const allSubtitleLanguageCodes = subtitleStreams
+                    .map((s) => s.languageCode)
+                    .filter((code) => !!code);
+                const allSubtitleLanguages = allSubtitleLanguageCodes.length > 0
+                    ? allSubtitleLanguageCodes.map((code) => resolveLanguageName(code, code))
+                    : subtitleStreams
+                        .map((s) => s.language)
+                        .filter((lang) => !!lang);
+                if (allSubtitleLanguages.length > 0) {
+                    context.subtitleLanguages = [...new Set(allSubtitleLanguages)];
+                }
+                if (allSubtitleLanguageCodes.length > 0) {
+                    context.subtitleLanguageCodes = [
+                        ...new Set(allSubtitleLanguageCodes),
+                    ];
+                }
+            }
+        }
+    }
+    // Playback stats and dates
+    if (item.viewCount !== undefined) {
+        context.viewCount = item.viewCount;
+    }
+    if (item.lastViewedAt) {
+        context.lastPlayed = new Date(item.lastViewedAt * 1000);
+        // Calculate days since last played
+        const daysSinceLastPlayed = Math.floor((Date.now() - item.lastViewedAt * 1000) / (1000 * 60 * 60 * 24));
+        context.daysSinceLastPlayed = daysSinceLastPlayed;
+    }
+    if (item.addedAt) {
+        context.dateAdded = new Date(item.addedAt * 1000);
+        // Calculate days since added
+        const daysSinceAdded = Math.floor((Date.now() - item.addedAt * 1000) / (1000 * 60 * 60 * 24));
+        context.daysSinceAdded = daysSinceAdded;
+    }
+    // TV-specific
+    if (mediaType === 'show') {
+        // For episode-level items, use parentIndex for season
+        // For show-level items (placeholders/shows), parentIndex is undefined
+        if (item.parentIndex !== undefined) {
+            context.seasonNumber = item.parentIndex;
+        }
+        if (item.index !== undefined) {
+            context.episodeNumber = item.index;
+        }
+    }
+    // Plex Labels - extract item-level tags
+    if (item.Label && Array.isArray(item.Label)) {
+        context.plexLabels = item.Label.map((l) => l.tag).filter((tag) => !!tag);
+    }
+    // Maintainerr integration - calculate daysUntilAction
+    // Use cached collections if provided, otherwise fetch them
+    if (item.ratingKey &&
+        maintainerrCollections &&
+        maintainerrCollections.length > 0) {
+        try {
+            // Find ALL collections containing this item
+            const matchingCollections = [];
+            for (const collection of maintainerrCollections) {
+                const mediaItem = collection.media.find((m) => {
+                    const id = m.mediaServerId ?? m.plexId;
+                    return id !== undefined && String(id) === String(item.ratingKey);
+                });
+                if (mediaItem && collection.deleteAfterDays) {
+                    // Calculate days since item was added to collection
+                    const addedDate = new Date(mediaItem.addDate);
+                    const now = new Date();
+                    const daysSinceAdded = Math.floor((now.getTime() - addedDate.getTime()) / (1000 * 60 * 60 * 24));
+                    // Calculate days until action: deleteAfterDays - daysSinceAdded
+                    // Positive = days remaining, negative = overdue
+                    const daysUntilAction = collection.deleteAfterDays - daysSinceAdded;
+                    matchingCollections.push({ collection, daysUntilAction });
+                }
+            }
+            // If item is in multiple collections, use the one with LOWEST daysUntilAction
+            if (matchingCollections.length > 0) {
+                const selected = matchingCollections.reduce((min, curr) => curr.daysUntilAction < min.daysUntilAction ? curr : min);
+                context.daysUntilAction = selected.daysUntilAction;
+                logger_1.default.debug('Calculated Maintainerr daysUntilAction', {
+                    label: 'OverlayContextBuilder',
+                    ratingKey: item.ratingKey,
+                    title: item.title,
+                    matchingCollections: matchingCollections.length,
+                    selectedCollection: selected.collection.title,
+                    daysUntilAction: selected.daysUntilAction,
+                });
+            }
+        }
+        catch (error) {
+            logger_1.default.debug('Failed to calculate Maintainerr daysUntilAction', {
+                label: 'OverlayContextBuilder',
+                ratingKey: item.ratingKey,
+                error: error instanceof Error ? error.message : String(error),
+            });
+        }
+    }
+    return context;
+}
+exports.buildRenderContext = buildRenderContext;
+/**
+ * Fetch release date information from TMDB
+ * For movies: Gets digital/physical/theatrical release dates
+ * For TV: Gets next episode air date
+ */
+async function fetchReleaseDateInfo(tmdbId, mediaType) {
+    try {
+        const tmdbClient = new themoviedb_1.default();
+        if (mediaType === 'movie') {
+            const movieDetails = await tmdbClient.getMovie({ movieId: tmdbId });
+            // For movies, use proper release date calculation (digital > physical > theatrical+90)
+            // This matches PlaceholderContextService implementation
+            if (movieDetails.release_dates?.results) {
+                const { extractReleaseDates, determineReleaseDate } = await Promise.resolve().then(() => __importStar(require('../../utils/dateHelpers')));
+                const extracted = extractReleaseDates(movieDetails.release_dates.results);
+                const determined = determineReleaseDate(extracted.digitalRelease, extracted.physicalRelease, extracted.inCinemas);
+                if (determined) {
+                    return {
+                        releaseDate: determined.releaseDate,
+                    };
+                }
+            }
+            // Fallback to simple release_date if release_dates not available
+            if (movieDetails.release_date) {
+                return {
+                    releaseDate: movieDetails.release_date,
+                };
+            }
+        }
+        else {
+            // For TV shows
+            const showDetails = await tmdbClient.getTvShow({ tvId: tmdbId });
+            const nextEpisode = showDetails.next_episode_to_air;
+            const lastEpisode = showDetails.last_episode_to_air;
+            let latestSeasonAirDate;
+            if (lastEpisode) {
+                const currentSeason = showDetails.seasons?.find((s) => s.season_number === lastEpisode.season_number);
+                latestSeasonAirDate = currentSeason?.air_date ?? undefined;
+            }
+            const nextSeasonAirDate = nextEpisode?.episode_number === 1
+                ? nextEpisode.air_date
+                : latestSeasonAirDate;
+            return {
+                releaseDate: (showDetails.first_air_date ||
+                    nextEpisode?.air_date ||
+                    lastEpisode?.air_date) ??
+                    undefined,
+                nextEpisodeAirDate: nextEpisode?.air_date ?? undefined,
+                nextSeasonAirDate: nextSeasonAirDate ?? undefined,
+                seasonNumber: nextEpisode?.season_number ?? lastEpisode?.season_number ?? undefined,
+                episodeNumber: nextEpisode?.episode_number ??
+                    lastEpisode?.episode_number ??
+                    undefined,
+            };
+        }
+        return undefined;
+    }
+    catch (error) {
+        logger_1.default.debug('Failed to fetch release date info', {
+            label: 'OverlayContextBuilder',
+            tmdbId,
+            mediaType,
+            error: error instanceof Error ? error.message : String(error),
+        });
+        return undefined;
+    }
+}
+exports.fetchReleaseDateInfo = fetchReleaseDateInfo;
+/**
+ * Check monitoring status in Radarr/Sonarr
+ * Returns whether item exists in *arr and if it's monitored (series-level)
+ *
+ * @param tmdbId - TMDB ID of the item
+ * @param mediaType - Media type ('movie' or 'show')
+ * @param radarrCache - Optional cache for Radarr movie data
+ * @param sonarrCache - Optional cache for Sonarr series data
+ */
+async function checkMonitoringStatus(tmdbId, mediaType, radarrCache, sonarrCache) {
+    try {
+        const settings = (0, settings_1.getSettings)();
+        if (mediaType === 'movie' &&
+            settings.radarr &&
+            settings.radarr.length > 0) {
+            // Check Radarr for movies
+            for (const radarrSettings of settings.radarr) {
+                if (!radarrSettings.hostname) {
+                    continue;
+                }
+                try {
+                    const movies = await getRadarrMovies(radarrSettings, radarrCache);
+                    const movie = movies.find((m) => m.tmdbId === tmdbId);
+                    if (movie) {
+                        // Fetch tags if movie has any
+                        let tagNames = [];
+                        if (movie.tags && movie.tags.length > 0) {
+                            try {
+                                const RadarrAPI = (await Promise.resolve().then(() => __importStar(require('../../api/servarr/radarr'))))
+                                    .default;
+                                const radarr = new RadarrAPI({
+                                    url: `${radarrSettings.useSsl ? 'https' : 'http'}://${radarrSettings.hostname}:${radarrSettings.port}${radarrSettings.baseUrl || ''}/api/v3`,
+                                    apiKey: radarrSettings.apiKey,
+                                });
+                                const allTags = await radarr.getTags();
+                                tagNames = movie.tags
+                                    .map((tagId) => allTags.find((t) => t.id === tagId)?.label)
+                                    .filter((label) => label !== undefined);
+                            }
+                            catch (tagError) {
+                                logger_1.default.debug('Failed to fetch Radarr tags', {
+                                    label: 'OverlayContextBuilder',
+                                    error: tagError instanceof Error
+                                        ? tagError.message
+                                        : String(tagError),
+                                });
+                            }
+                        }
+                        logger_1.default.debug('Found movie in Radarr', {
+                            label: 'OverlayContextBuilder',
+                            tmdbId,
+                            monitored: movie.monitored,
+                            hasFile: movie.hasFile,
+                            tags: tagNames,
+                        });
+                        return {
+                            inRadarr: true,
+                            isMonitored: movie.monitored,
+                            hasFile: movie.hasFile,
+                            radarrTags: tagNames.length > 0 ? tagNames : undefined,
+                        };
+                    }
+                }
+                catch (error) {
+                    logger_1.default.debug('Failed to check Radarr instance', {
+                        label: 'OverlayContextBuilder',
+                        hostname: radarrSettings.hostname,
+                        error: error instanceof Error ? error.message : String(error),
+                    });
+                    continue;
+                }
+            }
+            return { inRadarr: false, isMonitored: false };
+        }
+        else if (mediaType === 'show' &&
+            settings.sonarr &&
+            settings.sonarr.length > 0) {
+            // Check Sonarr for TV shows - prefer TVDB ID, fallback to title match
+            const tvdbId = await getTvdbIdFromTmdb(tmdbId);
+            // Get title from TMDB for fallback matching
+            let tmdbTitle;
+            if (!tvdbId) {
+                try {
+                    const tmdbClient = new themoviedb_1.default();
+                    const showDetails = await tmdbClient.getTvShow({ tvId: tmdbId });
+                    tmdbTitle = showDetails.name || showDetails.original_name;
+                }
+                catch {
+                    // Ignore errors, just won't have title fallback
+                }
+            }
+            for (const sonarrSettings of settings.sonarr) {
+                if (!sonarrSettings.hostname) {
+                    continue;
+                }
+                try {
+                    const allSeries = await getSonarrSeries(sonarrSettings, sonarrCache);
+                    let series;
+                    // Try TVDB ID first if available
+                    if (tvdbId) {
+                        series = allSeries.find((s) => s.tvdbId === tvdbId);
+                    }
+                    // Fallback to title match if no TVDB ID or not found
+                    if (!series && tmdbTitle) {
+                        const normalizedTmdbTitle = tmdbTitle.toLowerCase();
+                        const normalizedTmdbTitleNoSpecial = normalizedTmdbTitle.replace(/[^\w\s]/g, '');
+                        series = allSeries.find((s) => s.title.toLowerCase() === normalizedTmdbTitle ||
+                            s.title.toLowerCase().replace(/[^\w\s]/g, '') ===
+                                normalizedTmdbTitleNoSpecial);
+                    }
+                    if (series) {
+                        const hasFile = (series.statistics?.episodeFileCount || 0) > 0;
+                        // Fetch tags if series has any
+                        let tagNames = [];
+                        if (series.tags && series.tags.length > 0) {
+                            try {
+                                const SonarrAPI = (await Promise.resolve().then(() => __importStar(require('../../api/servarr/sonarr'))))
+                                    .default;
+                                const sonarr = new SonarrAPI({
+                                    url: `${sonarrSettings.useSsl ? 'https' : 'http'}://${sonarrSettings.hostname}:${sonarrSettings.port}${sonarrSettings.baseUrl || ''}/api/v3`,
+                                    apiKey: sonarrSettings.apiKey,
+                                });
+                                const allTags = await sonarr.getTags();
+                                tagNames = series.tags
+                                    .map((tagId) => allTags.find((t) => t.id === tagId)?.label)
+                                    .filter((label) => label !== undefined);
+                            }
+                            catch (tagError) {
+                                logger_1.default.debug('Failed to fetch Sonarr tags', {
+                                    label: 'OverlayContextBuilder',
+                                    error: tagError instanceof Error
+                                        ? tagError.message
+                                        : String(tagError),
+                                });
+                            }
+                        }
+                        logger_1.default.debug('Found series in Sonarr', {
+                            label: 'OverlayContextBuilder',
+                            tmdbId,
+                            tvdbId,
+                            tmdbTitle,
+                            sonarrTitle: series.title,
+                            matchedBy: tvdbId && series.tvdbId === tvdbId ? 'tvdbId' : 'title',
+                            monitored: series.monitored,
+                            episodeFileCount: series.statistics?.episodeFileCount,
+                            hasFile,
+                            tags: tagNames,
+                        });
+                        return {
+                            inSonarr: true,
+                            isMonitored: series.monitored,
+                            hasFile,
+                            sonarrTags: tagNames.length > 0 ? tagNames : undefined,
+                        };
+                    }
+                }
+                catch (error) {
+                    logger_1.default.debug('Failed to check Sonarr instance', {
+                        label: 'OverlayContextBuilder',
+                        hostname: sonarrSettings.hostname,
+                        error: error instanceof Error ? error.message : String(error),
+                    });
+                    continue;
+                }
+            }
+            return { inSonarr: false, isMonitored: false };
+        }
+        return {};
+    }
+    catch (error) {
+        logger_1.default.debug('Failed to check monitoring status', {
+            label: 'OverlayContextBuilder',
+            mediaType,
+            tmdbId,
+            error: error instanceof Error ? error.message : String(error),
+        });
+        return {};
+    }
+}
+exports.checkMonitoringStatus = checkMonitoringStatus;

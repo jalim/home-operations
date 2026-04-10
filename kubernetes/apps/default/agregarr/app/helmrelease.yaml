@@ -99,3 +99,11 @@ spec:
           - path: /app/dist/api/maintainerr.js
             subPath: maintainerr.js
             readOnly: true
+      # TEMPORARY — remove when upstream normalizes Maintainerr/Plex ID matching
+      overlay-context-patch:
+        type: configMap
+        name: agregarr-overlay-context-patch
+        globalMounts:
+          - path: /app/dist/lib/overlays/OverlayContextBuilder.js
+            subPath: OverlayContextBuilder.js
+            readOnly: true
