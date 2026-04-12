@@ -22,6 +22,7 @@ resources:
   - ./mealie/ks.yaml
   - ./pinchflat/ks.yaml
   - ./plex/ks.yaml
+  - ./sportarr/ks.yaml
   - ./prowlarr/ks.yaml
   - ./recyclarr/ks.yaml
   - ./qbittorrent/ks.yaml
