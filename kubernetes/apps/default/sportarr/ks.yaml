@@ -15,7 +15,7 @@ spec:
     - ../../../../components/nfs-scaler
   dependsOn:
     - name: rook-ceph-cluster
-      namespace: rook-ceph
+      namespace: flux-system
   path: ./kubernetes/apps/default/sportarr/app
   prune: true
   sourceRef:
