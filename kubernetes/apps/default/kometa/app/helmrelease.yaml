@@ -32,6 +32,7 @@ spec:
               - /config/config.yml
             env:
               TZ: ${TIMEZONE}
+              KOMETA_PLEX_URL: http://plex.default.svc.cluster.local:32400
             envFrom:
               - secretRef:
                   name: kometa-secret

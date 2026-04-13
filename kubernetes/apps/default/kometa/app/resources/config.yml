@@ -1,6 +1,6 @@
 plex:
-  url: http://plex.default.svc.cluster.local:32400
-  token: <<PLEX_TOKEN>>
+  url: env
+  token: env
   timeout: 60
 
 tmdb:
