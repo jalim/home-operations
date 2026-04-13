@@ -28,9 +28,7 @@ spec:
             args:
               - --run
               - --config
-              - /config-input/config.yml
-              - --default-dir
-              - /config
+              - /config/config.yml
             env:
               TZ: ${TIMEZONE}
             envFrom:
@@ -55,16 +53,16 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     persistence:
-      config-file:
-        type: configMap
-        name: kometa-configmap
-        globalMounts:
-          - path: /config-input/config.yml
-            subPath: config.yml
-            readOnly: true
       config:
         type: emptyDir
         globalMounts:
           - path: /config
+      config-file:
+        type: configMap
+        name: kometa-configmap
+        globalMounts:
+          - path: /config/config.yml
+            subPath: config.yml
+            readOnly: true
       tmp:
         type: emptyDir
