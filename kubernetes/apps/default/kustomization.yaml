@@ -24,6 +24,7 @@ resources:
   - ./plex/ks.yaml
   - ./sportarr/ks.yaml
   - ./prowlarr/ks.yaml
+  - ./kometa/ks.yaml
   - ./recyclarr/ks.yaml
   - ./qbittorrent/ks.yaml
   - ./qui/ks.yaml

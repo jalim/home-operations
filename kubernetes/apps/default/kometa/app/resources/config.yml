@@ -1,0 +1,18 @@
+plex:
+  url: http://plex.default.svc.cluster.local:32400
+  token: <<PLEX_TOKEN>>
+  timeout: 60
+
+tmdb:
+  apikey: <<TMDB_APIKEY>>
+  language: en
+
+libraries:
+  Movies:
+    collection_files:
+      # Franchise collections — Harry Potter, Lord of the Rings, Star Wars, etc.
+      - default: franchise
+      # Cinematic universes — MCU, DCU, etc.
+      - default: universe
+    settings:
+      asset_directory: /config/assets
