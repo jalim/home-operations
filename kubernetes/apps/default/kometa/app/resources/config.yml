@@ -13,7 +13,8 @@ libraries:
       # Cinematic universes — MCU, DCU, etc. (runs first to populate plex:// GUID→TMDb ID cache)
       - default: universe
       # Franchise collections — Harry Potter, Lord of the Rings, Star Wars, etc.
-      # Must run after universe so the plex://movie/ GUID cache is populated
-      - default: franchise
+      # Use a local TMDb dynamic collection file instead of the built-in default,
+      # which is currently failing in the pinned Kometa image.
+      - file: /config/franchise.yml
     settings:
       asset_directory: /config/assets

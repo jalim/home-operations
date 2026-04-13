@@ -67,5 +67,8 @@ spec:
           - path: /config/config.yml
             subPath: config.yml
             readOnly: true
+          - path: /config/franchise.yml
+            subPath: franchise.yml
+            readOnly: true
       tmp:
         type: emptyDir
