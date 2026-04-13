@@ -28,6 +28,7 @@ spec:
             args:
               - --run
               - --read-only-config
+              - --debug
               - --config
               - /config/config.yml
             env:
