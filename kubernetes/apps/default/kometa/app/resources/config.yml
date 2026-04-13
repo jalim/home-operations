@@ -19,5 +19,15 @@ libraries:
       # Use a local TMDb dynamic collection file instead of the built-in default,
       # which is currently failing in the pinned Kometa image.
       - file: /config/franchise.yml
-    settings:
-      asset_directory: /config/assets
+  Kids Movies:
+    collection_files:
+      # Franchise collections — Harry Potter, Lord of the Rings, Star Wars, etc.
+      # Use a local TMDb dynamic collection file instead of the built-in default,
+      # which is currently failing in the pinned Kometa image.
+      - file: /config/franchise.yml
+settings:
+  cache: true
+  cache_expiration: 60
+  asset_directory:
+    - config/movie assets
+    - config/kids movie assets
