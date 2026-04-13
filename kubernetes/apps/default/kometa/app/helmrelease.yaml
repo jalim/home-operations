@@ -29,6 +29,8 @@ spec:
               - --run
               - --config
               - /config-input/config.yml
+              - --default-dir
+              - /config
             env:
               TZ: ${TIMEZONE}
             envFrom:
