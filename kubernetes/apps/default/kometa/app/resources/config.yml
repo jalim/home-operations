@@ -7,6 +7,9 @@ tmdb:
   apikey: <<TMDB_APIKEY>>
   language: en
 
+mdblist:
+  apikey: <<MDBLIST_APIKEY>>
+
 libraries:
   Movies:
     collection_files:
