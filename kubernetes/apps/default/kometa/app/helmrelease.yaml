@@ -57,7 +57,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     persistence:
       config:
-        type: emptyDir
+        existingClaim: kometa
         globalMounts:
           - path: /config
       config-file:

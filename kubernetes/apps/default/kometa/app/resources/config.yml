@@ -10,9 +10,10 @@ tmdb:
 libraries:
   Movies:
     collection_files:
-      # Franchise collections — Harry Potter, Lord of the Rings, Star Wars, etc.
-      - default: franchise
-      # Cinematic universes — MCU, DCU, etc.
+      # Cinematic universes — MCU, DCU, etc. (runs first to populate plex:// GUID→TMDb ID cache)
       - default: universe
+      # Franchise collections — Harry Potter, Lord of the Rings, Star Wars, etc.
+      # Must run after universe so the plex://movie/ GUID cache is populated
+      - default: franchise
     settings:
       asset_directory: /config/assets
