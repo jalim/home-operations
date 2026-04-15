@@ -34,7 +34,7 @@ spec:
       - --crd-source-kind=DNSEndpoint
       - --pdns-server=http://10.1.2.1:8082
       - --pdns-api-key=$(PDNS_API_KEY)
-      - --exclude-target-net=203.12.14.62/32,210.56.150.86/32
+      - --exclude-target-net=210.56.150.86/32
       - --ignore-ingress-tls-spec
       - --managed-record-types=A
       - --managed-record-types=AAAA
