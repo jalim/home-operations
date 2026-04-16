@@ -29,7 +29,7 @@ spec:
           app:
             image:
               repository: ghcr.io/coder/code-server
-              tag: 4.115.0@sha256:9ab60892c35b9ae9bb7ded4c0b0df0ae4e2102d29f46ef4e4ec6aa04a6894a40
+              tag: 4.116.0@sha256:68d6bd0648637ebccbf50b6fa2ca7179d652ff85534457c055374a3863312030
             env:
               TZ: Australia/Perth
             args:
