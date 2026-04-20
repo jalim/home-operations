@@ -30,7 +30,9 @@ spec:
                 enabled: false
             securityContext:
               allowPrivilegeEscalation: false
-              capabilities: { drop: ["ALL"] }
+              capabilities:
+                drop: ["ALL"]
+                add: ["NET_RAW"]
             resources:
               requests:
                 cpu: 10m
