@@ -29,9 +29,7 @@ spec:
               readiness:
                 enabled: false
             securityContext:
-              allowPrivilegeEscalation: false
               capabilities:
-                drop: ["ALL"]
                 add: ["NET_RAW"]
             resources:
               requests:
@@ -43,8 +41,5 @@ spec:
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        runAsNonRoot: true
         seccompProfile:
           type: Unconfined
