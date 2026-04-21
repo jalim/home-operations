@@ -35,6 +35,8 @@ spec:
               DB_HOST: picpeak-postgres
               DB_USER: picpeak
               DB_NAME: picpeak
+              APP_DATA: /app/data
+              APP_STORAGE: /app/storage
               FRONTEND_URL: https://picpeak.lumu.au
               API_URL: https://picpeak.lumu.au/api
               REDIS_URL: redis://picpeak-redis:6379
