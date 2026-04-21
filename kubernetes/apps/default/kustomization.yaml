@@ -39,6 +39,7 @@ resources:
   - ./music-assistant/ks.yaml
   - ./globalping-probe/ks.yaml
   - ./maintainerr/ks.yaml
+  - ./picpeak/ks.yaml
   - ./mumble/ks.yaml
   - ./navidrome/ks.yaml
   # - ./home-assistant/ks.yaml

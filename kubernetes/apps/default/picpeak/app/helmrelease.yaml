@@ -1,0 +1,140 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: picpeak
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: picpeak
+  values:
+    controllers:
+      picpeak:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          # Frontend nginx proxies to hostname "backend" — resolve to localhost
+          # since both containers share the pod network namespace
+          hostAliases:
+            - ip: "127.0.0.1"
+              hostnames: ["backend"]
+        containers:
+          frontend:
+            image:
+              repository: ghcr.io/the-luap/picpeak/frontend
+              tag: stable@sha256:499311ce45b9af93fbc143e9929f1fcbcec91ef11c6b2501280897c0a71ef8d6
+            resources:
+              requests:
+                cpu: 10m
+                memory: 32Mi
+              limits:
+                memory: 128Mi
+          backend:
+            image:
+              repository: ghcr.io/the-luap/picpeak/backend
+              tag: stable@sha256:ce4ad46564186c62ed1f628e603a7628ff057444f7df4e8036f3566a09859c97
+            env:
+              NODE_ENV: production
+              DATABASE_CLIENT: sqlite
+              FRONTEND_URL: https://picpeak.lumu.au
+              API_URL: https://picpeak.lumu.au/api
+              REDIS_URL: redis://picpeak-redis:6379
+              SMTP_HOST: smtp-relay
+              SMTP_PORT: "25"
+              SMTP_SECURE: "false"
+              EMAIL_FROM: picpeak@lumu.au
+              TZ: Australia/Perth
+            envFrom:
+              - secretRef:
+                  name: picpeak-secret
+            resources:
+              requests:
+                cpu: 50m
+                memory: 256Mi
+              limits:
+                memory: 512Mi
+
+      redis:
+        pod:
+          securityContext:
+            runAsUser: 65534
+            runAsGroup: 65534
+        containers:
+          redis:
+            image:
+              repository: docker.io/valkey/valkey
+              tag: 8-alpine@sha256:1cb6b20b70d927560cc4cc5397b5f045e74aa603ff7696274778880bb6fadc75
+            args:
+              - --save
+              - ""
+              - --appendonly
+              - "no"
+            resources:
+              requests:
+                cpu: 10m
+                memory: 32Mi
+              limits:
+                memory: 128Mi
+
+    service:
+      app:
+        controller: picpeak
+        ports:
+          http:
+            port: &port 80
+      redis:
+        controller: redis
+        ports:
+          http:
+            port: 6379
+
+    route:
+      app:
+        hostnames: ["picpeak.lumu.au"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+
+    persistence:
+      data:
+        existingClaim: picpeak
+        advancedMounts:
+          picpeak:
+            backend:
+              - path: /app/data
+                subPath: data
+              - path: /app/storage
+                subPath: storage
+      logs:
+        type: emptyDir
+        advancedMounts:
+          picpeak:
+            backend:
+              - path: /app/logs
+      nginx-cache:
+        type: emptyDir
+        advancedMounts:
+          picpeak:
+            frontend:
+              - path: /var/cache/nginx
+      nginx-run:
+        type: emptyDir
+        advancedMounts:
+          picpeak:
+            frontend:
+              - path: /var/run
+      tmp:
+        type: emptyDir
+        advancedMounts:
+          picpeak:
+            frontend:
+              - path: /tmp
+            backend:
+              - path: /tmp
