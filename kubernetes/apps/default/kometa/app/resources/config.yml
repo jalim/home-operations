@@ -29,5 +29,4 @@ settings:
   cache: true
   cache_expiration: 60
   asset_directory:
-    - config/movie assets
-    - config/kids movie assets
+    - config/assets
