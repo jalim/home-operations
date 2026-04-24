@@ -6,3 +6,29 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ./ocirepository.yaml
+
+configMapGenerator:
+  - name: seerr-plex-patch
+    namespace: default
+    # TEMPORARY PATCH — remove once seerr-team/seerr#2939 is fixed upstream.
+    #
+    # PR #2746 (v3.2.0) tightened popup handling in plex.ts and introduced a
+    # popup.closed check in pinPoll(). When Cross-Origin-Opener-Policy severs
+    # window.opener after the popup navigates to app.plex.tv, popup.closed
+    # becomes true prematurely and the auth flow aborts.
+    #
+    # These patched chunks remove the popup.closed ternary and unconditionally
+    # reschedule polling (matching the fix in PR #2941), relying on PIN expiry
+    # for timeout instead.
+    #
+    # Cleanup: remove this configMapGenerator block, the plex-patch/ directory,
+    # and the plex-patch persistence mounts in helmrelease.yaml.
+    files:
+      - plex-patch/3669-c2c6b0b2f2850860.js
+      - plex-patch/45760-0a6d2dfedd931afe.js
+    options:
+      disableNameSuffixHash: true
+
+generatorOptions:
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled

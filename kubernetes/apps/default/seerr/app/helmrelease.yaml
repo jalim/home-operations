@@ -102,3 +102,14 @@ spec:
           - path: /app/config
       tmp:
         type: emptyDir
+      # TEMPORARY — remove when seerr-team/seerr#2939 is fixed upstream
+      plex-patch:
+        type: configMap
+        name: seerr-plex-patch
+        globalMounts:
+          - path: /app/.next/static/chunks/3669-c2c6b0b2f2850860.js
+            subPath: 3669-c2c6b0b2f2850860.js
+            readOnly: true
+          - path: /app/.next/static/chunks/45760-0a6d2dfedd931afe.js
+            subPath: 45760-0a6d2dfedd931afe.js
+            readOnly: true
