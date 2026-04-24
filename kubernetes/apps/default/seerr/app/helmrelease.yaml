@@ -84,17 +84,6 @@ spec:
         parentRefs:
           - name: envoy-external
             namespace: network
-        rules:
-          - backendRefs:
-              - name: seerr
-                port: 80
-            filters:
-              # TODO: remove once seerr-team/seerr#2939 is fixed upstream
-              - type: ResponseHeaderModifier
-                responseHeaderModifier:
-                  set:
-                    - name: Cross-Origin-Opener-Policy
-                      value: same-origin-allow-popups
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
