@@ -3,8 +3,8 @@
 
     "packageRules": [
       {
-        "description": "Automerge non-major updates",
-        "matchUpdateTypes": ["minor", "patch", "digest"],
+        "description": "Automerge patch and digest updates",
+        "matchUpdateTypes": ["patch", "digest"],
         "automerge": true
       }
     ]
