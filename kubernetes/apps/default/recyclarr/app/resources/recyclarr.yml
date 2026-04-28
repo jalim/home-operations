@@ -24,16 +24,27 @@ sonarr:
           enabled: true
     custom_format_groups:
       add:
-        - trash_id: 158188097a58d7687dee647e04af0da3 # [Required] Golden Rule HD
+        - trash_id: 158188097a58d7687dee647e04af0da3 # [Optional] Golden Rule HD
           select:
             - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)
-        - trash_id: f4a0410a1df109a66d6e47dcadcce014 # [Optional] Miscellaneous
+        - trash_id: 59c3af66780d08332fdc64e68297098f # [Unwanted] Unwanted Formats
           select:
-            - 32b367365729d530ca1c124a0b180c64 # Bad Dual Groups
             - 82d40da2bc6923f41e14394075dd4b03 # No-RlsGroup
             - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated
             - 06d66ab109d4d2eddb2794d21526d140 # Retags
             - 1b3994c551cbb92a2c781af061f4ab44 # Scene
+        - trash_id: b4a4353e3b3e6789dbef07677ff23686 # [Release Groups] HQ
+          select:
+            - 9965a052eb87b0d10313b1cea89eb451 # Remux Tier 01
+            - 8a1d0c3d7497e741736761a1da866a2e # Remux Tier 02
+            - d6819cba26b1a6508138d25fb5e32293 # HD Bluray Tier 01
+            - c2216b7b8aa545dc1ce8388c618f8d57 # HD Bluray Tier 02
+            - e6258996055b9fbab7e9cb2f75819294 # WEB Tier 01
+            - 58790d4e2fdcd9733aa7ae68ba2bb503 # WEB Tier 02
+            - d84935abd3f8556dcd51d4f27e22d0a6 # WEB Tier 03
+            - d0c516558625b04b363fa6c5c2c7cfd4 # WEB Scene
+        - trash_id: abe720fab2d27682adc2a735136cec02 # [Streaming Services] General
+        - trash_id: 22256473b656e195eabc2798e326fbb7 # [Miscellaneous] Repack/Proper
 
 radarr:
   movies-kids:
@@ -56,14 +67,23 @@ radarr:
           enabled: true
     custom_format_groups:
       add:
-        - trash_id: f8bf8eab4617f12dfdbd16303d8da245 # [Required] Golden Rule HD
-        - trash_id: 9337080378236ce4c0b183e35790d2a7 # [Optional] Miscellaneous
+        - trash_id: f8bf8eab4617f12dfdbd16303d8da245 # [Optional] Golden Rule HD
+        - trash_id: a3ac6af01d78e4f21fcb75f601ac96df # [Unwanted] Unwanted Formats
           select:
-            - b6832f586342ef70d9c128d40c07b872 # Bad Dual Groups
             - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5 # No-RlsGroup
             - 7357cf5161efbf8c4d5d0c30b4815ee2 # Obfuscated
             - 5c44f52a8714fdd79bb4d98e2673be1f # Retags
             - f537cf427b64c38c8e36298f657e4828 # Scene
+        - trash_id: b2f2af430f73f3ad1f9948f33e0f0cf8 # [Release Groups] HQ
+          select:
+            - ed27ebfef2f323e964fb1f61391bcb35 # HD Bluray Tier 01
+            - c20c8647f2746a1f4c4262b0fbbeeeae # HD Bluray Tier 02
+            - 5608c71bcebba0a5e666223bae8c9227 # HD Bluray Tier 03
+            - c20f169ef63c5f40c2def54abaf4438e # WEB Tier 01
+            - 403816d65392c79236dcb6dd591aeda4 # WEB Tier 02
+            - af94e0fe497124d1f9ce732069ec8c3b # WEB Tier 03
+        - trash_id: d9cc9a504e5ede6294c8b973aad4f028 # [Streaming Services] General
+        - trash_id: d688ff99733a9bc626c37eb61ea74704 # [Miscellaneous] Repack/Proper
 
   movies:
     base_url: http://radarr.default.svc.cluster.local
@@ -85,14 +105,26 @@ radarr:
           enabled: true
     custom_format_groups:
       add:
-        - trash_id: f8bf8eab4617f12dfdbd16303d8da245 # [Required] Golden Rule HD
-        - trash_id: 9337080378236ce4c0b183e35790d2a7 # [Optional] Miscellaneous
+        - trash_id: f8bf8eab4617f12dfdbd16303d8da245 # [Optional] Golden Rule HD
+        - trash_id: a3ac6af01d78e4f21fcb75f601ac96df # [Unwanted] Unwanted Formats
           select:
-            - b6832f586342ef70d9c128d40c07b872 # Bad Dual Groups
             - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5 # No-RlsGroup
             - 7357cf5161efbf8c4d5d0c30b4815ee2 # Obfuscated
             - 5c44f52a8714fdd79bb4d98e2673be1f # Retags
             - f537cf427b64c38c8e36298f657e4828 # Scene
+        - trash_id: b2f2af430f73f3ad1f9948f33e0f0cf8 # [Release Groups] HQ
+          select:
+            - 3a3ff47579026e76d6504ebea39390de # Remux Tier 01
+            - 9f98181fe5a3fbeb0cc29340da2a468a # Remux Tier 02
+            - 8baaf0b3142bf4d94c42a724f034e27a # Remux Tier 03
+            - ed27ebfef2f323e964fb1f61391bcb35 # HD Bluray Tier 01
+            - c20c8647f2746a1f4c4262b0fbbeeeae # HD Bluray Tier 02
+            - 5608c71bcebba0a5e666223bae8c9227 # HD Bluray Tier 03
+            - c20f169ef63c5f40c2def54abaf4438e # WEB Tier 01
+            - 403816d65392c79236dcb6dd591aeda4 # WEB Tier 02
+            - af94e0fe497124d1f9ce732069ec8c3b # WEB Tier 03
+        - trash_id: d9cc9a504e5ede6294c8b973aad4f028 # [Streaming Services] General
+        - trash_id: d688ff99733a9bc626c37eb61ea74704 # [Miscellaneous] Repack/Proper
         - trash_id: f4f1474b963b24cf983455743aa9906c # [Optional] Movie Versions
           select:
             - 570bc9ebecd92723d2d21500f4be314c # Remaster
@@ -106,8 +138,3 @@ radarr:
             - 0f12c086e289cf966fa5948eac571f44 # Hybrid
             - eecf3a857724171f968a66cb5719e152 # IMAX
             - 9f6cbff8cfe4ebbc1bde14c7b7bec0de # IMAX Enhanced
-    custom_formats:
-      - trash_ids:
-          - bfd8eb01832d646a0a89c4deb46f8564 # Upscaled (not in any CF group)
-        assign_scores_to:
-          - name: Remux + WEB 1080p
