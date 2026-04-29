@@ -26,6 +26,21 @@ spec:
               limits:
                 memory: 1Gi
 
+      piped-proxy:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/1337kavin/piped-proxy
+              tag: latest
+            resources:
+              requests:
+                cpu: 10m
+                memory: 64Mi
+              limits:
+                memory: 256Mi
+
       postgres:
         pod:
           securityContext:
@@ -57,6 +72,11 @@ spec:
         ports:
           http:
             port: &port 8080
+      proxy:
+        controller: piped-proxy
+        ports:
+          http:
+            port: &proxyPort 8080
       postgres:
         controller: postgres
         ports:
@@ -74,6 +94,16 @@ spec:
           - backendRefs:
               - identifier: app
                 port: *port
+      proxy:
+        hostnames: ["pipedproxy.lumu.au"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: proxy
+                port: *proxyPort
 
     persistence:
       data:
