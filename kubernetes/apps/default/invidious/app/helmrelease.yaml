@@ -55,6 +55,7 @@ spec:
 
     service:
       invidious:
+        controller: invidious
         ports:
           http:
             port: &port 3000
