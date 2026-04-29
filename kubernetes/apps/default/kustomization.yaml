@@ -38,6 +38,7 @@ resources:
   - ./happyfamily/ks.yaml
   - ./music-assistant/ks.yaml
   - ./globalping-probe/ks.yaml
+  - ./invidious/ks.yaml
   - ./maintainerr/ks.yaml
   - ./picpeak/ks.yaml
   - ./mumble/ks.yaml
