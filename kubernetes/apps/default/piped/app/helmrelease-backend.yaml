@@ -1,0 +1,93 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: piped-backend
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: piped
+  values:
+    controllers:
+      piped-backend:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/1337kavin/piped
+              tag: latest@sha256:08b87378faa8346be3a5a717ad5108cfeb30ec1518c2a04dfd9ae42efbefc6c2
+            resources:
+              requests:
+                cpu: 100m
+                memory: 512Mi
+              limits:
+                memory: 1Gi
+
+      postgres:
+        pod:
+          securityContext:
+            fsGroup: 999
+            fsGroupChangePolicy: OnRootMismatch
+        containers:
+          app:
+            image:
+              repository: docker.io/library/postgres
+              tag: 16-alpine
+            env:
+              POSTGRES_USER: piped
+              POSTGRES_DB: piped
+              POSTGRES_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: piped-secret
+                    key: POSTGRES_PASSWORD
+            resources:
+              requests:
+                cpu: 10m
+                memory: 64Mi
+              limits:
+                memory: 256Mi
+
+    service:
+      app:
+        controller: piped-backend
+        ports:
+          http:
+            port: &port 8080
+      postgres:
+        controller: postgres
+        ports:
+          http:
+            port: 5432
+
+    route:
+      app:
+        hostnames: ["pipedapi.lumu.au"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+
+    persistence:
+      data:
+        existingClaim: piped
+        advancedMounts:
+          postgres:
+            app:
+              - path: /var/lib/postgresql/data
+                subPath: postgres
+      config:
+        type: secret
+        name: piped-secret
+        advancedMounts:
+          piped-backend:
+            app:
+              - path: /app/config.properties
+                subPath: config.properties

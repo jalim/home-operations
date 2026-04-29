@@ -1,0 +1,45 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: piped
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: piped
+  values:
+    controllers:
+      piped:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/1337kavin/piped-frontend
+              tag: latest@sha256:bfbacd2d78ae4bc24bced006c72916887ab9dcddc5cc1058d11ef6833ee26f5b
+            env:
+              BACKEND_HOSTNAME: pipedapi.lumu.au
+            resources:
+              requests:
+                cpu: 10m
+                memory: 32Mi
+              limits:
+                memory: 128Mi
+    service:
+      app:
+        ports:
+          http:
+            port: &port 80
+    route:
+      app:
+        hostnames: ["piped.lumu.au"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
