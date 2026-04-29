@@ -67,7 +67,7 @@ spec:
 
     route:
       invidious:
-        hostnames: ["yt.lumu.au"]
+        hostnames: ["invidious.lumu.au"]
         parentRefs:
           - name: envoy-internal
             namespace: network
