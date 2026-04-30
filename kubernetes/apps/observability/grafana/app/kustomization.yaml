@@ -6,3 +6,14 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ./ocirepository.yaml
+configMapGenerator:
+  - name: grafana-dovecot-dashboard
+    files:
+      - dovecot-native-metrics.json=./resources/dovecot-native-metrics.json
+    options:
+      labels:
+        grafana_dashboard: "true"
+      annotations:
+        grafana_folder: default
+generatorOptions:
+  disableNameSuffixHash: true

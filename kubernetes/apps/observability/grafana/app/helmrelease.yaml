@@ -129,11 +129,6 @@ spec:
           gnetId: 12340
           revision: 1
           datasource: Prometheus
-        dovecot:
-          gnetId: 24449
-          revision: 1
-          datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
         cloudflared:
           # renovate: depName="Cloudflare Tunnels (cloudflared)"
           gnetId: 17457
