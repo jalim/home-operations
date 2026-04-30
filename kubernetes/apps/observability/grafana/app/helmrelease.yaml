@@ -130,7 +130,8 @@ spec:
           revision: 1
           datasource: Prometheus
         dovecot:
-          url: https://raw.githubusercontent.com/jalim/grafana_dash/refs/heads/main/dovecot.json
+          gnetId: 24449
+          revision: 1
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
         cloudflared:
