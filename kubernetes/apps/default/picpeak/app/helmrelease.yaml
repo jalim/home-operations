@@ -148,8 +148,8 @@ spec:
                 subPath: storage
           postgres:
             postgres:
-              - path: /var/lib/postgresql/data
-                subPath: postgres
+              - path: /var/lib/postgresql
+                subPath: postgres-18-home
       nginx-config:
         type: configMap
         name: picpeak-nginx-config
