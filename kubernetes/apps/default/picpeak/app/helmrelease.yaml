@@ -65,6 +65,14 @@ spec:
           securityContext:
             fsGroup: 999
             fsGroupChangePolicy: OnRootMismatch
+          affinity:
+            podAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: picpeak
+                      app.kubernetes.io/controller: picpeak
+                  topologyKey: kubernetes.io/hostname
         containers:
           postgres:
             image:
