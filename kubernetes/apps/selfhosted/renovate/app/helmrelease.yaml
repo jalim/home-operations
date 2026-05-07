@@ -90,6 +90,48 @@ spec:
               capabilities:
                 drop: ["ALL"]
 
+      forgejo:
+        type: cronjob
+        cronjob:
+          schedule: "15 * * * *"
+          concurrencyPolicy: Forbid
+          successfulJobsHistory: 1
+          failedJobsHistory: 2
+        containers:
+          app:
+            image:
+              repository: ghcr.io/renovatebot/renovate
+              # renovate: depName=ghcr.io/renovatebot/renovate
+              tag: latest  # pin to a specific tag+SHA; check https://github.com/renovatebot/renovate/releases
+            env:
+              LOG_LEVEL: info
+              RENOVATE_PLATFORM: gitea
+              RENOVATE_ENDPOINT: https://git.lumu.au
+              RENOVATE_AUTODISCOVER: "true"
+              RENOVATE_AUTODISCOVER_FILTER: "luke/*"
+              NODE_OPTIONS: --max-old-space-size=4096
+              RENOVATE_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: renovate-secret
+                    key: RENOVATE_FORGEJO_TOKEN
+              # Needed to fetch github.com presets referenced in per-repo renovate.json configs
+              GITHUB_COM_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: renovate-secret
+                    key: RENOVATE_GITHUB_TOKEN
+            resources:
+              requests:
+                memory: 256Mi
+              limits:
+                memory: 6Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop: ["ALL"]
+
     defaultPodOptions:
       securityContext:
         runAsUser: 1000

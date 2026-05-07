@@ -70,6 +70,38 @@ data:
             }
           ]
         }
+      },
+      {
+        "id": "renovate-forgejo",
+        "execute-command": "/scripts/trigger.sh",
+        "command-working-directory": "/tmp",
+        "pass-arguments-to-command": [
+          {"source": "string", "name": "forgejo"}
+        ],
+        "trigger-rule": {
+          "and": [
+            {
+              "match": {
+                "type": "payload-hmac-sha256",
+                "secret": "{{ .Env.WEBHOOK_SECRET_FORGEJO }}",
+                "parameter": {
+                  "source": "header",
+                  "name": "X-Gitea-Signature"
+                }
+              }
+            },
+            {
+              "match": {
+                "type": "value",
+                "value": "edited",
+                "parameter": {
+                  "source": "payload",
+                  "name": "action"
+                }
+              }
+            }
+          ]
+        }
       }
     ]
 ---
