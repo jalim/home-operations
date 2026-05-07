@@ -19,8 +19,6 @@ spec:
   values:
     crds:
       enabled: true
-    app:
-      trust:
-        secretTargets:
-          enabled: true
-          authorizedSecretsRegex: ".*"
+    secretTargets:
+      enabled: true
+      authorizedSecretsRegex: ".*"
