@@ -1,0 +1,26 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/notification.toolkit.fluxcd.io/provider_v1beta3.json
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Provider
+metadata:
+  name: forgejo
+spec:
+  type: gitea
+  address: https://git.lumu.au/luke/home-operations
+  secretRef:
+    name: forgejo-token-secret
+  certSecretRef:
+    name: lumu-ca-bundle
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/notification.toolkit.fluxcd.io/alert_v1beta3.json
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Alert
+metadata:
+  name: forgejo
+spec:
+  providerRef:
+    name: forgejo
+  eventSeverity: info
+  eventSources:
+    - kind: Kustomization
+      name: "*"

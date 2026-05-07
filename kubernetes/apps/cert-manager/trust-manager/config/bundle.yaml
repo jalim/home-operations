@@ -12,5 +12,7 @@ spec:
   target:
     configMap:
       key: ca-bundle.crt
+    secret:
+      key: ca.crt
     namespaceSelector:
       matchLabels: {}
