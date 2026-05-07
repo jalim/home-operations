@@ -22,7 +22,7 @@ spec:
           frontend:
             image:
               repository: ghcr.io/the-luap/picpeak/frontend
-              tag: stable@sha256:499311ce45b9af93fbc143e9929f1fcbcec91ef11c6b2501280897c0a71ef8d6
+              tag: stable@sha256:96225bb400f462b4b5cc059a99631bd9d41cf0551d793fed2d6bdc97f68811b6
             resources:
               requests:
                 cpu: 10m
