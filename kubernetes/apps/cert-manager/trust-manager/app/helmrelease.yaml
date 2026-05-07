@@ -21,4 +21,4 @@ spec:
       enabled: true
     secretTargets:
       enabled: true
-      authorizedSecretsRegex: ".*"
+      authorizedSecretsAll: true
