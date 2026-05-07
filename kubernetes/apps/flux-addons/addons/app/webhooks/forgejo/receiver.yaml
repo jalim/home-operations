@@ -5,7 +5,7 @@ kind: Receiver
 metadata:
   name: home-ops
 spec:
-  type: gitea
+  type: github
   events:
     - push
   secretRef:
