@@ -7,8 +7,8 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
-  url: ssh://git@github.com/jalim/home-operations.git
+  url: ssh://forgejo@git.lumu.au:2222/luke/home-operations.git
   ref:
     branch: main
   secretRef:
-    name: github-deploy-key
+    name: forgejo-deploy-key
