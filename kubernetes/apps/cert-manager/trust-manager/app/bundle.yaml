@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/trust.cert-manager.io/bundle_v1alpha1.json
+apiVersion: trust.cert-manager.io/v1alpha1
+kind: Bundle
+metadata:
+  name: lumu-ca-bundle
+spec:
+  sources:
+    - secret:
+        name: lumu-ca-root
+        key: ca.crt
+  target:
+    configMap:
+      key: ca-bundle.crt
+    namespaceSelector:
+      matchLabels: {}
