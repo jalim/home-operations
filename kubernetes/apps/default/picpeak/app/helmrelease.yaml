@@ -32,7 +32,7 @@ spec:
           backend:
             image:
               repository: ghcr.io/the-luap/picpeak/backend
-              tag: stable@sha256:d4781e3ab30441c5e472ce6515c092c5b38199bbf693489e8f35bcef1fde7971
+              tag: stable@sha256:6f15f5fe55e2184f3082a79a331b7267743b59889b8c94ae92fa79afcb18c875
             env:
               NODE_ENV: production
               DATABASE_CLIENT: pg
