@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: docker.io/1337kavin/piped
-              tag: latest@sha256:08b87378faa8346be3a5a717ad5108cfeb30ec1518c2a04dfd9ae42efbefc6c2
+              tag: latest@sha256:9dce3a6b3ef4f37c0f298032c1e9a603df9f37dc8492161219e9f3ce9d7d8638
             resources:
               requests:
                 cpu: 100m
