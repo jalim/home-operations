@@ -11,5 +11,5 @@ spec:
     operation: copy
   ref:
     # renovate: depName=trust-manager registryUrl=https://charts.jetstack.io
-    tag: v0.22.1
+    tag: v0.23.0
   url: oci://quay.io/jetstack/charts/trust-manager
