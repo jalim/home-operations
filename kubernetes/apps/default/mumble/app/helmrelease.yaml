@@ -20,7 +20,7 @@ spec:
           app:
             image:
               repository: mumblevoip/mumble-server
-              tag: latest@sha256:6215f35c73581009697471f85bc07420a3521dab57341d30ed68895c60b83d7a
+              tag: latest@sha256:1285fc69938fe364a030cc4b4dbbcadde3c2def23ff943c10e5f5924216537b4
             env:
               TZ: Australia/Perth
             envFrom:
