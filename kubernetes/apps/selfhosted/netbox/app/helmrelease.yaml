@@ -41,7 +41,7 @@ spec:
           app:
             image:
               repository: ghcr.io/netbox-community/netbox
-              tag: v4.5.10@sha256:3b053a0bd29d8a91e240bfe672d001d8e679b31cf0bea30f9c079fc76bdc1e54
+              tag: v4.6.0@sha256:3ede2e649ac895e7661a41317364dfe84ecadbe849a6d07fc09bef975835572e
             env:
               # Django
               ALLOWED_HOSTS: "*"
