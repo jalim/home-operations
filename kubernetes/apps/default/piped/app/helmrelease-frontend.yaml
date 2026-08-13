@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: docker.io/1337kavin/piped-frontend
-              tag: latest@sha256:bf8b08ce0b6c37cf38817739630f99848fea26ccd57fcc77f6a94e19e6b86638
+              tag: latest@sha256:d2699b1cc3383b1a6a557dc23c83b13fe17b5d2acc199178699a87dc4adc1de3
             env:
               BACKEND_HOSTNAME: pipedapi.lumu.au
             resources:
