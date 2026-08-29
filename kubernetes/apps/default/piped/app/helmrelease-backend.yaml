@@ -50,7 +50,7 @@ spec:
           app:
             image:
               repository: docker.io/library/postgres
-              tag: 16-alpine
+              tag: 18-alpine
             env:
               POSTGRES_USER: piped
               POSTGRES_DB: piped
