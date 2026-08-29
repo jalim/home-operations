@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: globalping/globalping-probe
-              tag: 0.47.1@sha256:560af4c4011f81000d98e3bd156c52e1e539478adf61a4bc07bbb846c7115847
+              tag: 0.48.0@sha256:109cfd26635da57bcc94b3608d5abe2205e1d0b63e6cc6487a7846ece827e11a
             envFrom:
               - secretRef:
                   name: globalping-probe-secret
