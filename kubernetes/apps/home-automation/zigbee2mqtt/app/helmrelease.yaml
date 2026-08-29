@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/koenkk/zigbee2mqtt
-              tag: 2.10.1@sha256:a12b05791979b1b0336a96a4caf004072a9e1cf97d1f8ffa8370f4e10260d580
+              tag: 2.11.0@sha256:c52caff6984798ad2e069198887de9cfea73062a5edf85ae730ed5e2332bc399
             env:
               Z2M_WATCHDOG: default
               ZIGBEE2MQTT_DATA: /data
